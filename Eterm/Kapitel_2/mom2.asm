@@ -1,0 +1,9 @@
+	LDR	R0,=0x55555555
+	LDR	R1,=0x40020C00
+	STR	R0,[R1]
+	LDR	R1,=0x40020C14
+	
+main:
+	LDRB	R0,[R2]
+	STRB	r0,[R1]
+	B	main
