@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <string.h>
+#include <windows.h>
 
 void printByte(char inputByte) {
 	int bitNum = sizeof(inputByte)*4;
+	printf("Char %c = ", inputByte);
 	for(int i = 0; i < bitNum; i++) {
 		printf("%i", ((inputByte >> (bitNum - i)) & 0x1));
 	}
@@ -22,7 +24,7 @@ void printInt(int inputInt) {
 	}
 }
 
-void printBinary(char binaryString[]) {
+int binaryToDec(char binaryString[]) {
 	int bitNum = strlen(binaryString);
 	int sum = 0;
 	int mul = 1;
@@ -32,16 +34,26 @@ void printBinary(char binaryString[]) {
 		}
 		mul = mul * 2;
 	}
-	printf("Decimal of %s is %i", binaryString, sum);
+	printf("Decimal of %s is %i\n", binaryString, sum);
 }
 
+
 int main() {
-	printByte('s');
-	printf("\n");
-	printShort(55);
-	printf("\n");
-	printInt(55);
-	printf("\n");
-	printBinary("0111");
+
+	unsigned char c = 128;
+	printByte((c | binaryToDec("101010")));
+	
+	char fillScreen[] = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+	unsigned short a = 0x8000;
+	unsigned short b = 0x8000;
+	while(1) {
+		printf("%s", fillScreen);
+		printShort(a|b);
+		printf("\n");
+		a <<= 1;
+		b >>= 1;
+		Sleep(100);
+	}
+	
 	return 0;
 }
