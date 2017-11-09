@@ -5,6 +5,7 @@
 GfxObject ship;
 GfxObject background;
 double backgroundAngle = 0;
+double backgroundZoom = 0;
 
 void close(); 
 
@@ -57,9 +58,9 @@ int main( int argc, char* args[] )
 }
 
 void renderBackground() {
-    renderGfxObject(&background, 400, 300, fmod(backgroundAngle, 360), 1.8f);
+    renderGfxObject(&background, 400, 300, fmod(backgroundAngle, 360), (1.8f + 0.2*sin(backgroundZoom)));
     backgroundAngle += 0.03;
-
+    backgroundZoom += 0.007;
 }
 
 void close()
