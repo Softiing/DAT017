@@ -4,6 +4,7 @@
 
 GfxObject ship;
 GfxObject background;
+double backgroundAngle = 0;
 
 void close(); 
 
@@ -41,8 +42,7 @@ int main( int argc, char* args[] )
         // Alpha is transparency: 0 = fully transparent, 0xFF = fully opaque. However, actual use of transparency requires further settings.
         SDL_SetRenderDrawColor( gRenderer, 0x33, 0x33, 0x33, 0xFF ); 
         SDL_RenderClear( gRenderer );
-        renderGfxObject(&background, 400, 300, 0, 1.0f);
-
+        renderBackground();
         // Render our object(s) - background objects first, and then forward objects (like a painter)
         renderGfxObject(&ship, 400, 300, 0, 1.0f);
         renderText("Hello World!", 300, 150);
@@ -54,6 +54,12 @@ int main( int argc, char* args[] )
 
 	close(); //Free allocated resources
 	return 0;
+}
+
+void renderBackground() {
+    renderGfxObject(&background, 400, 300, fmod(backgroundAngle, 360), 1.8f);
+    backgroundAngle += 0.03;
+
 }
 
 void close()
