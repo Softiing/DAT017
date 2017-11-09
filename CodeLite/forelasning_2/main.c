@@ -3,6 +3,7 @@
 #include <math.h>
 
 GfxObject ship;
+GfxObject background;
 
 void close(); 
 
@@ -11,8 +12,13 @@ int main( int argc, char* args[] )
     // If you want the program to not launch the terminal, then go to 
     // Project->Settings->General->"This program is a GUI application" and uncheck that flag.
     
-	// Start up SDL and create window of width=800, height = 600
-	initRenderer(800, 600); 
+    // Start up SDL and create window of width=800, height = 600
+    initRenderer(800, 600); 
+
+    // Create background
+    background  = createGfxObject("../background.jpg");
+    background.outputWidth = 800;
+    background.outputHeight = 600;
     
     // Create an object
     ship = createGfxObject(  "../ship.png" );
@@ -35,6 +41,7 @@ int main( int argc, char* args[] )
         // Alpha is transparency: 0 = fully transparent, 0xFF = fully opaque. However, actual use of transparency requires further settings.
         SDL_SetRenderDrawColor( gRenderer, 0x33, 0x33, 0x33, 0xFF ); 
         SDL_RenderClear( gRenderer );
+        renderGfxObject(&background, 400, 300, 0, 1.0f);
 
         // Render our object(s) - background objects first, and then forward objects (like a painter)
         renderGfxObject(&ship, 400, 300, 0, 1.0f);
@@ -52,6 +59,7 @@ int main( int argc, char* args[] )
 void close()
 {
     //Preferably, you should free all your GfxObjects, by calls to freeGfxObject(GfxObject* obj), but you don't have to.
+    freeGfxObject(&background);
     freeGfxObject(&ship);
     
     closeRenderer(); //Free resources and close SDL
