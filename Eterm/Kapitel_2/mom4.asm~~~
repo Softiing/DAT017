@@ -1,0 +1,8 @@
+	LDR	R1,=c
+	LDR	R2,=s
+	LDR	R3,=0
+	LDRB	R0,[R1,R3]
+	STRH	R0,[R2]
+	.ALIGN
+s:	.HWORD	0x77
+c:	.BYTE	0x80
