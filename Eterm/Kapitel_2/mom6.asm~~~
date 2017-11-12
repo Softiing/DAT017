@@ -6,7 +6,7 @@
 main:
 	LDRB	R0,[R6]
 	LDRB	R1,[R6,#1]
-	op	R0,R0,R1
+	MVN	R0,R0,R1
 	STRB	R0,[R5]
 	b	main
 	
