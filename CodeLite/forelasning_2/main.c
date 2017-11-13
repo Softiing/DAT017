@@ -18,8 +18,10 @@ double backgroundZoom = 0;
 int main( int argc, char* args[] )
 {
     // Player position
-    float playerX = 400;
-    float playerY = 300;
+    float initX = 400;
+	float *playerX = &initX;
+	float initY = 300;
+    float *playerY = &initY;
     float playerSpeed = 3;
 
     // If you want the program to not launch the terminal, then go to 
@@ -55,16 +57,16 @@ int main( int argc, char* args[] )
         
         // Handle keyboard events
         if (state[SDL_SCANCODE_RIGHT]) {
-            playerX = (playerX + playerSpeed >= gameWidth) ? gameWidth : playerX + playerSpeed;
+            *playerX = (*playerX + playerSpeed >= gameWidth) ? gameWidth : *playerX + playerSpeed;
         }
         if(state[SDL_SCANCODE_LEFT]) {
-            playerX = (playerX - playerSpeed <= 0) ? 0 : playerX - playerSpeed;
+            *playerX = (*playerX - playerSpeed <= 0) ? 0 : *playerX - playerSpeed;
         }
         if(state[SDL_SCANCODE_UP]) {
-            playerY = (playerY - playerSpeed <= 0) ? 0 : playerY - playerSpeed;
+            *playerY = (*playerY - playerSpeed <= 0) ? 0 : *playerY - playerSpeed;
         }
         if(state[SDL_SCANCODE_DOWN]) {
-            playerY = (playerY + playerSpeed >= gameHeight) ? gameHeight : playerY + playerSpeed;
+            *playerY = (*playerY + playerSpeed >= gameHeight) ? gameHeight : *playerY + playerSpeed;
         }
         
         // Clear screen with a grey background color, red=0x33, blue=0x33, green=0x33, alpha=0xff. 0=minimum, 0xff=maximum.
@@ -73,7 +75,7 @@ int main( int argc, char* args[] )
         SDL_RenderClear( gRenderer );
         renderBackground();
         // Render our object(s) - background objects first, and then forward objects (like a painter)
-        renderGfxObject(&ship, playerX, playerY, 0, 1.0f);
+        renderGfxObject(&ship, *playerX, *playerY, 0, 1.0f);
         renderText("Hello World!", 300, 150);
          
         // This function updates the screen and also sleeps ~16 ms or so (based on the screen's refresh rate),  
