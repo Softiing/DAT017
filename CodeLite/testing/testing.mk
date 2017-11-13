@@ -3,10 +3,10 @@
 ## any manual changes will be erased      
 ##
 ## Debug
-ProjectName            :=forelasning_1
+ProjectName            :=testing
 ConfigurationName      :=Debug
 WorkspacePath          :=C:/Users/Hampus/Desktop/DAT017/CodeLite
-ProjectPath            :=C:/Users/Hampus/Desktop/DAT017/CodeLite/forelasning_1
+ProjectPath            :=C:/Users/Hampus/Desktop/DAT017/CodeLite/testing
 IntermediateDirectory  :=./Debug
 OutDir                 := $(IntermediateDirectory)
 CurrentFileName        :=
@@ -32,7 +32,7 @@ Preprocessors          :=
 ObjectSwitch           :=-o 
 ArchiveOutputSwitch    := 
 PreprocessOnlySwitch   :=-E 
-ObjectsFileList        :="forelasning_1.txt"
+ObjectsFileList        :="testing.txt"
 PCHCompileFlags        :=
 MakeDirCommand         :=makedir
 RcCmpOptions           := 
@@ -53,7 +53,7 @@ AR       := $(CodeLiteDir)/tools/gcc/bin/ar rcus
 CXX      := $(CodeLiteDir)/tools/gcc/bin/g++
 CC       := $(CodeLiteDir)/tools/gcc/bin/gcc
 CXXFLAGS :=  -g -O0 -Wall $(Preprocessors)
-CFLAGS   :=  -g -O0 -std=c99 -Wall $(Preprocessors)
+CFLAGS   :=  -g -O0 -Wall $(Preprocessors)
 ASFLAGS  := 
 AS       := $(CodeLiteDir)/tools/gcc/bin/as
 
@@ -94,7 +94,7 @@ PreBuild:
 ## Objects
 ##
 $(IntermediateDirectory)/main.c$(ObjectSuffix): main.c 
-	$(CC) $(SourceSwitch) "C:/Users/Hampus/Desktop/DAT017/CodeLite/forelasning_1/main.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/main.c$(ObjectSuffix) $(IncludePath)
+	$(CC) $(SourceSwitch) "C:/Users/Hampus/Desktop/DAT017/CodeLite/testing/main.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/main.c$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/main.c$(PreprocessSuffix): main.c
 	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/main.c$(PreprocessSuffix) main.c
 
