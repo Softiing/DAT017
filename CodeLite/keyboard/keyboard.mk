@@ -3,10 +3,10 @@
 ## any manual changes will be erased      
 ##
 ## Debug
-ProjectName            :=basic_io
+ProjectName            :=keyboard
 ConfigurationName      :=Debug
 WorkspacePath          :=C:/Users/Hampus/Desktop/DAT017/CodeLite
-ProjectPath            :=C:/Users/Hampus/Desktop/DAT017/CodeLite/basic_io
+ProjectPath            :=C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard
 IntermediateDirectory  :=./Debug
 OutDir                 := $(IntermediateDirectory)
 CurrentFileName        :=
@@ -32,7 +32,7 @@ Preprocessors          :=
 ObjectSwitch           :=-o 
 ArchiveOutputSwitch    := 
 PreprocessOnlySwitch   :=-E
-ObjectsFileList        :="basic_io.txt"
+ObjectsFileList        :="keyboard.txt"
 PCHCompileFlags        :=
 MakeDirCommand         :=makedir
 RcCmpOptions           := 
@@ -53,7 +53,7 @@ AR       := $(CodeLiteDir)/tools/gcc-arm/bin/arm-none-eabi-ar.exe rcu
 CXX      := $(CodeLiteDir)/tools/gcc-arm/bin/arm-none-eabi-g++.exe
 CC       := $(CodeLiteDir)/tools/gcc-arm/bin/arm-none-eabi-gcc.exe
 CXXFLAGS :=  -g -O0 -W $(Preprocessors)
-CFLAGS   :=  -g -O0 -w -std=c99 -Wa,-adhln=test.s -mthumb -march=armv6-m  -mfloat-abi=soft -mthumb -march=armv6-m $(Preprocessors)
+CFLAGS   :=  -Wa,-adhln=test.s -g -O0 -w -mthumb -march=armv6-m  -mfloat-abi=soft -std=c99 -mthumb -march=armv6-m $(Preprocessors)
 ASFLAGS  := 
 AS       := $(CodeLiteDir)/tools/gcc-arm/bin/arm-none-eabi-as.exe
 
@@ -86,8 +86,8 @@ $(OutputFile): $(IntermediateDirectory)/.d $(Objects)
 
 PostBuild:
 	@echo Executing Post Build commands ...
-	arm-none-eabi-objcopy -S -O srec  ./Debug/basic_io.elf ./Debug/basic_io.s19
-	arm-none-eabi-objdump -D -S ./Debug/basic_io.elf > ./Debug/basic_io.dass
+	arm-none-eabi-objcopy -S -O srec  ./Debug/keyboard.elf ./Debug/keyboard.s19
+	arm-none-eabi-objdump -D -S ./Debug/keyboard.elf > ./Debug/keyboard.dass
 	@echo Done
 
 MakeIntermediateDirs:
@@ -104,7 +104,7 @@ PreBuild:
 ## Objects
 ##
 $(IntermediateDirectory)/startup.c$(ObjectSuffix): startup.c $(IntermediateDirectory)/startup.c$(DependSuffix)
-	$(CC) $(SourceSwitch) "C:/Users/Hampus/Desktop/DAT017/CodeLite/basic_io/startup.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/startup.c$(ObjectSuffix) $(IncludePath)
+	$(CC) $(SourceSwitch) "C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard/startup.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/startup.c$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/startup.c$(DependSuffix): startup.c
 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/startup.c$(ObjectSuffix) -MF$(IntermediateDirectory)/startup.c$(DependSuffix) -MM startup.c
 
