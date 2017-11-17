@@ -22,6 +22,8 @@ __asm volatile(
 }
 
 void app_init(void) {
+	
+	// Setup for keypad
 	*GPIO_MODER &= 0x0000FFFF;
 	*GPIO_MODER |= 0x55000000;
 	
@@ -30,10 +32,21 @@ void app_init(void) {
 	
 	*GPIO_PUPDR &= 0x0000FFFF;
 	*GPIO_PUPDR |= 0xAAAA0000;
+	
+	// Setup for 7 segments display
+	*GPIO_MODER &= 0xFFFF0000;
+	*GPIO_MODER |= 0x00005555;
+	
+	*GPIO_OTYPER &= 0xFF00;
+	*GPIO_OTYPER |= 0x0077;
+	
+	*GPIO_PUPDR &= 0xFFFF0000;
+	*GPIO_PUPDR |= 0x0000AAAA;
 }
 
 void activateRow(unsigned char row) {
 	switch(row) {
+		case 0: *GPIO_ODR_HIGH = 0x00; break;
 		case 1: *GPIO_ODR_HIGH = 0x10; break;
 		case 2: *GPIO_ODR_HIGH = 0x20; break;
 		case 3: *GPIO_ODR_HIGH = 0x40; break;
@@ -56,17 +69,39 @@ unsigned char keyb(void) {
 		activateRow(row);
 		char column = readColumn();
 		if(column != 0) {
-			return keys[4 * (row - 1) + (column -1)];
+			activateRow(0);
+			return keys[4 * (row - 1) + (column - 1)];
 		}
 	}
+	activateRow(0);
 	return 0xFF;
-	
+}
+
+unsigned char updateDisplay(unsigned char key) {
+	*GPIO_ODR_LOW = key;
+	if(key == 0x0) *GPIO_ODR_LOW = 0x3F; 
+	if(key == 0x1) *GPIO_ODR_LOW = 0x06; 
+	if(key == 0x2) *GPIO_ODR_LOW = 0x5B;  
+	if(key == 0x3) *GPIO_ODR_LOW = 0x4F;  
+	if(key == 0x4) *GPIO_ODR_LOW = 0x72;  
+	if(key == 0x5) *GPIO_ODR_LOW = 0x6D;  
+	if(key == 0x6) *GPIO_ODR_LOW = 0x7D;  
+	if(key == 0x7) *GPIO_ODR_LOW = 0x07;  
+	if(key == 0x8) *GPIO_ODR_LOW = 0x7F;  
+	if(key == 0x9) *GPIO_ODR_LOW = 0x67;  
+	if(key == 0xA) *GPIO_ODR_LOW = 0xBB;  
+	if(key == 0xB) *GPIO_ODR_LOW = 0x7F;  
+	if(key == 0xC) *GPIO_ODR_LOW = 0x39;  
+	if(key == 0xD) *GPIO_ODR_LOW = 0x3F;  
+	if(key == 0xE) *GPIO_ODR_LOW = 0x79;  
+	if(key == 0xF) *GPIO_ODR_LOW = 0x71;  
 }
 
 void main(void) {
 	app_init();
 	while(1) {
 		unsigned char i = keyb();
+		updateDisplay(i);
 	}
 }
 

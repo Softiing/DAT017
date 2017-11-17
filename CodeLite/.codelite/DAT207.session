@@ -4,16 +4,9 @@
   <wxString Value="C:\Users\Hampus\Desktop\DAT017\CodeLite\DAT207.workspace" Name="m_workspaceName"/>
   <TabInfoArray Name="TabInfoArray">
     <TabInfo>
-      <wxString Value="C:\Users\Hampus\Desktop\DAT017\CodeLite\basic_io\startup.c" Name="FileName"/>
-      <int Value="4" Name="FirstVisibleLine"/>
-      <int Value="13" Name="CurrentLine"/>
-      <wxArrayString Name="Bookmarks"/>
-      <IntVector Name="CollapsedFolds"/>
-    </TabInfo>
-    <TabInfo>
-      <wxString Value="C:\Users\Hampus\Desktop\DAT017\CodeLite\basic_io\md407-ram.x" Name="FileName"/>
-      <int Value="0" Name="FirstVisibleLine"/>
-      <int Value="0" Name="CurrentLine"/>
+      <wxString Value="C:\Users\Hampus\Desktop\DAT017\CodeLite\keyboard\startup.c" Name="FileName"/>
+      <int Value="54" Name="FirstVisibleLine"/>
+      <int Value="74" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
       <IntVector Name="CollapsedFolds"/>
     </TabInfo>
