@@ -4,7 +4,8 @@
   <Project Name="forelasning_2" Path="forelasning_2/SDLproject.project" Active="No"/>
   <Project Name="testing" Path="testing/testing.project" Active="No"/>
   <Project Name="basic_io" Path="basic_io/basic_io.project" Active="No"/>
-  <Project Name="keyboard" Path="keyboard/keyboard.project" Active="Yes"/>
+  <Project Name="keyboard" Path="keyboard/keyboard.project" Active="No"/>
+  <Project Name="delay" Path="delay/delay.project" Active="Yes"/>
   <BuildMatrix>
     <WorkspaceConfiguration Name="Debug" Selected="yes">
       <Environment/>
@@ -13,6 +14,7 @@
       <Project Name="testing" ConfigName="Debug"/>
       <Project Name="basic_io" ConfigName="Debug"/>
       <Project Name="keyboard" ConfigName="Debug"/>
+      <Project Name="delay" ConfigName="Debug"/>
     </WorkspaceConfiguration>
     <WorkspaceConfiguration Name="Release" Selected="yes">
       <Environment/>
@@ -21,6 +23,7 @@
       <Project Name="testing" ConfigName="Release"/>
       <Project Name="basic_io" ConfigName="Release"/>
       <Project Name="keyboard" ConfigName="Release"/>
+      <Project Name="delay" ConfigName="Release"/>
     </WorkspaceConfiguration>
   </BuildMatrix>
 </CodeLite_Workspace>
