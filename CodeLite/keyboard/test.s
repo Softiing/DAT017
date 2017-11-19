@@ -361,24 +361,24 @@
  308 0142 0223     		movs	r3, #2
  309 0144 0CE0     		b	.L18
  310              	.L19:
-  61:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	if(idr == 0x04) return 4;
+  61:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	if(idr == 0x04) return 3;
  311              		.loc 1 61 0 is_stmt 1
  312 0146 FB1D     		adds	r3, r7, #7
  313 0148 1B78     		ldrb	r3, [r3]
  314 014a 042B     		cmp	r3, #4
  315 014c 01D1     		bne	.L20
  316              		.loc 1 61 0 is_stmt 0 discriminator 1
- 317 014e 0423     		movs	r3, #4
+ 317 014e 0323     		movs	r3, #3
  318 0150 06E0     		b	.L18
  319              	.L20:
-  62:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	if(idr == 0x08) return 8;
+  62:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	if(idr == 0x08) return 4;
  320              		.loc 1 62 0 is_stmt 1
  321 0152 FB1D     		adds	r3, r7, #7
  322 0154 1B78     		ldrb	r3, [r3]
  323 0156 082B     		cmp	r3, #8
  324 0158 01D1     		bne	.L21
  325              		.loc 1 62 0 is_stmt 0 discriminator 1
- 326 015a 0823     		movs	r3, #8
+ 326 015a 0423     		movs	r3, #4
  327 015c 00E0     		b	.L18
  328              	.L21:
   63:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	return 0;
@@ -567,247 +567,263 @@
  496 01fe 0200     		movs	r2, r0
  497 0200 FB1D     		adds	r3, r7, #7
  498 0202 1A70     		strb	r2, [r3]
-  81:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	*GPIO_ODR_LOW = key;
+  81:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	if(key == 0x0) *GPIO_ODR_LOW = 0x3F; 
  499              		.loc 1 81 0
- 500 0204 3C4A     		ldr	r2, .L49
- 501 0206 FB1D     		adds	r3, r7, #7
- 502 0208 1B78     		ldrb	r3, [r3]
- 503 020a 1370     		strb	r3, [r2]
-  82:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	if(key == 0x0) *GPIO_ODR_LOW = 0x3F; 
- 504              		.loc 1 82 0
- 505 020c FB1D     		adds	r3, r7, #7
- 506 020e 1B78     		ldrb	r3, [r3]
- 507 0210 002B     		cmp	r3, #0
- 508 0212 02D1     		bne	.L33
- 509              		.loc 1 82 0 is_stmt 0 discriminator 1
- 510 0214 384B     		ldr	r3, .L49
- 511 0216 3F22     		movs	r2, #63
- 512 0218 1A70     		strb	r2, [r3]
- 513              	.L33:
-  83:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	if(key == 0x1) *GPIO_ODR_LOW = 0x06; 
- 514              		.loc 1 83 0 is_stmt 1
- 515 021a FB1D     		adds	r3, r7, #7
- 516 021c 1B78     		ldrb	r3, [r3]
- 517 021e 012B     		cmp	r3, #1
- 518 0220 02D1     		bne	.L34
- 519              		.loc 1 83 0 is_stmt 0 discriminator 1
- 520 0222 354B     		ldr	r3, .L49
- 521 0224 0622     		movs	r2, #6
- 522 0226 1A70     		strb	r2, [r3]
- 523              	.L34:
-  84:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	if(key == 0x2) *GPIO_ODR_LOW = 0x5B;  
- 524              		.loc 1 84 0 is_stmt 1
- 525 0228 FB1D     		adds	r3, r7, #7
- 526 022a 1B78     		ldrb	r3, [r3]
- 527 022c 022B     		cmp	r3, #2
- 528 022e 02D1     		bne	.L35
- 529              		.loc 1 84 0 is_stmt 0 discriminator 1
- 530 0230 314B     		ldr	r3, .L49
- 531 0232 5B22     		movs	r2, #91
- 532 0234 1A70     		strb	r2, [r3]
- 533              	.L35:
-  85:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	if(key == 0x3) *GPIO_ODR_LOW = 0x4F;  
- 534              		.loc 1 85 0 is_stmt 1
- 535 0236 FB1D     		adds	r3, r7, #7
- 536 0238 1B78     		ldrb	r3, [r3]
- 537 023a 032B     		cmp	r3, #3
- 538 023c 02D1     		bne	.L36
- 539              		.loc 1 85 0 is_stmt 0 discriminator 1
- 540 023e 2E4B     		ldr	r3, .L49
- 541 0240 4F22     		movs	r2, #79
- 542 0242 1A70     		strb	r2, [r3]
- 543              	.L36:
-  86:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	if(key == 0x4) *GPIO_ODR_LOW = 0x72;  
- 544              		.loc 1 86 0 is_stmt 1
- 545 0244 FB1D     		adds	r3, r7, #7
- 546 0246 1B78     		ldrb	r3, [r3]
- 547 0248 042B     		cmp	r3, #4
- 548 024a 02D1     		bne	.L37
- 549              		.loc 1 86 0 is_stmt 0 discriminator 1
- 550 024c 2A4B     		ldr	r3, .L49
- 551 024e 7222     		movs	r2, #114
- 552 0250 1A70     		strb	r2, [r3]
- 553              	.L37:
-  87:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	if(key == 0x5) *GPIO_ODR_LOW = 0x6D;  
- 554              		.loc 1 87 0 is_stmt 1
- 555 0252 FB1D     		adds	r3, r7, #7
- 556 0254 1B78     		ldrb	r3, [r3]
- 557 0256 052B     		cmp	r3, #5
- 558 0258 02D1     		bne	.L38
- 559              		.loc 1 87 0 is_stmt 0 discriminator 1
- 560 025a 274B     		ldr	r3, .L49
- 561 025c 6D22     		movs	r2, #109
- 562 025e 1A70     		strb	r2, [r3]
- 563              	.L38:
-  88:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	if(key == 0x6) *GPIO_ODR_LOW = 0x7D;  
- 564              		.loc 1 88 0 is_stmt 1
- 565 0260 FB1D     		adds	r3, r7, #7
- 566 0262 1B78     		ldrb	r3, [r3]
- 567 0264 062B     		cmp	r3, #6
- 568 0266 02D1     		bne	.L39
- 569              		.loc 1 88 0 is_stmt 0 discriminator 1
- 570 0268 234B     		ldr	r3, .L49
- 571 026a 7D22     		movs	r2, #125
- 572 026c 1A70     		strb	r2, [r3]
- 573              	.L39:
-  89:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	if(key == 0x7) *GPIO_ODR_LOW = 0x07;  
- 574              		.loc 1 89 0 is_stmt 1
- 575 026e FB1D     		adds	r3, r7, #7
- 576 0270 1B78     		ldrb	r3, [r3]
- 577 0272 072B     		cmp	r3, #7
- 578 0274 02D1     		bne	.L40
- 579              		.loc 1 89 0 is_stmt 0 discriminator 1
- 580 0276 204B     		ldr	r3, .L49
- 581 0278 0722     		movs	r2, #7
- 582 027a 1A70     		strb	r2, [r3]
- 583              	.L40:
-  90:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	if(key == 0x8) *GPIO_ODR_LOW = 0x7F;  
- 584              		.loc 1 90 0 is_stmt 1
- 585 027c FB1D     		adds	r3, r7, #7
- 586 027e 1B78     		ldrb	r3, [r3]
- 587 0280 082B     		cmp	r3, #8
- 588 0282 02D1     		bne	.L41
- 589              		.loc 1 90 0 is_stmt 0 discriminator 1
- 590 0284 1C4B     		ldr	r3, .L49
- 591 0286 7F22     		movs	r2, #127
- 592 0288 1A70     		strb	r2, [r3]
- 593              	.L41:
-  91:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	if(key == 0x9) *GPIO_ODR_LOW = 0x67;  
- 594              		.loc 1 91 0 is_stmt 1
- 595 028a FB1D     		adds	r3, r7, #7
- 596 028c 1B78     		ldrb	r3, [r3]
- 597 028e 092B     		cmp	r3, #9
- 598 0290 02D1     		bne	.L42
- 599              		.loc 1 91 0 is_stmt 0 discriminator 1
- 600 0292 194B     		ldr	r3, .L49
- 601 0294 6722     		movs	r2, #103
- 602 0296 1A70     		strb	r2, [r3]
- 603              	.L42:
-  92:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	if(key == 0xA) *GPIO_ODR_LOW = 0xBB;  
- 604              		.loc 1 92 0 is_stmt 1
- 605 0298 FB1D     		adds	r3, r7, #7
- 606 029a 1B78     		ldrb	r3, [r3]
- 607 029c 0A2B     		cmp	r3, #10
- 608 029e 02D1     		bne	.L43
- 609              		.loc 1 92 0 is_stmt 0 discriminator 1
- 610 02a0 154B     		ldr	r3, .L49
- 611 02a2 BB22     		movs	r2, #187
- 612 02a4 1A70     		strb	r2, [r3]
- 613              	.L43:
-  93:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	if(key == 0xB) *GPIO_ODR_LOW = 0x7F;  
- 614              		.loc 1 93 0 is_stmt 1
- 615 02a6 FB1D     		adds	r3, r7, #7
- 616 02a8 1B78     		ldrb	r3, [r3]
- 617 02aa 0B2B     		cmp	r3, #11
- 618 02ac 02D1     		bne	.L44
- 619              		.loc 1 93 0 is_stmt 0 discriminator 1
- 620 02ae 124B     		ldr	r3, .L49
- 621 02b0 7F22     		movs	r2, #127
- 622 02b2 1A70     		strb	r2, [r3]
- 623              	.L44:
-  94:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	if(key == 0xC) *GPIO_ODR_LOW = 0x39;  
- 624              		.loc 1 94 0 is_stmt 1
- 625 02b4 FB1D     		adds	r3, r7, #7
- 626 02b6 1B78     		ldrb	r3, [r3]
- 627 02b8 0C2B     		cmp	r3, #12
- 628 02ba 02D1     		bne	.L45
- 629              		.loc 1 94 0 is_stmt 0 discriminator 1
- 630 02bc 0E4B     		ldr	r3, .L49
- 631 02be 3922     		movs	r2, #57
- 632 02c0 1A70     		strb	r2, [r3]
- 633              	.L45:
-  95:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	if(key == 0xD) *GPIO_ODR_LOW = 0x3F;  
- 634              		.loc 1 95 0 is_stmt 1
- 635 02c2 FB1D     		adds	r3, r7, #7
- 636 02c4 1B78     		ldrb	r3, [r3]
- 637 02c6 0D2B     		cmp	r3, #13
- 638 02c8 02D1     		bne	.L46
- 639              		.loc 1 95 0 is_stmt 0 discriminator 1
- 640 02ca 0B4B     		ldr	r3, .L49
- 641 02cc 3F22     		movs	r2, #63
- 642 02ce 1A70     		strb	r2, [r3]
- 643              	.L46:
-  96:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	if(key == 0xE) *GPIO_ODR_LOW = 0x79;  
- 644              		.loc 1 96 0 is_stmt 1
- 645 02d0 FB1D     		adds	r3, r7, #7
- 646 02d2 1B78     		ldrb	r3, [r3]
- 647 02d4 0E2B     		cmp	r3, #14
- 648 02d6 02D1     		bne	.L47
- 649              		.loc 1 96 0 is_stmt 0 discriminator 1
- 650 02d8 074B     		ldr	r3, .L49
- 651 02da 7922     		movs	r2, #121
- 652 02dc 1A70     		strb	r2, [r3]
- 653              	.L47:
-  97:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	if(key == 0xF) *GPIO_ODR_LOW = 0x71;  
- 654              		.loc 1 97 0 is_stmt 1
- 655 02de FB1D     		adds	r3, r7, #7
- 656 02e0 1B78     		ldrb	r3, [r3]
- 657 02e2 0F2B     		cmp	r3, #15
- 658 02e4 02D1     		bne	.L48
- 659              		.loc 1 97 0 is_stmt 0 discriminator 1
- 660 02e6 044B     		ldr	r3, .L49
- 661 02e8 7122     		movs	r2, #113
- 662 02ea 1A70     		strb	r2, [r3]
+ 500 0204 FB1D     		adds	r3, r7, #7
+ 501 0206 1B78     		ldrb	r3, [r3]
+ 502 0208 002B     		cmp	r3, #0
+ 503 020a 03D1     		bne	.L33
+ 504              		.loc 1 81 0 is_stmt 0 discriminator 1
+ 505 020c 414B     		ldr	r3, .L50
+ 506 020e 3F22     		movs	r2, #63
+ 507 0210 1A70     		strb	r2, [r3]
+ 508 0212 7AE0     		b	.L34
+ 509              	.L33:
+  82:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	else if(key == 0x1) *GPIO_ODR_LOW = 0x06; 
+ 510              		.loc 1 82 0 is_stmt 1
+ 511 0214 FB1D     		adds	r3, r7, #7
+ 512 0216 1B78     		ldrb	r3, [r3]
+ 513 0218 012B     		cmp	r3, #1
+ 514 021a 03D1     		bne	.L35
+ 515              		.loc 1 82 0 is_stmt 0 discriminator 1
+ 516 021c 3D4B     		ldr	r3, .L50
+ 517 021e 0622     		movs	r2, #6
+ 518 0220 1A70     		strb	r2, [r3]
+ 519 0222 72E0     		b	.L34
+ 520              	.L35:
+  83:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	else if(key == 0x2) *GPIO_ODR_LOW = 0x5B;  
+ 521              		.loc 1 83 0 is_stmt 1
+ 522 0224 FB1D     		adds	r3, r7, #7
+ 523 0226 1B78     		ldrb	r3, [r3]
+ 524 0228 022B     		cmp	r3, #2
+ 525 022a 03D1     		bne	.L36
+ 526              		.loc 1 83 0 is_stmt 0 discriminator 1
+ 527 022c 394B     		ldr	r3, .L50
+ 528 022e 5B22     		movs	r2, #91
+ 529 0230 1A70     		strb	r2, [r3]
+ 530 0232 6AE0     		b	.L34
+ 531              	.L36:
+  84:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	else if(key == 0x3) *GPIO_ODR_LOW = 0x4F;  
+ 532              		.loc 1 84 0 is_stmt 1
+ 533 0234 FB1D     		adds	r3, r7, #7
+ 534 0236 1B78     		ldrb	r3, [r3]
+ 535 0238 032B     		cmp	r3, #3
+ 536 023a 03D1     		bne	.L37
+ 537              		.loc 1 84 0 is_stmt 0 discriminator 1
+ 538 023c 354B     		ldr	r3, .L50
+ 539 023e 4F22     		movs	r2, #79
+ 540 0240 1A70     		strb	r2, [r3]
+ 541 0242 62E0     		b	.L34
+ 542              	.L37:
+  85:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	else if(key == 0x4) *GPIO_ODR_LOW = 0x66;  
+ 543              		.loc 1 85 0 is_stmt 1
+ 544 0244 FB1D     		adds	r3, r7, #7
+ 545 0246 1B78     		ldrb	r3, [r3]
+ 546 0248 042B     		cmp	r3, #4
+ 547 024a 03D1     		bne	.L38
+ 548              		.loc 1 85 0 is_stmt 0 discriminator 1
+ 549 024c 314B     		ldr	r3, .L50
+ 550 024e 6622     		movs	r2, #102
+ 551 0250 1A70     		strb	r2, [r3]
+ 552 0252 5AE0     		b	.L34
+ 553              	.L38:
+  86:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	else if(key == 0x5) *GPIO_ODR_LOW = 0x6D;  
+ 554              		.loc 1 86 0 is_stmt 1
+ 555 0254 FB1D     		adds	r3, r7, #7
+ 556 0256 1B78     		ldrb	r3, [r3]
+ 557 0258 052B     		cmp	r3, #5
+ 558 025a 03D1     		bne	.L39
+ 559              		.loc 1 86 0 is_stmt 0 discriminator 1
+ 560 025c 2D4B     		ldr	r3, .L50
+ 561 025e 6D22     		movs	r2, #109
+ 562 0260 1A70     		strb	r2, [r3]
+ 563 0262 52E0     		b	.L34
+ 564              	.L39:
+  87:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	else if(key == 0x6) *GPIO_ODR_LOW = 0x7D;  
+ 565              		.loc 1 87 0 is_stmt 1
+ 566 0264 FB1D     		adds	r3, r7, #7
+ 567 0266 1B78     		ldrb	r3, [r3]
+ 568 0268 062B     		cmp	r3, #6
+ 569 026a 03D1     		bne	.L40
+ 570              		.loc 1 87 0 is_stmt 0 discriminator 1
+ 571 026c 294B     		ldr	r3, .L50
+ 572 026e 7D22     		movs	r2, #125
+ 573 0270 1A70     		strb	r2, [r3]
+ 574 0272 4AE0     		b	.L34
+ 575              	.L40:
+  88:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	else if(key == 0x7) *GPIO_ODR_LOW = 0x07;  
+ 576              		.loc 1 88 0 is_stmt 1
+ 577 0274 FB1D     		adds	r3, r7, #7
+ 578 0276 1B78     		ldrb	r3, [r3]
+ 579 0278 072B     		cmp	r3, #7
+ 580 027a 03D1     		bne	.L41
+ 581              		.loc 1 88 0 is_stmt 0 discriminator 1
+ 582 027c 254B     		ldr	r3, .L50
+ 583 027e 0722     		movs	r2, #7
+ 584 0280 1A70     		strb	r2, [r3]
+ 585 0282 42E0     		b	.L34
+ 586              	.L41:
+  89:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	else if(key == 0x8) *GPIO_ODR_LOW = 0x7F;  
+ 587              		.loc 1 89 0 is_stmt 1
+ 588 0284 FB1D     		adds	r3, r7, #7
+ 589 0286 1B78     		ldrb	r3, [r3]
+ 590 0288 082B     		cmp	r3, #8
+ 591 028a 03D1     		bne	.L42
+ 592              		.loc 1 89 0 is_stmt 0 discriminator 1
+ 593 028c 214B     		ldr	r3, .L50
+ 594 028e 7F22     		movs	r2, #127
+ 595 0290 1A70     		strb	r2, [r3]
+ 596 0292 3AE0     		b	.L34
+ 597              	.L42:
+  90:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	else if(key == 0x9) *GPIO_ODR_LOW = 0x67;  
+ 598              		.loc 1 90 0 is_stmt 1
+ 599 0294 FB1D     		adds	r3, r7, #7
+ 600 0296 1B78     		ldrb	r3, [r3]
+ 601 0298 092B     		cmp	r3, #9
+ 602 029a 03D1     		bne	.L43
+ 603              		.loc 1 90 0 is_stmt 0 discriminator 1
+ 604 029c 1D4B     		ldr	r3, .L50
+ 605 029e 6722     		movs	r2, #103
+ 606 02a0 1A70     		strb	r2, [r3]
+ 607 02a2 32E0     		b	.L34
+ 608              	.L43:
+  91:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	else if(key == 0xA) *GPIO_ODR_LOW = 0x77;  
+ 609              		.loc 1 91 0 is_stmt 1
+ 610 02a4 FB1D     		adds	r3, r7, #7
+ 611 02a6 1B78     		ldrb	r3, [r3]
+ 612 02a8 0A2B     		cmp	r3, #10
+ 613 02aa 03D1     		bne	.L44
+ 614              		.loc 1 91 0 is_stmt 0 discriminator 1
+ 615 02ac 194B     		ldr	r3, .L50
+ 616 02ae 7722     		movs	r2, #119
+ 617 02b0 1A70     		strb	r2, [r3]
+ 618 02b2 2AE0     		b	.L34
+ 619              	.L44:
+  92:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	else if(key == 0xB) *GPIO_ODR_LOW = 0xFF;  
+ 620              		.loc 1 92 0 is_stmt 1
+ 621 02b4 FB1D     		adds	r3, r7, #7
+ 622 02b6 1B78     		ldrb	r3, [r3]
+ 623 02b8 0B2B     		cmp	r3, #11
+ 624 02ba 03D1     		bne	.L45
+ 625              		.loc 1 92 0 is_stmt 0 discriminator 1
+ 626 02bc 154B     		ldr	r3, .L50
+ 627 02be FF22     		movs	r2, #255
+ 628 02c0 1A70     		strb	r2, [r3]
+ 629 02c2 22E0     		b	.L34
+ 630              	.L45:
+  93:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	else if(key == 0xC) *GPIO_ODR_LOW = 0x39;  
+ 631              		.loc 1 93 0 is_stmt 1
+ 632 02c4 FB1D     		adds	r3, r7, #7
+ 633 02c6 1B78     		ldrb	r3, [r3]
+ 634 02c8 0C2B     		cmp	r3, #12
+ 635 02ca 03D1     		bne	.L46
+ 636              		.loc 1 93 0 is_stmt 0 discriminator 1
+ 637 02cc 114B     		ldr	r3, .L50
+ 638 02ce 3922     		movs	r2, #57
+ 639 02d0 1A70     		strb	r2, [r3]
+ 640 02d2 1AE0     		b	.L34
+ 641              	.L46:
+  94:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	else if(key == 0xD) *GPIO_ODR_LOW = 0xBF;  
+ 642              		.loc 1 94 0 is_stmt 1
+ 643 02d4 FB1D     		adds	r3, r7, #7
+ 644 02d6 1B78     		ldrb	r3, [r3]
+ 645 02d8 0D2B     		cmp	r3, #13
+ 646 02da 03D1     		bne	.L47
+ 647              		.loc 1 94 0 is_stmt 0 discriminator 1
+ 648 02dc 0D4B     		ldr	r3, .L50
+ 649 02de BF22     		movs	r2, #191
+ 650 02e0 1A70     		strb	r2, [r3]
+ 651 02e2 12E0     		b	.L34
+ 652              	.L47:
+  95:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	else if(key == 0xE) *GPIO_ODR_LOW = 0x79;  
+ 653              		.loc 1 95 0 is_stmt 1
+ 654 02e4 FB1D     		adds	r3, r7, #7
+ 655 02e6 1B78     		ldrb	r3, [r3]
+ 656 02e8 0E2B     		cmp	r3, #14
+ 657 02ea 03D1     		bne	.L48
+ 658              		.loc 1 95 0 is_stmt 0 discriminator 1
+ 659 02ec 094B     		ldr	r3, .L50
+ 660 02ee 7922     		movs	r2, #121
+ 661 02f0 1A70     		strb	r2, [r3]
+ 662 02f2 0AE0     		b	.L34
  663              	.L48:
+  96:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	else if(key == 0xF) *GPIO_ODR_LOW = 0x71;
+ 664              		.loc 1 96 0 is_stmt 1
+ 665 02f4 FB1D     		adds	r3, r7, #7
+ 666 02f6 1B78     		ldrb	r3, [r3]
+ 667 02f8 0F2B     		cmp	r3, #15
+ 668 02fa 03D1     		bne	.L49
+ 669              		.loc 1 96 0 is_stmt 0 discriminator 1
+ 670 02fc 054B     		ldr	r3, .L50
+ 671 02fe 7122     		movs	r2, #113
+ 672 0300 1A70     		strb	r2, [r3]
+ 673 0302 02E0     		b	.L34
+ 674              	.L49:
+  97:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	else *GPIO_ODR_LOW = 0x00;
+ 675              		.loc 1 97 0 is_stmt 1
+ 676 0304 034B     		ldr	r3, .L50
+ 677 0306 0022     		movs	r2, #0
+ 678 0308 1A70     		strb	r2, [r3]
+ 679              	.L34:
   98:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** }
- 664              		.loc 1 98 0 is_stmt 1
- 665 02ec C046     		nop
- 666 02ee 1800     		movs	r0, r3
- 667 02f0 BD46     		mov	sp, r7
- 668 02f2 02B0     		add	sp, sp, #8
- 669              		@ sp needed
- 670 02f4 80BD     		pop	{r7, pc}
- 671              	.L50:
- 672 02f6 C046     		.align	2
- 673              	.L49:
- 674 02f8 140C0240 		.word	1073875988
- 675              		.cfi_endproc
- 676              	.LFE5:
- 678              		.align	1
- 679              		.global	main
- 680              		.syntax unified
- 681              		.code	16
- 682              		.thumb_func
- 683              		.fpu softvfp
- 685              	main:
- 686              	.LFB6:
+ 680              		.loc 1 98 0
+ 681 030a C046     		nop
+ 682 030c 1800     		movs	r0, r3
+ 683 030e BD46     		mov	sp, r7
+ 684 0310 02B0     		add	sp, sp, #8
+ 685              		@ sp needed
+ 686 0312 80BD     		pop	{r7, pc}
+ 687              	.L51:
+ 688              		.align	2
+ 689              	.L50:
+ 690 0314 140C0240 		.word	1073875988
+ 691              		.cfi_endproc
+ 692              	.LFE5:
+ 694              		.align	1
+ 695              		.global	main
+ 696              		.syntax unified
+ 697              		.code	16
+ 698              		.thumb_func
+ 699              		.fpu softvfp
+ 701              	main:
+ 702              	.LFB6:
   99:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 
  100:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** void main(void) {
- 687              		.loc 1 100 0
- 688              		.cfi_startproc
- 689              		@ args = 0, pretend = 0, frame = 8
- 690              		@ frame_needed = 1, uses_anonymous_args = 0
- 691 02fc 90B5     		push	{r4, r7, lr}
- 692              		.cfi_def_cfa_offset 12
- 693              		.cfi_offset 4, -12
- 694              		.cfi_offset 7, -8
- 695              		.cfi_offset 14, -4
- 696 02fe 83B0     		sub	sp, sp, #12
- 697              		.cfi_def_cfa_offset 24
- 698 0300 00AF     		add	r7, sp, #0
- 699              		.cfi_def_cfa_register 7
+ 703              		.loc 1 100 0
+ 704              		.cfi_startproc
+ 705              		@ args = 0, pretend = 0, frame = 8
+ 706              		@ frame_needed = 1, uses_anonymous_args = 0
+ 707 0318 90B5     		push	{r4, r7, lr}
+ 708              		.cfi_def_cfa_offset 12
+ 709              		.cfi_offset 4, -12
+ 710              		.cfi_offset 7, -8
+ 711              		.cfi_offset 14, -4
+ 712 031a 83B0     		sub	sp, sp, #12
+ 713              		.cfi_def_cfa_offset 24
+ 714 031c 00AF     		add	r7, sp, #0
+ 715              		.cfi_def_cfa_register 7
  101:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	app_init();
- 700              		.loc 1 101 0
- 701 0302 FFF7FEFF 		bl	app_init
- 702              	.L52:
- 703              	.LBB4:
+ 716              		.loc 1 101 0
+ 717 031e FFF7FEFF 		bl	app_init
+ 718              	.L53:
+ 719              	.LBB4:
  102:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	while(1) {
  103:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 		unsigned char i = keyb();
- 704              		.loc 1 103 0 discriminator 1
- 705 0306 FC1D     		adds	r4, r7, #7
- 706 0308 FFF7FEFF 		bl	keyb
- 707 030c 0300     		movs	r3, r0
- 708 030e 2370     		strb	r3, [r4]
+ 720              		.loc 1 103 0 discriminator 1
+ 721 0322 FC1D     		adds	r4, r7, #7
+ 722 0324 FFF7FEFF 		bl	keyb
+ 723 0328 0300     		movs	r3, r0
+ 724 032a 2370     		strb	r3, [r4]
  104:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 		updateDisplay(i);
- 709              		.loc 1 104 0 discriminator 1
- 710 0310 FB1D     		adds	r3, r7, #7
- 711 0312 1B78     		ldrb	r3, [r3]
- 712 0314 1800     		movs	r0, r3
- 713 0316 FFF7FEFF 		bl	updateDisplay
- 714              	.LBE4:
+ 725              		.loc 1 104 0 discriminator 1
+ 726 032c FB1D     		adds	r3, r7, #7
+ 727 032e 1B78     		ldrb	r3, [r3]
+ 728 0330 1800     		movs	r0, r3
+ 729 0332 FFF7FEFF 		bl	updateDisplay
+ 730              	.LBE4:
  102:C:/Users/Hampus/Desktop/DAT017/CodeLite/keyboard\startup.c **** 	while(1) {
- 715              		.loc 1 102 0 discriminator 1
- 716 031a F4E7     		b	.L52
- 717              		.cfi_endproc
- 718              	.LFE6:
- 720              	.Letext0:
+ 731              		.loc 1 102 0 discriminator 1
+ 732 0336 F4E7     		b	.L53
+ 733              		.cfi_endproc
+ 734              	.LFE6:
+ 736              	.Letext0:

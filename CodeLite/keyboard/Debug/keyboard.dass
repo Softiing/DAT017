@@ -13,7 +13,7 @@ void startup ( void ) {
 __asm volatile(
 20000000:	4802      	ldr	r0, [pc, #8]	; (2000000c <_exit+0x4>)
 20000002:	4685      	mov	sp, r0
-20000004:	f000 f982 	bl	2000030c <main>
+20000004:	f000 f990 	bl	20000328 <main>
 
 20000008 <_exit>:
 20000008:	e7fe      	b.n	20000008 <_exit>
@@ -196,7 +196,7 @@ void activateRow(unsigned char row) {
 20000122:	b002      	add	sp, #8
 20000124:	bd80      	pop	{r7, pc}
 20000126:	46c0      	nop			; (mov r8, r8)
-20000128:	2000032c 	andcs	r0, r0, ip, lsr #6
+20000128:	20000348 	andcs	r0, r0, r8, asr #6
 2000012c:	40020c15 	andmi	r0, r2, r5, lsl ip
 
 20000130 <readColumn>:
@@ -224,19 +224,19 @@ unsigned char readColumn(void) {
 20000150:	d101      	bne.n	20000156 <readColumn+0x26>
 20000152:	2302      	movs	r3, #2
 20000154:	e00c      	b.n	20000170 <readColumn+0x40>
-	if(idr == 0x04) return 4;
+	if(idr == 0x04) return 3;
 20000156:	1dfb      	adds	r3, r7, #7
 20000158:	781b      	ldrb	r3, [r3, #0]
 2000015a:	2b04      	cmp	r3, #4
 2000015c:	d101      	bne.n	20000162 <readColumn+0x32>
-2000015e:	2304      	movs	r3, #4
+2000015e:	2303      	movs	r3, #3
 20000160:	e006      	b.n	20000170 <readColumn+0x40>
-	if(idr == 0x08) return 8;
+	if(idr == 0x08) return 4;
 20000162:	1dfb      	adds	r3, r7, #7
 20000164:	781b      	ldrb	r3, [r3, #0]
 20000166:	2b08      	cmp	r3, #8
 20000168:	d101      	bne.n	2000016e <readColumn+0x3e>
-2000016a:	2308      	movs	r3, #8
+2000016a:	2304      	movs	r3, #4
 2000016c:	e000      	b.n	20000170 <readColumn+0x40>
 	return 0;
 2000016e:	2300      	movs	r3, #0
@@ -327,7 +327,7 @@ unsigned char keyb(void) {
 200001fe:	b007      	add	sp, #28
 20000200:	bd90      	pop	{r4, r7, pc}
 20000202:	46c0      	nop			; (mov r8, r8)
-20000204:	20000340 	andcs	r0, r0, r0, asr #6
+20000204:	2000035c 	andcs	r0, r0, ip, asr r3
 
 20000208 <updateDisplay>:
 
@@ -338,178 +338,192 @@ unsigned char updateDisplay(unsigned char key) {
 2000020e:	0002      	movs	r2, r0
 20000210:	1dfb      	adds	r3, r7, #7
 20000212:	701a      	strb	r2, [r3, #0]
-	*GPIO_ODR_LOW = key;
-20000214:	4a3c      	ldr	r2, [pc, #240]	; (20000308 <updateDisplay+0x100>)
-20000216:	1dfb      	adds	r3, r7, #7
-20000218:	781b      	ldrb	r3, [r3, #0]
-2000021a:	7013      	strb	r3, [r2, #0]
 	if(key == 0x0) *GPIO_ODR_LOW = 0x3F; 
-2000021c:	1dfb      	adds	r3, r7, #7
-2000021e:	781b      	ldrb	r3, [r3, #0]
-20000220:	2b00      	cmp	r3, #0
-20000222:	d102      	bne.n	2000022a <updateDisplay+0x22>
-20000224:	4b38      	ldr	r3, [pc, #224]	; (20000308 <updateDisplay+0x100>)
-20000226:	223f      	movs	r2, #63	; 0x3f
-20000228:	701a      	strb	r2, [r3, #0]
-	if(key == 0x1) *GPIO_ODR_LOW = 0x06; 
-2000022a:	1dfb      	adds	r3, r7, #7
-2000022c:	781b      	ldrb	r3, [r3, #0]
-2000022e:	2b01      	cmp	r3, #1
-20000230:	d102      	bne.n	20000238 <updateDisplay+0x30>
-20000232:	4b35      	ldr	r3, [pc, #212]	; (20000308 <updateDisplay+0x100>)
-20000234:	2206      	movs	r2, #6
-20000236:	701a      	strb	r2, [r3, #0]
-	if(key == 0x2) *GPIO_ODR_LOW = 0x5B;  
-20000238:	1dfb      	adds	r3, r7, #7
-2000023a:	781b      	ldrb	r3, [r3, #0]
-2000023c:	2b02      	cmp	r3, #2
-2000023e:	d102      	bne.n	20000246 <updateDisplay+0x3e>
-20000240:	4b31      	ldr	r3, [pc, #196]	; (20000308 <updateDisplay+0x100>)
-20000242:	225b      	movs	r2, #91	; 0x5b
-20000244:	701a      	strb	r2, [r3, #0]
-	if(key == 0x3) *GPIO_ODR_LOW = 0x4F;  
-20000246:	1dfb      	adds	r3, r7, #7
-20000248:	781b      	ldrb	r3, [r3, #0]
-2000024a:	2b03      	cmp	r3, #3
-2000024c:	d102      	bne.n	20000254 <updateDisplay+0x4c>
-2000024e:	4b2e      	ldr	r3, [pc, #184]	; (20000308 <updateDisplay+0x100>)
-20000250:	224f      	movs	r2, #79	; 0x4f
-20000252:	701a      	strb	r2, [r3, #0]
-	if(key == 0x4) *GPIO_ODR_LOW = 0x72;  
+20000214:	1dfb      	adds	r3, r7, #7
+20000216:	781b      	ldrb	r3, [r3, #0]
+20000218:	2b00      	cmp	r3, #0
+2000021a:	d103      	bne.n	20000224 <updateDisplay+0x1c>
+2000021c:	4b41      	ldr	r3, [pc, #260]	; (20000324 <updateDisplay+0x11c>)
+2000021e:	223f      	movs	r2, #63	; 0x3f
+20000220:	701a      	strb	r2, [r3, #0]
+20000222:	e07a      	b.n	2000031a <updateDisplay+0x112>
+	else if(key == 0x1) *GPIO_ODR_LOW = 0x06; 
+20000224:	1dfb      	adds	r3, r7, #7
+20000226:	781b      	ldrb	r3, [r3, #0]
+20000228:	2b01      	cmp	r3, #1
+2000022a:	d103      	bne.n	20000234 <updateDisplay+0x2c>
+2000022c:	4b3d      	ldr	r3, [pc, #244]	; (20000324 <updateDisplay+0x11c>)
+2000022e:	2206      	movs	r2, #6
+20000230:	701a      	strb	r2, [r3, #0]
+20000232:	e072      	b.n	2000031a <updateDisplay+0x112>
+	else if(key == 0x2) *GPIO_ODR_LOW = 0x5B;  
+20000234:	1dfb      	adds	r3, r7, #7
+20000236:	781b      	ldrb	r3, [r3, #0]
+20000238:	2b02      	cmp	r3, #2
+2000023a:	d103      	bne.n	20000244 <updateDisplay+0x3c>
+2000023c:	4b39      	ldr	r3, [pc, #228]	; (20000324 <updateDisplay+0x11c>)
+2000023e:	225b      	movs	r2, #91	; 0x5b
+20000240:	701a      	strb	r2, [r3, #0]
+20000242:	e06a      	b.n	2000031a <updateDisplay+0x112>
+	else if(key == 0x3) *GPIO_ODR_LOW = 0x4F;  
+20000244:	1dfb      	adds	r3, r7, #7
+20000246:	781b      	ldrb	r3, [r3, #0]
+20000248:	2b03      	cmp	r3, #3
+2000024a:	d103      	bne.n	20000254 <updateDisplay+0x4c>
+2000024c:	4b35      	ldr	r3, [pc, #212]	; (20000324 <updateDisplay+0x11c>)
+2000024e:	224f      	movs	r2, #79	; 0x4f
+20000250:	701a      	strb	r2, [r3, #0]
+20000252:	e062      	b.n	2000031a <updateDisplay+0x112>
+	else if(key == 0x4) *GPIO_ODR_LOW = 0x66;  
 20000254:	1dfb      	adds	r3, r7, #7
 20000256:	781b      	ldrb	r3, [r3, #0]
 20000258:	2b04      	cmp	r3, #4
-2000025a:	d102      	bne.n	20000262 <updateDisplay+0x5a>
-2000025c:	4b2a      	ldr	r3, [pc, #168]	; (20000308 <updateDisplay+0x100>)
-2000025e:	2272      	movs	r2, #114	; 0x72
+2000025a:	d103      	bne.n	20000264 <updateDisplay+0x5c>
+2000025c:	4b31      	ldr	r3, [pc, #196]	; (20000324 <updateDisplay+0x11c>)
+2000025e:	2266      	movs	r2, #102	; 0x66
 20000260:	701a      	strb	r2, [r3, #0]
-	if(key == 0x5) *GPIO_ODR_LOW = 0x6D;  
-20000262:	1dfb      	adds	r3, r7, #7
-20000264:	781b      	ldrb	r3, [r3, #0]
-20000266:	2b05      	cmp	r3, #5
-20000268:	d102      	bne.n	20000270 <updateDisplay+0x68>
-2000026a:	4b27      	ldr	r3, [pc, #156]	; (20000308 <updateDisplay+0x100>)
-2000026c:	226d      	movs	r2, #109	; 0x6d
-2000026e:	701a      	strb	r2, [r3, #0]
-	if(key == 0x6) *GPIO_ODR_LOW = 0x7D;  
-20000270:	1dfb      	adds	r3, r7, #7
-20000272:	781b      	ldrb	r3, [r3, #0]
-20000274:	2b06      	cmp	r3, #6
-20000276:	d102      	bne.n	2000027e <updateDisplay+0x76>
-20000278:	4b23      	ldr	r3, [pc, #140]	; (20000308 <updateDisplay+0x100>)
-2000027a:	227d      	movs	r2, #125	; 0x7d
-2000027c:	701a      	strb	r2, [r3, #0]
-	if(key == 0x7) *GPIO_ODR_LOW = 0x07;  
-2000027e:	1dfb      	adds	r3, r7, #7
-20000280:	781b      	ldrb	r3, [r3, #0]
-20000282:	2b07      	cmp	r3, #7
-20000284:	d102      	bne.n	2000028c <updateDisplay+0x84>
-20000286:	4b20      	ldr	r3, [pc, #128]	; (20000308 <updateDisplay+0x100>)
-20000288:	2207      	movs	r2, #7
-2000028a:	701a      	strb	r2, [r3, #0]
-	if(key == 0x8) *GPIO_ODR_LOW = 0x7F;  
-2000028c:	1dfb      	adds	r3, r7, #7
-2000028e:	781b      	ldrb	r3, [r3, #0]
-20000290:	2b08      	cmp	r3, #8
-20000292:	d102      	bne.n	2000029a <updateDisplay+0x92>
-20000294:	4b1c      	ldr	r3, [pc, #112]	; (20000308 <updateDisplay+0x100>)
-20000296:	227f      	movs	r2, #127	; 0x7f
-20000298:	701a      	strb	r2, [r3, #0]
-	if(key == 0x9) *GPIO_ODR_LOW = 0x67;  
-2000029a:	1dfb      	adds	r3, r7, #7
-2000029c:	781b      	ldrb	r3, [r3, #0]
-2000029e:	2b09      	cmp	r3, #9
-200002a0:	d102      	bne.n	200002a8 <updateDisplay+0xa0>
-200002a2:	4b19      	ldr	r3, [pc, #100]	; (20000308 <updateDisplay+0x100>)
-200002a4:	2267      	movs	r2, #103	; 0x67
-200002a6:	701a      	strb	r2, [r3, #0]
-	if(key == 0xA) *GPIO_ODR_LOW = 0xBB;  
-200002a8:	1dfb      	adds	r3, r7, #7
-200002aa:	781b      	ldrb	r3, [r3, #0]
-200002ac:	2b0a      	cmp	r3, #10
-200002ae:	d102      	bne.n	200002b6 <updateDisplay+0xae>
-200002b0:	4b15      	ldr	r3, [pc, #84]	; (20000308 <updateDisplay+0x100>)
-200002b2:	22bb      	movs	r2, #187	; 0xbb
-200002b4:	701a      	strb	r2, [r3, #0]
-	if(key == 0xB) *GPIO_ODR_LOW = 0x7F;  
-200002b6:	1dfb      	adds	r3, r7, #7
-200002b8:	781b      	ldrb	r3, [r3, #0]
-200002ba:	2b0b      	cmp	r3, #11
-200002bc:	d102      	bne.n	200002c4 <updateDisplay+0xbc>
-200002be:	4b12      	ldr	r3, [pc, #72]	; (20000308 <updateDisplay+0x100>)
-200002c0:	227f      	movs	r2, #127	; 0x7f
-200002c2:	701a      	strb	r2, [r3, #0]
-	if(key == 0xC) *GPIO_ODR_LOW = 0x39;  
+20000262:	e05a      	b.n	2000031a <updateDisplay+0x112>
+	else if(key == 0x5) *GPIO_ODR_LOW = 0x6D;  
+20000264:	1dfb      	adds	r3, r7, #7
+20000266:	781b      	ldrb	r3, [r3, #0]
+20000268:	2b05      	cmp	r3, #5
+2000026a:	d103      	bne.n	20000274 <updateDisplay+0x6c>
+2000026c:	4b2d      	ldr	r3, [pc, #180]	; (20000324 <updateDisplay+0x11c>)
+2000026e:	226d      	movs	r2, #109	; 0x6d
+20000270:	701a      	strb	r2, [r3, #0]
+20000272:	e052      	b.n	2000031a <updateDisplay+0x112>
+	else if(key == 0x6) *GPIO_ODR_LOW = 0x7D;  
+20000274:	1dfb      	adds	r3, r7, #7
+20000276:	781b      	ldrb	r3, [r3, #0]
+20000278:	2b06      	cmp	r3, #6
+2000027a:	d103      	bne.n	20000284 <updateDisplay+0x7c>
+2000027c:	4b29      	ldr	r3, [pc, #164]	; (20000324 <updateDisplay+0x11c>)
+2000027e:	227d      	movs	r2, #125	; 0x7d
+20000280:	701a      	strb	r2, [r3, #0]
+20000282:	e04a      	b.n	2000031a <updateDisplay+0x112>
+	else if(key == 0x7) *GPIO_ODR_LOW = 0x07;  
+20000284:	1dfb      	adds	r3, r7, #7
+20000286:	781b      	ldrb	r3, [r3, #0]
+20000288:	2b07      	cmp	r3, #7
+2000028a:	d103      	bne.n	20000294 <updateDisplay+0x8c>
+2000028c:	4b25      	ldr	r3, [pc, #148]	; (20000324 <updateDisplay+0x11c>)
+2000028e:	2207      	movs	r2, #7
+20000290:	701a      	strb	r2, [r3, #0]
+20000292:	e042      	b.n	2000031a <updateDisplay+0x112>
+	else if(key == 0x8) *GPIO_ODR_LOW = 0x7F;  
+20000294:	1dfb      	adds	r3, r7, #7
+20000296:	781b      	ldrb	r3, [r3, #0]
+20000298:	2b08      	cmp	r3, #8
+2000029a:	d103      	bne.n	200002a4 <updateDisplay+0x9c>
+2000029c:	4b21      	ldr	r3, [pc, #132]	; (20000324 <updateDisplay+0x11c>)
+2000029e:	227f      	movs	r2, #127	; 0x7f
+200002a0:	701a      	strb	r2, [r3, #0]
+200002a2:	e03a      	b.n	2000031a <updateDisplay+0x112>
+	else if(key == 0x9) *GPIO_ODR_LOW = 0x67;  
+200002a4:	1dfb      	adds	r3, r7, #7
+200002a6:	781b      	ldrb	r3, [r3, #0]
+200002a8:	2b09      	cmp	r3, #9
+200002aa:	d103      	bne.n	200002b4 <updateDisplay+0xac>
+200002ac:	4b1d      	ldr	r3, [pc, #116]	; (20000324 <updateDisplay+0x11c>)
+200002ae:	2267      	movs	r2, #103	; 0x67
+200002b0:	701a      	strb	r2, [r3, #0]
+200002b2:	e032      	b.n	2000031a <updateDisplay+0x112>
+	else if(key == 0xA) *GPIO_ODR_LOW = 0x77;  
+200002b4:	1dfb      	adds	r3, r7, #7
+200002b6:	781b      	ldrb	r3, [r3, #0]
+200002b8:	2b0a      	cmp	r3, #10
+200002ba:	d103      	bne.n	200002c4 <updateDisplay+0xbc>
+200002bc:	4b19      	ldr	r3, [pc, #100]	; (20000324 <updateDisplay+0x11c>)
+200002be:	2277      	movs	r2, #119	; 0x77
+200002c0:	701a      	strb	r2, [r3, #0]
+200002c2:	e02a      	b.n	2000031a <updateDisplay+0x112>
+	else if(key == 0xB) *GPIO_ODR_LOW = 0xFF;  
 200002c4:	1dfb      	adds	r3, r7, #7
 200002c6:	781b      	ldrb	r3, [r3, #0]
-200002c8:	2b0c      	cmp	r3, #12
-200002ca:	d102      	bne.n	200002d2 <updateDisplay+0xca>
-200002cc:	4b0e      	ldr	r3, [pc, #56]	; (20000308 <updateDisplay+0x100>)
-200002ce:	2239      	movs	r2, #57	; 0x39
+200002c8:	2b0b      	cmp	r3, #11
+200002ca:	d103      	bne.n	200002d4 <updateDisplay+0xcc>
+200002cc:	4b15      	ldr	r3, [pc, #84]	; (20000324 <updateDisplay+0x11c>)
+200002ce:	22ff      	movs	r2, #255	; 0xff
 200002d0:	701a      	strb	r2, [r3, #0]
-	if(key == 0xD) *GPIO_ODR_LOW = 0x3F;  
-200002d2:	1dfb      	adds	r3, r7, #7
-200002d4:	781b      	ldrb	r3, [r3, #0]
-200002d6:	2b0d      	cmp	r3, #13
-200002d8:	d102      	bne.n	200002e0 <updateDisplay+0xd8>
-200002da:	4b0b      	ldr	r3, [pc, #44]	; (20000308 <updateDisplay+0x100>)
-200002dc:	223f      	movs	r2, #63	; 0x3f
-200002de:	701a      	strb	r2, [r3, #0]
-	if(key == 0xE) *GPIO_ODR_LOW = 0x79;  
-200002e0:	1dfb      	adds	r3, r7, #7
-200002e2:	781b      	ldrb	r3, [r3, #0]
-200002e4:	2b0e      	cmp	r3, #14
-200002e6:	d102      	bne.n	200002ee <updateDisplay+0xe6>
-200002e8:	4b07      	ldr	r3, [pc, #28]	; (20000308 <updateDisplay+0x100>)
-200002ea:	2279      	movs	r2, #121	; 0x79
-200002ec:	701a      	strb	r2, [r3, #0]
-	if(key == 0xF) *GPIO_ODR_LOW = 0x71;  
-200002ee:	1dfb      	adds	r3, r7, #7
-200002f0:	781b      	ldrb	r3, [r3, #0]
-200002f2:	2b0f      	cmp	r3, #15
-200002f4:	d102      	bne.n	200002fc <updateDisplay+0xf4>
-200002f6:	4b04      	ldr	r3, [pc, #16]	; (20000308 <updateDisplay+0x100>)
-200002f8:	2271      	movs	r2, #113	; 0x71
-200002fa:	701a      	strb	r2, [r3, #0]
+200002d2:	e022      	b.n	2000031a <updateDisplay+0x112>
+	else if(key == 0xC) *GPIO_ODR_LOW = 0x39;  
+200002d4:	1dfb      	adds	r3, r7, #7
+200002d6:	781b      	ldrb	r3, [r3, #0]
+200002d8:	2b0c      	cmp	r3, #12
+200002da:	d103      	bne.n	200002e4 <updateDisplay+0xdc>
+200002dc:	4b11      	ldr	r3, [pc, #68]	; (20000324 <updateDisplay+0x11c>)
+200002de:	2239      	movs	r2, #57	; 0x39
+200002e0:	701a      	strb	r2, [r3, #0]
+200002e2:	e01a      	b.n	2000031a <updateDisplay+0x112>
+	else if(key == 0xD) *GPIO_ODR_LOW = 0xBF;  
+200002e4:	1dfb      	adds	r3, r7, #7
+200002e6:	781b      	ldrb	r3, [r3, #0]
+200002e8:	2b0d      	cmp	r3, #13
+200002ea:	d103      	bne.n	200002f4 <updateDisplay+0xec>
+200002ec:	4b0d      	ldr	r3, [pc, #52]	; (20000324 <updateDisplay+0x11c>)
+200002ee:	22bf      	movs	r2, #191	; 0xbf
+200002f0:	701a      	strb	r2, [r3, #0]
+200002f2:	e012      	b.n	2000031a <updateDisplay+0x112>
+	else if(key == 0xE) *GPIO_ODR_LOW = 0x79;  
+200002f4:	1dfb      	adds	r3, r7, #7
+200002f6:	781b      	ldrb	r3, [r3, #0]
+200002f8:	2b0e      	cmp	r3, #14
+200002fa:	d103      	bne.n	20000304 <updateDisplay+0xfc>
+200002fc:	4b09      	ldr	r3, [pc, #36]	; (20000324 <updateDisplay+0x11c>)
+200002fe:	2279      	movs	r2, #121	; 0x79
+20000300:	701a      	strb	r2, [r3, #0]
+20000302:	e00a      	b.n	2000031a <updateDisplay+0x112>
+	else if(key == 0xF) *GPIO_ODR_LOW = 0x71;
+20000304:	1dfb      	adds	r3, r7, #7
+20000306:	781b      	ldrb	r3, [r3, #0]
+20000308:	2b0f      	cmp	r3, #15
+2000030a:	d103      	bne.n	20000314 <updateDisplay+0x10c>
+2000030c:	4b05      	ldr	r3, [pc, #20]	; (20000324 <updateDisplay+0x11c>)
+2000030e:	2271      	movs	r2, #113	; 0x71
+20000310:	701a      	strb	r2, [r3, #0]
+20000312:	e002      	b.n	2000031a <updateDisplay+0x112>
+	else *GPIO_ODR_LOW = 0x00;
+20000314:	4b03      	ldr	r3, [pc, #12]	; (20000324 <updateDisplay+0x11c>)
+20000316:	2200      	movs	r2, #0
+20000318:	701a      	strb	r2, [r3, #0]
 }
-200002fc:	46c0      	nop			; (mov r8, r8)
-200002fe:	0018      	movs	r0, r3
-20000300:	46bd      	mov	sp, r7
-20000302:	b002      	add	sp, #8
-20000304:	bd80      	pop	{r7, pc}
-20000306:	46c0      	nop			; (mov r8, r8)
-20000308:	40020c14 	andmi	r0, r2, r4, lsl ip
+2000031a:	46c0      	nop			; (mov r8, r8)
+2000031c:	0018      	movs	r0, r3
+2000031e:	46bd      	mov	sp, r7
+20000320:	b002      	add	sp, #8
+20000322:	bd80      	pop	{r7, pc}
+20000324:	40020c14 	andmi	r0, r2, r4, lsl ip
 
-2000030c <main>:
+20000328 <main>:
 
 void main(void) {
-2000030c:	b590      	push	{r4, r7, lr}
-2000030e:	b083      	sub	sp, #12
-20000310:	af00      	add	r7, sp, #0
+20000328:	b590      	push	{r4, r7, lr}
+2000032a:	b083      	sub	sp, #12
+2000032c:	af00      	add	r7, sp, #0
 	app_init();
-20000312:	f7ff fe7d 	bl	20000010 <app_init>
+2000032e:	f7ff fe6f 	bl	20000010 <app_init>
 	while(1) {
 		unsigned char i = keyb();
-20000316:	1dfc      	adds	r4, r7, #7
-20000318:	f7ff ff30 	bl	2000017c <keyb>
-2000031c:	0003      	movs	r3, r0
-2000031e:	7023      	strb	r3, [r4, #0]
+20000332:	1dfc      	adds	r4, r7, #7
+20000334:	f7ff ff22 	bl	2000017c <keyb>
+20000338:	0003      	movs	r3, r0
+2000033a:	7023      	strb	r3, [r4, #0]
 		updateDisplay(i);
-20000320:	1dfb      	adds	r3, r7, #7
-20000322:	781b      	ldrb	r3, [r3, #0]
-20000324:	0018      	movs	r0, r3
-20000326:	f7ff ff6f 	bl	20000208 <updateDisplay>
+2000033c:	1dfb      	adds	r3, r7, #7
+2000033e:	781b      	ldrb	r3, [r3, #0]
+20000340:	0018      	movs	r0, r3
+20000342:	f7ff ff61 	bl	20000208 <updateDisplay>
 	while(1) {
-2000032a:	e7f4      	b.n	20000316 <main+0xa>
-2000032c:	200000f6 	strdcs	r0, [r0], -r6
-20000330:	200000fe 	strdcs	r0, [r0], -lr
-20000334:	20000106 	andcs	r0, r0, r6, lsl #2
-20000338:	2000010e 	andcs	r0, r0, lr, lsl #2
-2000033c:	20000116 	andcs	r0, r0, r6, lsl r1
-20000340:	0a030201 	beq	200c0b4c <main+0xc0840>
-20000344:	0b060504 	bleq	2018175c <main+0x181450>
-20000348:	0c090807 	stceq	8, cr0, [r9], {7}
-2000034c:	0d0f000e 	stceq	0, cr0, [pc, #-56]	; 2000031c <main+0x10>
+20000346:	e7f4      	b.n	20000332 <main+0xa>
+20000348:	200000f6 	strdcs	r0, [r0], -r6
+2000034c:	200000fe 	strdcs	r0, [r0], -lr
+20000350:	20000106 	andcs	r0, r0, r6, lsl #2
+20000354:	2000010e 	andcs	r0, r0, lr, lsl #2
+20000358:	20000116 	andcs	r0, r0, r6, lsl r1
+2000035c:	0a030201 	beq	200c0b68 <main+0xc0840>
+20000360:	0b060504 	bleq	20181778 <main+0x181450>
+20000364:	0c090807 	stceq	8, cr0, [r9], {7}
+20000368:	0d0f000e 	stceq	0, cr0, [pc, #-56]	; 20000338 <main+0x10>
 
 Disassembly of section .debug_info:
 
@@ -522,10 +536,10 @@ Disassembly of section .debug_info:
 	...
   20:	011c0200 	tsteq	ip, r0, lsl #4
   24:	64010000 	strvs	r0, [r1], #-0
-  28:	2000030c 	andcs	r0, r0, ip, lsl #6
+  28:	20000328 	andcs	r0, r0, r8, lsr #6
   2c:	00000020 	andeq	r0, r0, r0, lsr #32
   30:	004d9c01 	subeq	r9, sp, r1, lsl #24
-  34:	16030000 	strne	r0, [r3], -r0
+  34:	32030000 	andcc	r0, r3, #0
   38:	14200003 	strtne	r0, [r0], #-3
   3c:	04000000 	streq	r0, [r0], #-0
   40:	67010069 	strvs	r0, [r1, -r9, rrx]
@@ -536,7 +550,7 @@ Disassembly of section .debug_info:
   54:	00005006 	andeq	r5, r0, r6
   58:	4d500100 	ldfmie	f0, [r0, #-0]
   5c:	08000000 	stmdaeq	r0, {}	; <UNPREDICTABLE>
-  60:	04200002 	strteq	r0, [r0], #-2
+  60:	20200002 	eorcs	r0, r0, r2
   64:	01000001 	tsteq	r0, r1
   68:	00007c9c 	muleq	r0, ip, ip
   6c:	656b0700 	strbvs	r0, [fp, #-1792]!	; 0xfffff900
@@ -577,7 +591,7 @@ Disassembly of section .debug_info:
   f8:	00004d39 	andeq	r4, r0, r9, lsr sp
   fc:	00013000 	andeq	r3, r1, r0
  100:	00004c20 	andeq	r4, r0, r0, lsr #24
- 104:	1a9c0100 	bne	fe70050c <main+0xde700200>
+ 104:	1a9c0100 	bne	fe70050c <main+0xde7001e4>
  108:	04000001 	streq	r0, [r0], #-1
  10c:	00726469 	rsbseq	r6, r2, r9, ror #8
  110:	004d3a01 	subeq	r3, sp, r1, lsl #20
@@ -673,7 +687,7 @@ Disassembly of section .debug_aranges:
    8:	00040000 	andeq	r0, r4, r0
    c:	00000000 	andeq	r0, r0, r0
   10:	20000010 	andcs	r0, r0, r0, lsl r0
-  14:	0000031c 	andeq	r0, r0, ip, lsl r3
+  14:	00000338 	andeq	r0, r0, r8, lsr r3
   18:	20000000 	andcs	r0, r0, r0
   1c:	0000000c 	andeq	r0, r0, ip
 	...
@@ -682,7 +696,7 @@ Disassembly of section .debug_ranges:
 
 00000000 <.debug_ranges>:
    0:	20000010 	andcs	r0, r0, r0, lsl r0
-   4:	2000032c 	andcs	r0, r0, ip, lsr #6
+   4:	20000348 	andcs	r0, r0, r8, asr #6
    8:	20000000 	andcs	r0, r0, r0
    c:	2000000c 	andcs	r0, r0, ip
 	...
@@ -741,39 +755,39 @@ Disassembly of section .debug_line:
   c0:	60067406 	andvs	r7, r6, r6, lsl #8
   c4:	0402003d 	streq	r0, [r2], #-61	; 0xffffffc3
   c8:	67762101 	ldrbvs	r2, [r6, -r1, lsl #2]!
-  cc:	0402004b 	streq	r0, [r2], #-75	; 0xffffffb5
-  d0:	064a0601 	strbeq	r0, [sl], -r1, lsl #12
-  d4:	0402003d 	streq	r0, [r2], #-61	; 0xffffffc3
-  d8:	064a0601 	strbeq	r0, [sl], -r1, lsl #12
-  dc:	0402003d 	streq	r0, [r2], #-61	; 0xffffffc3
-  e0:	064a0601 	strbeq	r0, [sl], -r1, lsl #12
-  e4:	0402003d 	streq	r0, [r2], #-61	; 0xffffffc3
-  e8:	064a0601 	strbeq	r0, [sl], -r1, lsl #12
-  ec:	0402003d 	streq	r0, [r2], #-61	; 0xffffffc3
-  f0:	064a0601 	strbeq	r0, [sl], -r1, lsl #12
-  f4:	0402003d 	streq	r0, [r2], #-61	; 0xffffffc3
-  f8:	064a0601 	strbeq	r0, [sl], -r1, lsl #12
-  fc:	0402003d 	streq	r0, [r2], #-61	; 0xffffffc3
- 100:	064a0601 	strbeq	r0, [sl], -r1, lsl #12
- 104:	0402003d 	streq	r0, [r2], #-61	; 0xffffffc3
- 108:	064a0601 	strbeq	r0, [sl], -r1, lsl #12
- 10c:	0402003d 	streq	r0, [r2], #-61	; 0xffffffc3
- 110:	064a0601 	strbeq	r0, [sl], -r1, lsl #12
- 114:	0402003d 	streq	r0, [r2], #-61	; 0xffffffc3
- 118:	064a0601 	strbeq	r0, [sl], -r1, lsl #12
- 11c:	0402003d 	streq	r0, [r2], #-61	; 0xffffffc3
- 120:	064a0601 	strbeq	r0, [sl], -r1, lsl #12
- 124:	0402003d 	streq	r0, [r2], #-61	; 0xffffffc3
- 128:	064a0601 	strbeq	r0, [sl], -r1, lsl #12
- 12c:	0402003d 	streq	r0, [r2], #-61	; 0xffffffc3
- 130:	064a0601 	strbeq	r0, [sl], -r1, lsl #12
- 134:	0402003d 	streq	r0, [r2], #-61	; 0xffffffc3
- 138:	064a0601 	strbeq	r0, [sl], -r1, lsl #12
- 13c:	0402003d 	streq	r0, [r2], #-61	; 0xffffffc3
- 140:	064a0601 	strbeq	r0, [sl], -r1, lsl #12
- 144:	0402003d 	streq	r0, [r2], #-61	; 0xffffffc3
- 148:	064a0601 	strbeq	r0, [sl], -r1, lsl #12
- 14c:	003d843d 	eorseq	r8, sp, sp, lsr r4
+  cc:	01040200 	mrseq	r0, R12_usr
+  d0:	4b064a06 	blmi	1928f0 <startup-0x1fe6d710>
+  d4:	01040200 	mrseq	r0, R12_usr
+  d8:	4b064a06 	blmi	1928f8 <startup-0x1fe6d708>
+  dc:	01040200 	mrseq	r0, R12_usr
+  e0:	4b064a06 	blmi	192900 <startup-0x1fe6d700>
+  e4:	01040200 	mrseq	r0, R12_usr
+  e8:	4b064a06 	blmi	192908 <startup-0x1fe6d6f8>
+  ec:	01040200 	mrseq	r0, R12_usr
+  f0:	4b064a06 	blmi	192910 <startup-0x1fe6d6f0>
+  f4:	01040200 	mrseq	r0, R12_usr
+  f8:	4b064a06 	blmi	192918 <startup-0x1fe6d6e8>
+  fc:	01040200 	mrseq	r0, R12_usr
+ 100:	4b064a06 	blmi	192920 <startup-0x1fe6d6e0>
+ 104:	01040200 	mrseq	r0, R12_usr
+ 108:	4b064a06 	blmi	192928 <startup-0x1fe6d6d8>
+ 10c:	01040200 	mrseq	r0, R12_usr
+ 110:	4b064a06 	blmi	192930 <startup-0x1fe6d6d0>
+ 114:	01040200 	mrseq	r0, R12_usr
+ 118:	4b064a06 	blmi	192938 <startup-0x1fe6d6c8>
+ 11c:	01040200 	mrseq	r0, R12_usr
+ 120:	4b064a06 	blmi	192940 <startup-0x1fe6d6c0>
+ 124:	01040200 	mrseq	r0, R12_usr
+ 128:	4b064a06 	blmi	192948 <startup-0x1fe6d6b8>
+ 12c:	01040200 	mrseq	r0, R12_usr
+ 130:	4b064a06 	blmi	192950 <startup-0x1fe6d6b0>
+ 134:	01040200 	mrseq	r0, R12_usr
+ 138:	4b064a06 	blmi	192958 <startup-0x1fe6d6a8>
+ 13c:	01040200 	mrseq	r0, R12_usr
+ 140:	4b064a06 	blmi	192960 <startup-0x1fe6d6a0>
+ 144:	01040200 	mrseq	r0, R12_usr
+ 148:	4b064a06 	blmi	192968 <startup-0x1fe6d698>
+ 14c:	003d763d 	eorseq	r7, sp, sp, lsr r6
  150:	30010402 	andcc	r0, r1, r2, lsl #8
  154:	01040200 	mrseq	r0, R12_usr
  158:	04020059 	streq	r0, [r2], #-89	; 0xffffffa7
@@ -963,14 +977,14 @@ Disassembly of section .debug_frame:
   a0:	0000001c 	andeq	r0, r0, ip, lsl r0
   a4:	00000000 	andeq	r0, r0, r0
   a8:	20000208 	andcs	r0, r0, r8, lsl #4
-  ac:	00000104 	andeq	r0, r0, r4, lsl #2
+  ac:	00000120 	andeq	r0, r0, r0, lsr #2
   b0:	40080e41 	andmi	r0, r8, r1, asr #28
   b4:	8e400287 	cdphi	2, 4, cr0, cr0, cr7, {4}
   b8:	100e4101 	andne	r4, lr, r1, lsl #2
   bc:	00070d41 	andeq	r0, r7, r1, asr #26
   c0:	00000020 	andeq	r0, r0, r0, lsr #32
   c4:	00000000 	andeq	r0, r0, r0
-  c8:	2000030c 	andcs	r0, r0, ip, lsl #6
+  c8:	20000328 	andcs	r0, r0, r8, lsr #6
   cc:	00000020 	andeq	r0, r0, r0, lsr #32
   d0:	400c0e41 	andmi	r0, ip, r1, asr #28
   d4:	87400384 	strbhi	r0, [r0, -r4, lsl #7]

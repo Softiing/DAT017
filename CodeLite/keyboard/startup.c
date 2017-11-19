@@ -58,8 +58,8 @@ unsigned char readColumn(void) {
 	unsigned char idr = *GPIO_IDR_HIGH;
 	if(idr == 0x01) return 1;
 	if(idr == 0x02) return 2;
-	if(idr == 0x04) return 4;
-	if(idr == 0x08) return 8;
+	if(idr == 0x04) return 3;
+	if(idr == 0x08) return 4;
 	return 0;
 }
 
@@ -78,23 +78,23 @@ unsigned char keyb(void) {
 }
 
 unsigned char updateDisplay(unsigned char key) {
-	*GPIO_ODR_LOW = key;
 	if(key == 0x0) *GPIO_ODR_LOW = 0x3F; 
-	if(key == 0x1) *GPIO_ODR_LOW = 0x06; 
-	if(key == 0x2) *GPIO_ODR_LOW = 0x5B;  
-	if(key == 0x3) *GPIO_ODR_LOW = 0x4F;  
-	if(key == 0x4) *GPIO_ODR_LOW = 0x72;  
-	if(key == 0x5) *GPIO_ODR_LOW = 0x6D;  
-	if(key == 0x6) *GPIO_ODR_LOW = 0x7D;  
-	if(key == 0x7) *GPIO_ODR_LOW = 0x07;  
-	if(key == 0x8) *GPIO_ODR_LOW = 0x7F;  
-	if(key == 0x9) *GPIO_ODR_LOW = 0x67;  
-	if(key == 0xA) *GPIO_ODR_LOW = 0xBB;  
-	if(key == 0xB) *GPIO_ODR_LOW = 0x7F;  
-	if(key == 0xC) *GPIO_ODR_LOW = 0x39;  
-	if(key == 0xD) *GPIO_ODR_LOW = 0x3F;  
-	if(key == 0xE) *GPIO_ODR_LOW = 0x79;  
-	if(key == 0xF) *GPIO_ODR_LOW = 0x71;  
+	else if(key == 0x1) *GPIO_ODR_LOW = 0x06; 
+	else if(key == 0x2) *GPIO_ODR_LOW = 0x5B;  
+	else if(key == 0x3) *GPIO_ODR_LOW = 0x4F;  
+	else if(key == 0x4) *GPIO_ODR_LOW = 0x66;  
+	else if(key == 0x5) *GPIO_ODR_LOW = 0x6D;  
+	else if(key == 0x6) *GPIO_ODR_LOW = 0x7D;  
+	else if(key == 0x7) *GPIO_ODR_LOW = 0x07;  
+	else if(key == 0x8) *GPIO_ODR_LOW = 0x7F;  
+	else if(key == 0x9) *GPIO_ODR_LOW = 0x67;  
+	else if(key == 0xA) *GPIO_ODR_LOW = 0x77;  
+	else if(key == 0xB) *GPIO_ODR_LOW = 0xFF;  
+	else if(key == 0xC) *GPIO_ODR_LOW = 0x39;  
+	else if(key == 0xD) *GPIO_ODR_LOW = 0xBF;  
+	else if(key == 0xE) *GPIO_ODR_LOW = 0x79;  
+	else if(key == 0xF) *GPIO_ODR_LOW = 0x71;
+	else *GPIO_ODR_LOW = 0x00;
 }
 
 void main(void) {
