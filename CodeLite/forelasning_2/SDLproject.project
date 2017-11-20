@@ -12,6 +12,7 @@
     <File Name="renderer.c"/>
     <File Name="renderer.h"/>
     <File Name="vecmath.h"/>
+    <File Name="gameobject.h"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>

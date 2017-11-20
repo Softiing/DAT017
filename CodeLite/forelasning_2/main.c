@@ -2,19 +2,16 @@
 #include <stdio.h>
 #include <math.h>
 #include "vecmath.h"
+#include "gameobject.h"
 
-GfxObject ship;
-GfxObject background;
+GameObject player;
+GameObject background;
 void close(); 
 
 
 // Screen variables
 int gameWidth = 800;
 int gameHeight = 600;
-
-// Background variables
-double backgroundAngle = 0;
-double backgroundZoom = 0;
 
 int t = 0;
 bool bShake = false;
@@ -42,9 +39,9 @@ void shake(vec2f* pos) {
 
 int main( int argc, char* args[] )
 {
-    // Player position
-	vec2f playerPosition = {400, 300};
-    float playerSpeed = 3;
+    // Player ship init
+	player.position = (vec2f){400, 300};
+	player.speed = 3;
 
     // If you want the program to not launch the terminal, then go to 
     // Project->Settings->General->"This program is a GUI application" and uncheck that flag.
@@ -56,14 +53,16 @@ int main( int argc, char* args[] )
     const Uint8 *state = SDL_GetKeyboardState(NULL); 
 
     // Create background
-    background  = createGfxObject("../background.jpg");
-    background.outputWidth = gameWidth;
-    background.outputHeight = gameHeight;
+    background.gfxObject = createGfxObject("../background.jpg");
+    background.gfxObject.outputWidth = gameWidth;
+    background.gfxObject.outputHeight = gameHeight;
+	background.angleSpeed = 0.03;
+	background.scaleSpeed = 0.007;
     
     // Create an object
-    ship = createGfxObject(  "../ship.png" );
-    ship.outputWidth  = 200;
-    ship.outputHeight = 200;
+    player.gfxObject = createGfxObject(  "../ship.png" );
+    player.gfxObject.outputWidth  = 200;
+    player.gfxObject.outputHeight = 200;
     
     while(true) // The real-time loop
     {
@@ -77,19 +76,19 @@ int main( int argc, char* args[] )
             }
         }
         
-		shake(&playerPosition);
+		shake(&player.position);
         // Handle keyboard events
         if (state[SDL_SCANCODE_RIGHT]) {
-            playerPosition.x = (playerPosition.x + playerSpeed >= gameWidth) ? gameWidth : playerPosition.x + playerSpeed;
+            player.position.x = (player.position.x + player.speed >= gameWidth) ? gameWidth : player.position.x + player.speed;
         }
         if(state[SDL_SCANCODE_LEFT]) {
-            playerPosition.x = (playerPosition.x - playerSpeed <= 0) ? 0 : playerPosition.x - playerSpeed;
+            player.position.x = (player.position.x - player.speed <= 0) ? 0 : player.position.x - player.speed;
         }
         if(state[SDL_SCANCODE_UP]) {
-            playerPosition.y = (playerPosition.y - playerSpeed <= 0) ? 0 : playerPosition.y - playerSpeed;
+            player.position.y = (player.position.y - player.speed <= 0) ? 0 : player.position.y - player.speed;
         }
         if(state[SDL_SCANCODE_DOWN]) {
-            playerPosition.y = (playerPosition.y + playerSpeed >= gameHeight) ? gameHeight : playerPosition.y + playerSpeed;
+            player.position.y = (player.position.y + player.speed >= gameHeight) ? gameHeight : player.position.y + player.speed;
         }
         
         // Clear screen with a grey background color, red=0x33, blue=0x33, green=0x33, alpha=0xff. 0=minimum, 0xff=maximum.
@@ -98,7 +97,7 @@ int main( int argc, char* args[] )
         SDL_RenderClear( gRenderer );
         renderBackground();
         // Render our object(s) - background objects first, and then forward objects (like a painter)
-        renderGfxObject(&ship, playerPosition.x, playerPosition.y, 0, 1.0f);
+        renderGfxObject(&player.gfxObject, player.position.x, player.position.y, 0, 1.0f);
         renderText("Hello World!", 300, 150);
          
         // This function updates the screen and also sleeps ~16 ms or so (based on the screen's refresh rate),  
@@ -112,16 +111,16 @@ int main( int argc, char* args[] )
 }
 
 void renderBackground() {
-    renderGfxObject(&background, gameWidth/2, gameHeight/2, fmod(backgroundAngle, 360), (1.8f + 0.2*sin(backgroundZoom)));
-    backgroundAngle += 0.03;
-    backgroundZoom += 0.007;
+    renderGfxObject(&background.gfxObject, gameWidth/2, gameHeight/2, fmod(background.angle, 360), (1.8f + 0.2*sin(background.scale)));
+    background.angle += background.angleSpeed;
+    background.scale += background.scaleSpeed;
 }
 
 void close()
 {
     //Preferably, you should free all your GfxObjects, by calls to freeGfxObject(GfxObject* obj), but you don't have to.
-    freeGfxObject(&background);
-    freeGfxObject(&ship);
+    freeGfxObject(&background.gfxObject);
+    freeGfxObject(&player.gfxObject);
     
     closeRenderer(); //Free resources and close SDL
 }
