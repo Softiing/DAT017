@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Workspace Name="DAT207" Database="" Version="10.0.0">
   <Project Name="forelasning_1" Path="forelasning_1/forelasning_1.project" Active="No"/>
-  <Project Name="forelasning_2" Path="forelasning_2/SDLproject.project" Active="No"/>
+  <Project Name="forelasning_2_3" Path="forelasning_2/SDLproject.project" Active="Yes"/>
   <Project Name="testing" Path="testing/testing.project" Active="No"/>
   <Project Name="basic_io" Path="basic_io/basic_io.project" Active="No"/>
   <Project Name="keyboard" Path="keyboard/keyboard.project" Active="No"/>
-  <Project Name="delay" Path="delay/delay.project" Active="Yes"/>
+  <Project Name="delay" Path="delay/delay.project" Active="No"/>
   <BuildMatrix>
     <WorkspaceConfiguration Name="Debug" Selected="yes">
       <Environment/>
       <Project Name="forelasning_1" ConfigName="Debug"/>
-      <Project Name="forelasning_2" ConfigName="Debug"/>
+      <Project Name="forelasning_2_3" ConfigName="Debug"/>
       <Project Name="testing" ConfigName="Debug"/>
       <Project Name="basic_io" ConfigName="Debug"/>
       <Project Name="keyboard" ConfigName="Debug"/>
@@ -19,7 +19,7 @@
     <WorkspaceConfiguration Name="Release" Selected="yes">
       <Environment/>
       <Project Name="forelasning_1" ConfigName="Release"/>
-      <Project Name="forelasning_2" ConfigName="Release"/>
+      <Project Name="forelasning_2_3" ConfigName="Release"/>
       <Project Name="testing" ConfigName="Release"/>
       <Project Name="basic_io" ConfigName="Release"/>
       <Project Name="keyboard" ConfigName="Release"/>
