@@ -37,15 +37,15 @@ void shake(vec2f* pos) {
     t++;
 }
 
-int main( int argc, char* args[] )
-{
-    // Player ship init
-	player.position = (vec2f){400, 300};
-	player.speed = 3;
+void printToWindow(char* str, int x, int y) {
+	renderText(str, x, y);
+}
 
-    // If you want the program to not launch the terminal, then go to 
-    // Project->Settings->General->"This program is a GUI application" and uncheck that flag.
-    
+void printToConsole(char* str, int x, int y) {
+	printf("%s\n", str);
+}
+
+int main( int argc, char* args[] ) {
     // Start up SDL and create window of width=800, height = 600
     initRenderer(gameWidth, gameHeight); 
     
@@ -59,10 +59,15 @@ int main( int argc, char* args[] )
 	background.angleSpeed = 0.03;
 	background.scaleSpeed = 0.007;
     
-    // Create an object
+	// Player ship init
+	player.position = (vec2f){400, 300};
+	player.speed = 3;
     player.gfxObject = createGfxObject(  "../ship.png" );
     player.gfxObject.outputWidth  = 200;
     player.gfxObject.outputHeight = 200;
+	
+	// Init print function pointer
+	void (*print) (char* str, int x, int y) = printToWindow;
     
     while(true) // The real-time loop
     {
@@ -74,6 +79,14 @@ int main( int argc, char* args[] )
                 close(); 
                 exit(0);
             }
+			if( (e.type == SDL_KEYDOWN) &&
+				(e.key.keysym.scancode == SDL_SCANCODE_C) ) {
+					if(print == printToWindow) {
+						print = printToConsole;
+					} else {
+						print = printToWindow;
+					}
+			}
         }
         
 		shake(&player.position);
@@ -98,7 +111,7 @@ int main( int argc, char* args[] )
         renderBackground();
         // Render our object(s) - background objects first, and then forward objects (like a painter)
         renderGfxObject(&player.gfxObject, player.position.x, player.position.y, 0, 1.0f);
-        renderText("Hello World!", 300, 150);
+        print("Hello World!", 300, 150);
          
         // This function updates the screen and also sleeps ~16 ms or so (based on the screen's refresh rate),  
         // because we used the flag SDL_RENDERER_PRESENTVSYNC in function initRenderer()
