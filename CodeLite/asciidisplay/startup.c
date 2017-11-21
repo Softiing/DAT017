@@ -44,13 +44,17 @@ void init_app(void) {
 	
 	*GPIO_PUPDR &= 0xFFFFFFFF;
 	*GPIO_PUPDR |= 0xAAAAAAAA;
+	
+	*GPIO_ODR_HIGH = 0;
+	*GPIO_IDR_LOW = 0;
+	
 }
 
 void delay_250ns(void) {
 	*STK_CTRL = 0;
 	*STK_VAL = 0;
 	*STK_LOAD = 49; //  48 + 1. Have to add one as said in manual
-	*STK_CTRL = 0x1;
+	*STK_CTRL = 5;
 	while((*STK_CTRL & 0x10000) == 0) {
 		// Do nothing :S
 	}
@@ -59,10 +63,10 @@ void delay_250ns(void) {
 
 void delay_mikro(unsigned int us) {
 	for(unsigned int i = 0; i < us; i++) {
-		delay_250ns;
-		delay_250ns;
-		delay_250ns;
-		delay_250ns;
+		delay_250ns();
+		delay_250ns();
+		delay_250ns();
+		delay_250ns();
 	}
 }
 
@@ -118,8 +122,8 @@ unsigned char ascii_read_controller() {
 }
 
 void ascii_write_cmd(unsigned char command) {
-	ascii_ctrl_bit_set(B_RS);
-	ascii_ctrl_bit_set(B_RW);
+	ascii_ctrl_bit_clear(B_RS);
+	ascii_ctrl_bit_clear(B_RW);
 	ascii_write_controller(command);
 }
 
@@ -134,7 +138,8 @@ unsigned char ascii_read_status(void) {
 	ascii_ctrl_bit_clear(B_RS);
 	ascii_ctrl_bit_set(B_RW);
 	unsigned char rv = ascii_read_controller();
-	*GPIO_MODER |= 0x5555FFFF;	
+	*GPIO_MODER &= 0x0000FFFF;
+	*GPIO_MODER |= 0x55550000;	
 	return rv;
 }
 
@@ -143,16 +148,17 @@ unsigned char ascii_read_data(void) {
 	ascii_ctrl_bit_set(B_RS);
 	ascii_ctrl_bit_set(B_RW);
 	unsigned char rv = ascii_read_controller();
-	*GPIO_MODER |= 0x5555FFFF;	
+	*GPIO_MODER &= 0x0000FFFF;
+	*GPIO_MODER |= 0x55550000;	
 	return rv;
 }
 
 void ascii_command(char command) {
-	while((ascii_read_status() & 80) == 0x80) {
+	while((ascii_read_status() & 0x80) == 0x80) {
 		// Do nothing, wait for status flag
 	}
 	delay_mikro(8);
-	ascii_write_cmd(1);
+	ascii_write_cmd(command);
 	delay_milli(2);
 }
 
@@ -163,7 +169,7 @@ void ascii_init(void) {
 }
 
 void ascii_write_char(unsigned char charToWrite) {
-	while((ascii_read_status() & 80) == 0x80) {
+	while((ascii_read_status() & 0x80) == 0x80) {
 	// Do nothing, wait for status flag
     }
 	delay_mikro(8);
@@ -182,16 +188,6 @@ void goToXY(unsigned char row, unsigned char column) {
 void main(void) {
 	init_app();
     ascii_init();
-	ascii_write_char('a');
-	ascii_write_char('a');
-	ascii_write_char('a');
-	ascii_write_char('a');
-	ascii_write_char('a');
-	ascii_write_char('a');
-	ascii_write_char('a');
-	ascii_write_char('a');
-	ascii_write_char('a');
-	ascii_write_char('a');
-	ascii_write_char('a');
-	ascii_write_char('a');
+	goToXY(1,1);
+	ascii_write_char('b');
 }

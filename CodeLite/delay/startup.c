@@ -43,7 +43,7 @@ void delay_250ns(void) {
 	*STK_CTRL = 0;
 	*STK_VAL = 0;
 	*STK_LOAD = 49; //  48 + 1. Have to add one as said in manual
-	*STK_CTRL = 0x1;
+	*STK_CTRL = 5;
 	while((*STK_CTRL & 0x10000) == 0) {
 		// Do nothing :S
 	}
@@ -52,10 +52,10 @@ void delay_250ns(void) {
 
 void delay_mikro(unsigned int us) {
 	for(unsigned int i = 0; i < us; i++) {
-		delay_250ns;
-		delay_250ns;
-		delay_250ns;
-		delay_250ns;
+		delay_250ns();
+		delay_250ns();
+		delay_250ns();
+		delay_250ns();
 	}
 }
 
