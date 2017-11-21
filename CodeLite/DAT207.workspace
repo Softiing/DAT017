@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Workspace Name="DAT207" Database="" Version="10.0.0">
   <Project Name="forelasning_1" Path="forelasning_1/forelasning_1.project" Active="No"/>
-  <Project Name="forelasning_2_3" Path="forelasning_2/SDLproject.project" Active="Yes"/>
+  <Project Name="forelasning_2_3" Path="forelasning_2/SDLproject.project" Active="No"/>
   <Project Name="testing" Path="testing/testing.project" Active="No"/>
   <Project Name="basic_io" Path="basic_io/basic_io.project" Active="No"/>
   <Project Name="keyboard" Path="keyboard/keyboard.project" Active="No"/>
   <Project Name="delay" Path="delay/delay.project" Active="No"/>
+  <Project Name="asciidisplay" Path="asciidisplay/asciidisplay.project" Active="Yes"/>
   <BuildMatrix>
     <WorkspaceConfiguration Name="Debug" Selected="yes">
       <Environment/>
@@ -15,6 +16,7 @@
       <Project Name="basic_io" ConfigName="Debug"/>
       <Project Name="keyboard" ConfigName="Debug"/>
       <Project Name="delay" ConfigName="Debug"/>
+      <Project Name="asciidisplay" ConfigName="Debug"/>
     </WorkspaceConfiguration>
     <WorkspaceConfiguration Name="Release" Selected="yes">
       <Environment/>
@@ -24,6 +26,7 @@
       <Project Name="basic_io" ConfigName="Release"/>
       <Project Name="keyboard" ConfigName="Release"/>
       <Project Name="delay" ConfigName="Release"/>
+      <Project Name="asciidisplay" ConfigName="Release"/>
     </WorkspaceConfiguration>
   </BuildMatrix>
 </CodeLite_Workspace>
