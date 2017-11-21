@@ -186,8 +186,21 @@ void goToXY(unsigned char row, unsigned char column) {
 }
 
 void main(void) {
+	char *s;
+	char test1[] = "Alfanumerisk ";
+	char test2[] = "Display - test";
+	
 	init_app();
     ascii_init();
 	goToXY(1,1);
-	ascii_write_char('b');
+	
+	s = test1;
+	while(*s) {
+		ascii_write_char(*s++);
+	}
+	s = test2;
+	while(*s) {
+		ascii_write_char(*s++);
+	}
+	return 0;
 }
