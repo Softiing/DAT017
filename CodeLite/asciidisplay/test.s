@@ -1094,330 +1094,320 @@
  960              		.cfi_offset 14, -4
  961 03f6 00AF     		add	r7, sp, #0
  962              		.cfi_def_cfa_register 7
- 163:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	ascii_command(0x38, 40); // Set display size and font size
+ 163:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	ascii_ctrl_bit_set(B_SELECT);
  963              		.loc 1 163 0
- 964 03f8 2821     		movs	r1, #40
- 965 03fa 3820     		movs	r0, #56
- 966 03fc FFF7FEFF 		bl	ascii_command
- 164:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c ****     ascii_command(0xE, 40); // Set display, cursor on
- 967              		.loc 1 164 0
- 968 0400 2821     		movs	r1, #40
- 969 0402 0E20     		movs	r0, #14
- 970 0404 FFF7FEFF 		bl	ascii_command
- 165:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	ascii_command(0x01, 1530); // Clear display
- 971              		.loc 1 165 0
- 972 0408 054B     		ldr	r3, .L61
- 973 040a 1900     		movs	r1, r3
- 974 040c 0120     		movs	r0, #1
- 975 040e FFF7FEFF 		bl	ascii_command
- 166:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c ****     ascii_command(0x6, 40); // Inc, no shift
- 976              		.loc 1 166 0
- 977 0412 2821     		movs	r1, #40
- 978 0414 0620     		movs	r0, #6
- 979 0416 FFF7FEFF 		bl	ascii_command
- 167:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** }
- 980              		.loc 1 167 0
- 981 041a C046     		nop
- 982 041c BD46     		mov	sp, r7
- 983              		@ sp needed
- 984 041e 80BD     		pop	{r7, pc}
- 985              	.L62:
- 986              		.align	2
- 987              	.L61:
- 988 0420 FA050000 		.word	1530
- 989              		.cfi_endproc
- 990              	.LFE14:
- 992              		.align	1
- 993              		.global	ascii_write_char
- 994              		.syntax unified
- 995              		.code	16
- 996              		.thumb_func
- 997              		.fpu softvfp
- 999              	ascii_write_char:
- 1000              	.LFB15:
- 168:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 
- 169:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** void ascii_write_char(unsigned char charToWrite) {
- 1001              		.loc 1 169 0
- 1002              		.cfi_startproc
- 1003              		@ args = 0, pretend = 0, frame = 8
- 1004              		@ frame_needed = 1, uses_anonymous_args = 0
- 1005 0424 80B5     		push	{r7, lr}
- 1006              		.cfi_def_cfa_offset 8
- 1007              		.cfi_offset 7, -8
- 1008              		.cfi_offset 14, -4
- 1009 0426 82B0     		sub	sp, sp, #8
- 1010              		.cfi_def_cfa_offset 16
- 1011 0428 00AF     		add	r7, sp, #0
- 1012              		.cfi_def_cfa_register 7
- 1013 042a 0200     		movs	r2, r0
- 1014 042c FB1D     		adds	r3, r7, #7
- 1015 042e 1A70     		strb	r2, [r3]
- 170:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	while((ascii_read_status() & 0x80) == 0x80) {
- 1016              		.loc 1 170 0
- 1017 0430 C046     		nop
- 1018              	.L64:
- 1019              		.loc 1 170 0 is_stmt 0 discriminator 1
- 1020 0432 FFF7FEFF 		bl	ascii_read_status
- 1021 0436 0300     		movs	r3, r0
- 1022 0438 1A00     		movs	r2, r3
- 1023 043a 8023     		movs	r3, #128
- 1024 043c 1340     		ands	r3, r2
- 1025 043e 802B     		cmp	r3, #128
- 1026 0440 F7D0     		beq	.L64
- 171:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	// Do nothing, wait for status flag
- 172:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c ****     }
- 173:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	delay_mikro(8);
- 1027              		.loc 1 173 0 is_stmt 1
- 1028 0442 0820     		movs	r0, #8
- 1029 0444 FFF7FEFF 		bl	delay_mikro
- 174:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c ****     ascii_write_data(charToWrite);
- 1030              		.loc 1 174 0
- 1031 0448 FB1D     		adds	r3, r7, #7
- 1032 044a 1B78     		ldrb	r3, [r3]
- 1033 044c 1800     		movs	r0, r3
- 1034 044e FFF7FEFF 		bl	ascii_write_data
- 175:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c ****     delay_mikro(45);
- 1035              		.loc 1 175 0
- 1036 0452 2D20     		movs	r0, #45
- 1037 0454 FFF7FEFF 		bl	delay_mikro
- 176:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** }
+ 964 03f8 0220     		movs	r0, #2
+ 965 03fa FFF7FEFF 		bl	ascii_ctrl_bit_set
+ 164:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	ascii_command(0x38, 40); // Set display size and font size
+ 966              		.loc 1 164 0
+ 967 03fe 2821     		movs	r1, #40
+ 968 0400 3820     		movs	r0, #56
+ 969 0402 FFF7FEFF 		bl	ascii_command
+ 165:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c ****     ascii_command(0xE, 40); // Set display, cursor on
+ 970              		.loc 1 165 0
+ 971 0406 2821     		movs	r1, #40
+ 972 0408 0E20     		movs	r0, #14
+ 973 040a FFF7FEFF 		bl	ascii_command
+ 166:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	ascii_command(0x01, 1530); // Clear display
+ 974              		.loc 1 166 0
+ 975 040e 064B     		ldr	r3, .L61
+ 976 0410 1900     		movs	r1, r3
+ 977 0412 0120     		movs	r0, #1
+ 978 0414 FFF7FEFF 		bl	ascii_command
+ 167:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c ****     ascii_command(0x6, 40); // Inc, no shift
+ 979              		.loc 1 167 0
+ 980 0418 2821     		movs	r1, #40
+ 981 041a 0620     		movs	r0, #6
+ 982 041c FFF7FEFF 		bl	ascii_command
+ 168:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** }
+ 983              		.loc 1 168 0
+ 984 0420 C046     		nop
+ 985 0422 BD46     		mov	sp, r7
+ 986              		@ sp needed
+ 987 0424 80BD     		pop	{r7, pc}
+ 988              	.L62:
+ 989 0426 C046     		.align	2
+ 990              	.L61:
+ 991 0428 FA050000 		.word	1530
+ 992              		.cfi_endproc
+ 993              	.LFE14:
+ 995              		.align	1
+ 996              		.global	ascii_write_char
+ 997              		.syntax unified
+ 998              		.code	16
+ 999              		.thumb_func
+ 1000              		.fpu softvfp
+ 1002              	ascii_write_char:
+ 1003              	.LFB15:
+ 169:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 
+ 170:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** void ascii_write_char(unsigned char charToWrite) {
+ 1004              		.loc 1 170 0
+ 1005              		.cfi_startproc
+ 1006              		@ args = 0, pretend = 0, frame = 8
+ 1007              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1008 042c 80B5     		push	{r7, lr}
+ 1009              		.cfi_def_cfa_offset 8
+ 1010              		.cfi_offset 7, -8
+ 1011              		.cfi_offset 14, -4
+ 1012 042e 82B0     		sub	sp, sp, #8
+ 1013              		.cfi_def_cfa_offset 16
+ 1014 0430 00AF     		add	r7, sp, #0
+ 1015              		.cfi_def_cfa_register 7
+ 1016 0432 0200     		movs	r2, r0
+ 1017 0434 FB1D     		adds	r3, r7, #7
+ 1018 0436 1A70     		strb	r2, [r3]
+ 171:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	while((ascii_read_status() & 0x80) == 0x80) {
+ 1019              		.loc 1 171 0
+ 1020 0438 C046     		nop
+ 1021              	.L64:
+ 1022              		.loc 1 171 0 is_stmt 0 discriminator 1
+ 1023 043a FFF7FEFF 		bl	ascii_read_status
+ 1024 043e 0300     		movs	r3, r0
+ 1025 0440 1A00     		movs	r2, r3
+ 1026 0442 8023     		movs	r3, #128
+ 1027 0444 1340     		ands	r3, r2
+ 1028 0446 802B     		cmp	r3, #128
+ 1029 0448 F7D0     		beq	.L64
+ 172:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	// Do nothing, wait for status flag
+ 173:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c ****     }
+ 174:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	delay_mikro(8);
+ 1030              		.loc 1 174 0 is_stmt 1
+ 1031 044a 0820     		movs	r0, #8
+ 1032 044c FFF7FEFF 		bl	delay_mikro
+ 175:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c ****     ascii_write_data(charToWrite);
+ 1033              		.loc 1 175 0
+ 1034 0450 FB1D     		adds	r3, r7, #7
+ 1035 0452 1B78     		ldrb	r3, [r3]
+ 1036 0454 1800     		movs	r0, r3
+ 1037 0456 FFF7FEFF 		bl	ascii_write_data
+ 176:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c ****     delay_mikro(45);
  1038              		.loc 1 176 0
- 1039 0458 C046     		nop
- 1040 045a BD46     		mov	sp, r7
- 1041 045c 02B0     		add	sp, sp, #8
- 1042              		@ sp needed
- 1043 045e 80BD     		pop	{r7, pc}
- 1044              		.cfi_endproc
- 1045              	.LFE15:
- 1047              		.align	1
- 1048              		.global	goToXY
- 1049              		.syntax unified
- 1050              		.code	16
- 1051              		.thumb_func
- 1052              		.fpu softvfp
- 1054              	goToXY:
- 1055              	.LFB16:
- 177:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 
- 178:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** void goToXY(unsigned char row, unsigned char column) {
- 1056              		.loc 1 178 0
- 1057              		.cfi_startproc
- 1058              		@ args = 0, pretend = 0, frame = 16
- 1059              		@ frame_needed = 1, uses_anonymous_args = 0
- 1060 0460 80B5     		push	{r7, lr}
- 1061              		.cfi_def_cfa_offset 8
- 1062              		.cfi_offset 7, -8
- 1063              		.cfi_offset 14, -4
- 1064 0462 84B0     		sub	sp, sp, #16
- 1065              		.cfi_def_cfa_offset 24
- 1066 0464 00AF     		add	r7, sp, #0
- 1067              		.cfi_def_cfa_register 7
- 1068 0466 0200     		movs	r2, r0
- 1069 0468 FB1D     		adds	r3, r7, #7
- 1070 046a 1A70     		strb	r2, [r3]
- 1071 046c BB1D     		adds	r3, r7, #6
- 1072 046e 0A1C     		adds	r2, r1, #0
- 1073 0470 1A70     		strb	r2, [r3]
- 179:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	unsigned char address = row - 1;
- 1074              		.loc 1 179 0
- 1075 0472 0F23     		movs	r3, #15
- 1076 0474 FB18     		adds	r3, r7, r3
- 1077 0476 FA1D     		adds	r2, r7, #7
- 1078 0478 1278     		ldrb	r2, [r2]
- 1079 047a 013A     		subs	r2, r2, #1
- 1080 047c 1A70     		strb	r2, [r3]
- 180:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	if(column == 2) {
- 1081              		.loc 1 180 0
- 1082 047e BB1D     		adds	r3, r7, #6
- 1083 0480 1B78     		ldrb	r3, [r3]
- 1084 0482 022B     		cmp	r3, #2
- 1085 0484 06D1     		bne	.L66
- 181:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 		address = address + 0x40;
- 1086              		.loc 1 181 0
- 1087 0486 0F23     		movs	r3, #15
- 1088 0488 FB18     		adds	r3, r7, r3
- 1089 048a 0F22     		movs	r2, #15
- 1090 048c BA18     		adds	r2, r7, r2
- 1091 048e 1278     		ldrb	r2, [r2]
- 1092 0490 4032     		adds	r2, r2, #64
- 1093 0492 1A70     		strb	r2, [r3]
- 1094              	.L66:
- 182:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	}
- 183:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	ascii_write_cmd(0x80 | address);
- 1095              		.loc 1 183 0
- 1096 0494 0F23     		movs	r3, #15
- 1097 0496 FB18     		adds	r3, r7, r3
- 1098 0498 1B78     		ldrb	r3, [r3]
- 1099 049a 8022     		movs	r2, #128
- 1100 049c 5242     		rsbs	r2, r2, #0
- 1101 049e 1343     		orrs	r3, r2
- 1102 04a0 DBB2     		uxtb	r3, r3
- 1103 04a2 1800     		movs	r0, r3
- 1104 04a4 FFF7FEFF 		bl	ascii_write_cmd
- 184:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** }
- 1105              		.loc 1 184 0
- 1106 04a8 C046     		nop
- 1107 04aa BD46     		mov	sp, r7
- 1108 04ac 04B0     		add	sp, sp, #16
- 1109              		@ sp needed
- 1110 04ae 80BD     		pop	{r7, pc}
- 1111              		.cfi_endproc
- 1112              	.LFE16:
- 1114              		.section	.rodata
- 1115              		.align	2
- 1116              	.LC2:
- 1117 0040 416C6661 		.ascii	"Alfanumerisk \000"
- 1117      6E756D65 
- 1117      7269736B 
- 1117      2000
- 1118 004e 0000     		.align	2
- 1119              	.LC4:
- 1120 0050 44697370 		.ascii	"Display - test\000"
- 1120      6C617920 
- 1120      2D207465 
- 1120      737400
- 1121              		.text
- 1122              		.align	1
- 1123              		.global	main
- 1124              		.syntax unified
- 1125              		.code	16
- 1126              		.thumb_func
- 1127              		.fpu softvfp
- 1129              	main:
- 1130              	.LFB17:
- 185:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 
- 186:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** void main(int argc, char **argv) {
- 1131              		.loc 1 186 0
- 1132              		.cfi_startproc
- 1133              		@ args = 0, pretend = 0, frame = 48
- 1134              		@ frame_needed = 1, uses_anonymous_args = 0
- 1135 04b0 90B5     		push	{r4, r7, lr}
- 1136              		.cfi_def_cfa_offset 12
- 1137              		.cfi_offset 4, -12
- 1138              		.cfi_offset 7, -8
- 1139              		.cfi_offset 14, -4
- 1140 04b2 8DB0     		sub	sp, sp, #52
- 1141              		.cfi_def_cfa_offset 64
- 1142 04b4 00AF     		add	r7, sp, #0
- 1143              		.cfi_def_cfa_register 7
- 1144 04b6 7860     		str	r0, [r7, #4]
- 1145 04b8 3960     		str	r1, [r7]
- 187:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	char *s;
- 188:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	char test1[] = "Alfanumerisk ";
- 1146              		.loc 1 188 0
- 1147 04ba 1C23     		movs	r3, #28
- 1148 04bc FB18     		adds	r3, r7, r3
- 1149 04be 1C4A     		ldr	r2, .L73
- 1150 04c0 13CA     		ldmia	r2!, {r0, r1, r4}
- 1151 04c2 13C3     		stmia	r3!, {r0, r1, r4}
- 1152 04c4 1288     		ldrh	r2, [r2]
- 1153 04c6 1A80     		strh	r2, [r3]
- 189:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	char test2[] = "Display - test";
- 1154              		.loc 1 189 0
- 1155 04c8 0C23     		movs	r3, #12
- 1156 04ca FB18     		adds	r3, r7, r3
- 1157 04cc 194A     		ldr	r2, .L73+4
- 1158 04ce 13CA     		ldmia	r2!, {r0, r1, r4}
- 1159 04d0 13C3     		stmia	r3!, {r0, r1, r4}
- 1160 04d2 1188     		ldrh	r1, [r2]
- 1161 04d4 1980     		strh	r1, [r3]
- 1162 04d6 9278     		ldrb	r2, [r2, #2]
- 1163 04d8 9A70     		strb	r2, [r3, #2]
- 190:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** //	
- 191:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	init_app();
- 1164              		.loc 1 191 0
- 1165 04da FFF7FEFF 		bl	init_app
- 192:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c ****     ascii_init();
- 1166              		.loc 1 192 0
- 1167 04de FFF7FEFF 		bl	ascii_init
- 193:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	goToXY(1,1);
- 1168              		.loc 1 193 0
- 1169 04e2 0121     		movs	r1, #1
- 1170 04e4 0120     		movs	r0, #1
- 1171 04e6 FFF7FEFF 		bl	goToXY
- 194:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	
- 195:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	s = test1;
- 1172              		.loc 1 195 0
- 1173 04ea 1C23     		movs	r3, #28
- 1174 04ec FB18     		adds	r3, r7, r3
- 1175 04ee FB62     		str	r3, [r7, #44]
- 196:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	while(*s) {
- 1176              		.loc 1 196 0
- 1177 04f0 06E0     		b	.L68
- 1178              	.L69:
- 197:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 		ascii_write_char(*s++);
+ 1039 045a 2D20     		movs	r0, #45
+ 1040 045c FFF7FEFF 		bl	delay_mikro
+ 177:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** }
+ 1041              		.loc 1 177 0
+ 1042 0460 C046     		nop
+ 1043 0462 BD46     		mov	sp, r7
+ 1044 0464 02B0     		add	sp, sp, #8
+ 1045              		@ sp needed
+ 1046 0466 80BD     		pop	{r7, pc}
+ 1047              		.cfi_endproc
+ 1048              	.LFE15:
+ 1050              		.align	1
+ 1051              		.global	goToXY
+ 1052              		.syntax unified
+ 1053              		.code	16
+ 1054              		.thumb_func
+ 1055              		.fpu softvfp
+ 1057              	goToXY:
+ 1058              	.LFB16:
+ 178:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 
+ 179:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** void goToXY(unsigned char row, unsigned char column) {
+ 1059              		.loc 1 179 0
+ 1060              		.cfi_startproc
+ 1061              		@ args = 0, pretend = 0, frame = 16
+ 1062              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1063 0468 80B5     		push	{r7, lr}
+ 1064              		.cfi_def_cfa_offset 8
+ 1065              		.cfi_offset 7, -8
+ 1066              		.cfi_offset 14, -4
+ 1067 046a 84B0     		sub	sp, sp, #16
+ 1068              		.cfi_def_cfa_offset 24
+ 1069 046c 00AF     		add	r7, sp, #0
+ 1070              		.cfi_def_cfa_register 7
+ 1071 046e 0200     		movs	r2, r0
+ 1072 0470 FB1D     		adds	r3, r7, #7
+ 1073 0472 1A70     		strb	r2, [r3]
+ 1074 0474 BB1D     		adds	r3, r7, #6
+ 1075 0476 0A1C     		adds	r2, r1, #0
+ 1076 0478 1A70     		strb	r2, [r3]
+ 180:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	unsigned char address = row - 1;
+ 1077              		.loc 1 180 0
+ 1078 047a 0F23     		movs	r3, #15
+ 1079 047c FB18     		adds	r3, r7, r3
+ 1080 047e FA1D     		adds	r2, r7, #7
+ 1081 0480 1278     		ldrb	r2, [r2]
+ 1082 0482 013A     		subs	r2, r2, #1
+ 1083 0484 1A70     		strb	r2, [r3]
+ 181:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	if(column == 2) {
+ 1084              		.loc 1 181 0
+ 1085 0486 BB1D     		adds	r3, r7, #6
+ 1086 0488 1B78     		ldrb	r3, [r3]
+ 1087 048a 022B     		cmp	r3, #2
+ 1088 048c 06D1     		bne	.L66
+ 182:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 		address = address + 0x40;
+ 1089              		.loc 1 182 0
+ 1090 048e 0F23     		movs	r3, #15
+ 1091 0490 FB18     		adds	r3, r7, r3
+ 1092 0492 0F22     		movs	r2, #15
+ 1093 0494 BA18     		adds	r2, r7, r2
+ 1094 0496 1278     		ldrb	r2, [r2]
+ 1095 0498 4032     		adds	r2, r2, #64
+ 1096 049a 1A70     		strb	r2, [r3]
+ 1097              	.L66:
+ 183:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	}
+ 184:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	ascii_write_cmd(0x80 | address);
+ 1098              		.loc 1 184 0
+ 1099 049c 0F23     		movs	r3, #15
+ 1100 049e FB18     		adds	r3, r7, r3
+ 1101 04a0 1B78     		ldrb	r3, [r3]
+ 1102 04a2 8022     		movs	r2, #128
+ 1103 04a4 5242     		rsbs	r2, r2, #0
+ 1104 04a6 1343     		orrs	r3, r2
+ 1105 04a8 DBB2     		uxtb	r3, r3
+ 1106 04aa 1800     		movs	r0, r3
+ 1107 04ac FFF7FEFF 		bl	ascii_write_cmd
+ 185:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** }
+ 1108              		.loc 1 185 0
+ 1109 04b0 C046     		nop
+ 1110 04b2 BD46     		mov	sp, r7
+ 1111 04b4 04B0     		add	sp, sp, #16
+ 1112              		@ sp needed
+ 1113 04b6 80BD     		pop	{r7, pc}
+ 1114              		.cfi_endproc
+ 1115              	.LFE16:
+ 1117              		.section	.rodata
+ 1118              		.align	2
+ 1119              	.LC2:
+ 1120 0040 416C6661 		.ascii	"Alfanumerisk \000"
+ 1120      6E756D65 
+ 1120      7269736B 
+ 1120      2000
+ 1121 004e 0000     		.align	2
+ 1122              	.LC4:
+ 1123 0050 44697370 		.ascii	"Display - test\000"
+ 1123      6C617920 
+ 1123      2D207465 
+ 1123      737400
+ 1124              		.text
+ 1125              		.align	1
+ 1126              		.global	main
+ 1127              		.syntax unified
+ 1128              		.code	16
+ 1129              		.thumb_func
+ 1130              		.fpu softvfp
+ 1132              	main:
+ 1133              	.LFB17:
+ 186:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 
+ 187:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** void main(int argc, char **argv) {
+ 1134              		.loc 1 187 0
+ 1135              		.cfi_startproc
+ 1136              		@ args = 0, pretend = 0, frame = 48
+ 1137              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1138 04b8 90B5     		push	{r4, r7, lr}
+ 1139              		.cfi_def_cfa_offset 12
+ 1140              		.cfi_offset 4, -12
+ 1141              		.cfi_offset 7, -8
+ 1142              		.cfi_offset 14, -4
+ 1143 04ba 8DB0     		sub	sp, sp, #52
+ 1144              		.cfi_def_cfa_offset 64
+ 1145 04bc 00AF     		add	r7, sp, #0
+ 1146              		.cfi_def_cfa_register 7
+ 1147 04be 7860     		str	r0, [r7, #4]
+ 1148 04c0 3960     		str	r1, [r7]
+ 188:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	char *s;
+ 189:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	char test1[] = "Alfanumerisk ";
+ 1149              		.loc 1 189 0
+ 1150 04c2 1C23     		movs	r3, #28
+ 1151 04c4 FB18     		adds	r3, r7, r3
+ 1152 04c6 1E4A     		ldr	r2, .L73
+ 1153 04c8 13CA     		ldmia	r2!, {r0, r1, r4}
+ 1154 04ca 13C3     		stmia	r3!, {r0, r1, r4}
+ 1155 04cc 1288     		ldrh	r2, [r2]
+ 1156 04ce 1A80     		strh	r2, [r3]
+ 190:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	char test2[] = "Display - test";
+ 1157              		.loc 1 190 0
+ 1158 04d0 0C23     		movs	r3, #12
+ 1159 04d2 FB18     		adds	r3, r7, r3
+ 1160 04d4 1B4A     		ldr	r2, .L73+4
+ 1161 04d6 13CA     		ldmia	r2!, {r0, r1, r4}
+ 1162 04d8 13C3     		stmia	r3!, {r0, r1, r4}
+ 1163 04da 1188     		ldrh	r1, [r2]
+ 1164 04dc 1980     		strh	r1, [r3]
+ 1165 04de 9278     		ldrb	r2, [r2, #2]
+ 1166 04e0 9A70     		strb	r2, [r3, #2]
+ 191:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** ////	
+ 192:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	init_app();
+ 1167              		.loc 1 192 0
+ 1168 04e2 FFF7FEFF 		bl	init_app
+ 193:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c ****     ascii_init();
+ 1169              		.loc 1 193 0
+ 1170 04e6 FFF7FEFF 		bl	ascii_init
+ 194:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	goToXY(1,1);
+ 1171              		.loc 1 194 0
+ 1172 04ea 0121     		movs	r1, #1
+ 1173 04ec 0120     		movs	r0, #1
+ 1174 04ee FFF7FEFF 		bl	goToXY
+ 195:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	
+ 196:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	s = test1;
+ 1175              		.loc 1 196 0
+ 1176 04f2 1C23     		movs	r3, #28
+ 1177 04f4 FB18     		adds	r3, r7, r3
+ 1178 04f6 FB62     		str	r3, [r7, #44]
+ 197:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	while(*s) {
  1179              		.loc 1 197 0
- 1180 04f2 FB6A     		ldr	r3, [r7, #44]
- 1181 04f4 5A1C     		adds	r2, r3, #1
- 1182 04f6 FA62     		str	r2, [r7, #44]
- 1183 04f8 1B78     		ldrb	r3, [r3]
- 1184 04fa 1800     		movs	r0, r3
- 1185 04fc FFF7FEFF 		bl	ascii_write_char
- 1186              	.L68:
- 196:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	while(*s) {
- 1187              		.loc 1 196 0
- 1188 0500 FB6A     		ldr	r3, [r7, #44]
- 1189 0502 1B78     		ldrb	r3, [r3]
- 1190 0504 002B     		cmp	r3, #0
- 1191 0506 F4D1     		bne	.L69
- 198:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	}
- 199:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	s = test2;
- 1192              		.loc 1 199 0
- 1193 0508 0C23     		movs	r3, #12
- 1194 050a FB18     		adds	r3, r7, r3
- 1195 050c FB62     		str	r3, [r7, #44]
- 200:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	while(*s) {
- 1196              		.loc 1 200 0
- 1197 050e 06E0     		b	.L70
- 1198              	.L71:
- 201:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 		ascii_write_char(*s++);
+ 1180 04f8 06E0     		b	.L68
+ 1181              	.L69:
+ 198:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 		ascii_write_char(*s++);
+ 1182              		.loc 1 198 0
+ 1183 04fa FB6A     		ldr	r3, [r7, #44]
+ 1184 04fc 5A1C     		adds	r2, r3, #1
+ 1185 04fe FA62     		str	r2, [r7, #44]
+ 1186 0500 1B78     		ldrb	r3, [r3]
+ 1187 0502 1800     		movs	r0, r3
+ 1188 0504 FFF7FEFF 		bl	ascii_write_char
+ 1189              	.L68:
+ 197:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	while(*s) {
+ 1190              		.loc 1 197 0
+ 1191 0508 FB6A     		ldr	r3, [r7, #44]
+ 1192 050a 1B78     		ldrb	r3, [r3]
+ 1193 050c 002B     		cmp	r3, #0
+ 1194 050e F4D1     		bne	.L69
+ 199:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	}
+ 200:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	goToXY(1,2);
+ 1195              		.loc 1 200 0
+ 1196 0510 0221     		movs	r1, #2
+ 1197 0512 0120     		movs	r0, #1
+ 1198 0514 FFF7FEFF 		bl	goToXY
+ 201:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	s = test2;
  1199              		.loc 1 201 0
- 1200 0510 FB6A     		ldr	r3, [r7, #44]
- 1201 0512 5A1C     		adds	r2, r3, #1
- 1202 0514 FA62     		str	r2, [r7, #44]
- 1203 0516 1B78     		ldrb	r3, [r3]
- 1204 0518 1800     		movs	r0, r3
- 1205 051a FFF7FEFF 		bl	ascii_write_char
- 1206              	.L70:
- 200:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	while(*s) {
- 1207              		.loc 1 200 0
- 1208 051e FB6A     		ldr	r3, [r7, #44]
- 1209 0520 1B78     		ldrb	r3, [r3]
- 1210 0522 002B     		cmp	r3, #0
- 1211 0524 F4D1     		bne	.L71
- 202:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	}
- 203:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** //		ascii_write_char(*s++);
- 204:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** //	}
- 205:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** //	ascii_ctrl_bit_set(0);
- 206:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** //	ascii_ctrl_bit_set(1);
- 207:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** //	ascii_ctrl_bit_set(2);
- 208:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** //	ascii_ctrl_bit_set(3);
- 209:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** //	ascii_ctrl_bit_set(4);
- 210:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** //	ascii_ctrl_bit_set(5);
- 211:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** //	ascii_ctrl_bit_set(6);
- 212:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** //	ascii_ctrl_bit_set(7);
- 213:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** //	
- 214:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** //	ascii_ctrl_bit_clear(0);
- 215:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** //	ascii_ctrl_bit_clear(1);
- 216:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** //	ascii_ctrl_bit_clear(2);
- 217:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** //	ascii_ctrl_bit_clear(3);
- 218:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** //	ascii_ctrl_bit_clear(4);
- 219:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** //	ascii_ctrl_bit_clear(5);
- 220:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** //	ascii_ctrl_bit_clear(6);
- 221:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** //	ascii_ctrl_bit_clear(7);
- 222:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	return 0;
- 1212              		.loc 1 222 0
- 1213 0526 C046     		nop
- 223:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** }
- 1214              		.loc 1 223 0
- 1215 0528 BD46     		mov	sp, r7
- 1216 052a 0DB0     		add	sp, sp, #52
- 1217              		@ sp needed
- 1218 052c 90BD     		pop	{r4, r7, pc}
- 1219              	.L74:
- 1220 052e C046     		.align	2
- 1221              	.L73:
- 1222 0530 40000000 		.word	.LC2
- 1223 0534 50000000 		.word	.LC4
- 1224              		.cfi_endproc
- 1225              	.LFE17:
- 1227              	.Letext0:
+ 1200 0518 0C23     		movs	r3, #12
+ 1201 051a FB18     		adds	r3, r7, r3
+ 1202 051c FB62     		str	r3, [r7, #44]
+ 202:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	while(*s) {
+ 1203              		.loc 1 202 0
+ 1204 051e 06E0     		b	.L70
+ 1205              	.L71:
+ 203:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 		ascii_write_char(*s++);
+ 1206              		.loc 1 203 0
+ 1207 0520 FB6A     		ldr	r3, [r7, #44]
+ 1208 0522 5A1C     		adds	r2, r3, #1
+ 1209 0524 FA62     		str	r2, [r7, #44]
+ 1210 0526 1B78     		ldrb	r3, [r3]
+ 1211 0528 1800     		movs	r0, r3
+ 1212 052a FFF7FEFF 		bl	ascii_write_char
+ 1213              	.L70:
+ 202:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	while(*s) {
+ 1214              		.loc 1 202 0
+ 1215 052e FB6A     		ldr	r3, [r7, #44]
+ 1216 0530 1B78     		ldrb	r3, [r3]
+ 1217 0532 002B     		cmp	r3, #0
+ 1218 0534 F4D1     		bne	.L71
+ 204:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	}
+ 205:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** 	return 0;
+ 1219              		.loc 1 205 0
+ 1220 0536 C046     		nop
+ 206:C:/Users/Hampus/Desktop/DAT017/CodeLite/asciidisplay\startup.c **** }
+ 1221              		.loc 1 206 0
+ 1222 0538 BD46     		mov	sp, r7
+ 1223 053a 0DB0     		add	sp, sp, #52
+ 1224              		@ sp needed
+ 1225 053c 90BD     		pop	{r4, r7, pc}
+ 1226              	.L74:
+ 1227 053e C046     		.align	2
+ 1228              	.L73:
+ 1229 0540 40000000 		.word	.LC2
+ 1230 0544 50000000 		.word	.LC4
+ 1231              		.cfi_endproc
+ 1232              	.LFE17:
+ 1234              	.Letext0:

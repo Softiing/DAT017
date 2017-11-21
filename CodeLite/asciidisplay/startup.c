@@ -160,6 +160,7 @@ void ascii_command(char command, unsigned int delayMicro) {
 }
 
 void ascii_init(void) {
+	ascii_ctrl_bit_set(B_SELECT);
 	ascii_command(0x38, 40); // Set display size and font size
     ascii_command(0xE, 40); // Set display, cursor on
 	ascii_command(0x01, 1530); // Clear display
@@ -187,7 +188,7 @@ void main(int argc, char **argv) {
 	char *s;
 	char test1[] = "Alfanumerisk ";
 	char test2[] = "Display - test";
-//	
+////	
 	init_app();
     ascii_init();
 	goToXY(1,1);
@@ -196,28 +197,10 @@ void main(int argc, char **argv) {
 	while(*s) {
 		ascii_write_char(*s++);
 	}
+	goToXY(1,2);
 	s = test2;
 	while(*s) {
 		ascii_write_char(*s++);
 	}
-//		ascii_write_char(*s++);
-//	}
-//	ascii_ctrl_bit_set(0);
-//	ascii_ctrl_bit_set(1);
-//	ascii_ctrl_bit_set(2);
-//	ascii_ctrl_bit_set(3);
-//	ascii_ctrl_bit_set(4);
-//	ascii_ctrl_bit_set(5);
-//	ascii_ctrl_bit_set(6);
-//	ascii_ctrl_bit_set(7);
-//	
-//	ascii_ctrl_bit_clear(0);
-//	ascii_ctrl_bit_clear(1);
-//	ascii_ctrl_bit_clear(2);
-//	ascii_ctrl_bit_clear(3);
-//	ascii_ctrl_bit_clear(4);
-//	ascii_ctrl_bit_clear(5);
-//	ascii_ctrl_bit_clear(6);
-//	ascii_ctrl_bit_clear(7);
 	return 0;
 }
