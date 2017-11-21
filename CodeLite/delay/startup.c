@@ -41,8 +41,8 @@ void init_app(void) {
 
 void delay_250ns(void) {
 	*STK_CTRL = 0;
-	*STK_VAL = 0;
 	*STK_LOAD = 49; //  48 + 1. Have to add one as said in manual
+	*STK_VAL = 0;
 	*STK_CTRL = 5;
 	while((*STK_CTRL & 0x10000) == 0) {
 		// Do nothing :S
@@ -51,7 +51,7 @@ void delay_250ns(void) {
 }
 
 void delay_mikro(unsigned int us) {
-	for(unsigned int i = 0; i < us; i++) {
+	while(us--) {
 		delay_250ns();
 		delay_250ns();
 		delay_250ns();
@@ -61,11 +61,10 @@ void delay_mikro(unsigned int us) {
 
 void delay_milli(unsigned int ms) {
 	#ifdef SIMULATOR
-		ms = ms / 1000;
-		ms++;
+		delay_mikro(ms);
+	#else
+		delay_mikro(1000 * ms)
 	#endif
-	
-	delay_mikro(1000 * ms);	
 }
 
 void main(void) {

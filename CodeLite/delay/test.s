@@ -187,15 +187,15 @@
  149 0074 0C4B     		ldr	r3, .L7
  150 0076 0022     		movs	r2, #0
  151 0078 1A60     		str	r2, [r3]
-  44:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 	*STK_VAL = 0;
+  44:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 	*STK_LOAD = 49; //  48 + 1. Have to add one as said in manual
  152              		.loc 1 44 0
  153 007a 0C4B     		ldr	r3, .L7+4
- 154 007c 0022     		movs	r2, #0
+ 154 007c 3122     		movs	r2, #49
  155 007e 1A60     		str	r2, [r3]
-  45:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 	*STK_LOAD = 49; //  48 + 1. Have to add one as said in manual
+  45:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 	*STK_VAL = 0;
  156              		.loc 1 45 0
  157 0080 0B4B     		ldr	r3, .L7+8
- 158 0082 3122     		movs	r2, #49
+ 158 0082 0022     		movs	r2, #0
  159 0084 1A60     		str	r2, [r3]
   46:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 	*STK_CTRL = 5;
  160              		.loc 1 46 0
@@ -230,8 +230,8 @@
  184 00a6 C046     		.align	2
  185              	.L7:
  186 00a8 10E000E0 		.word	-536813552
- 187 00ac 18E000E0 		.word	-536813544
- 188 00b0 14E000E0 		.word	-536813548
+ 187 00ac 14E000E0 		.word	-536813548
+ 188 00b0 18E000E0 		.word	-536813544
  189              		.cfi_endproc
  190              	.LFE2:
  192              		.align	1
@@ -246,172 +246,146 @@
   53:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** void delay_mikro(unsigned int us) {
  201              		.loc 1 53 0
  202              		.cfi_startproc
- 203              		@ args = 0, pretend = 0, frame = 16
+ 203              		@ args = 0, pretend = 0, frame = 8
  204              		@ frame_needed = 1, uses_anonymous_args = 0
  205 00b4 80B5     		push	{r7, lr}
  206              		.cfi_def_cfa_offset 8
  207              		.cfi_offset 7, -8
  208              		.cfi_offset 14, -4
- 209 00b6 84B0     		sub	sp, sp, #16
- 210              		.cfi_def_cfa_offset 24
+ 209 00b6 82B0     		sub	sp, sp, #8
+ 210              		.cfi_def_cfa_offset 16
  211 00b8 00AF     		add	r7, sp, #0
  212              		.cfi_def_cfa_register 7
  213 00ba 7860     		str	r0, [r7, #4]
- 214              	.LBB2:
-  54:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 	for(unsigned int i = 0; i < us; i++) {
- 215              		.loc 1 54 0
- 216 00bc 0023     		movs	r3, #0
- 217 00be FB60     		str	r3, [r7, #12]
- 218 00c0 0AE0     		b	.L10
- 219              	.L11:
+  54:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 	while(us--) {
+ 214              		.loc 1 54 0
+ 215 00bc 07E0     		b	.L10
+ 216              	.L11:
   55:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 		delay_250ns();
- 220              		.loc 1 55 0 discriminator 3
- 221 00c2 FFF7FEFF 		bl	delay_250ns
+ 217              		.loc 1 55 0
+ 218 00be FFF7FEFF 		bl	delay_250ns
   56:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 		delay_250ns();
- 222              		.loc 1 56 0 discriminator 3
- 223 00c6 FFF7FEFF 		bl	delay_250ns
+ 219              		.loc 1 56 0
+ 220 00c2 FFF7FEFF 		bl	delay_250ns
   57:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 		delay_250ns();
- 224              		.loc 1 57 0 discriminator 3
- 225 00ca FFF7FEFF 		bl	delay_250ns
+ 221              		.loc 1 57 0
+ 222 00c6 FFF7FEFF 		bl	delay_250ns
   58:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 		delay_250ns();
- 226              		.loc 1 58 0 discriminator 3
- 227 00ce FFF7FEFF 		bl	delay_250ns
+ 223              		.loc 1 58 0
+ 224 00ca FFF7FEFF 		bl	delay_250ns
+ 225              	.L10:
   54:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 		delay_250ns();
- 228              		.loc 1 54 0 discriminator 3
- 229 00d2 FB68     		ldr	r3, [r7, #12]
- 230 00d4 0133     		adds	r3, r3, #1
- 231 00d6 FB60     		str	r3, [r7, #12]
- 232              	.L10:
-  54:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 		delay_250ns();
- 233              		.loc 1 54 0 is_stmt 0 discriminator 1
- 234 00d8 FA68     		ldr	r2, [r7, #12]
- 235 00da 7B68     		ldr	r3, [r7, #4]
- 236 00dc 9A42     		cmp	r2, r3
- 237 00de F0D3     		bcc	.L11
- 238              	.LBE2:
+ 226              		.loc 1 54 0
+ 227 00ce 7B68     		ldr	r3, [r7, #4]
+ 228 00d0 5A1E     		subs	r2, r3, #1
+ 229 00d2 7A60     		str	r2, [r7, #4]
+ 230 00d4 002B     		cmp	r3, #0
+ 231 00d6 F2D1     		bne	.L11
   59:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 	}
   60:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** }
- 239              		.loc 1 60 0 is_stmt 1
- 240 00e0 C046     		nop
- 241 00e2 BD46     		mov	sp, r7
- 242 00e4 04B0     		add	sp, sp, #16
- 243              		@ sp needed
- 244 00e6 80BD     		pop	{r7, pc}
- 245              		.cfi_endproc
- 246              	.LFE3:
- 248              		.global	__aeabi_uidiv
- 249              		.align	1
- 250              		.global	delay_milli
- 251              		.syntax unified
- 252              		.code	16
- 253              		.thumb_func
- 254              		.fpu softvfp
- 256              	delay_milli:
- 257              	.LFB4:
+ 232              		.loc 1 60 0
+ 233 00d8 C046     		nop
+ 234 00da BD46     		mov	sp, r7
+ 235 00dc 02B0     		add	sp, sp, #8
+ 236              		@ sp needed
+ 237 00de 80BD     		pop	{r7, pc}
+ 238              		.cfi_endproc
+ 239              	.LFE3:
+ 241              		.align	1
+ 242              		.global	delay_milli
+ 243              		.syntax unified
+ 244              		.code	16
+ 245              		.thumb_func
+ 246              		.fpu softvfp
+ 248              	delay_milli:
+ 249              	.LFB4:
   61:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 
   62:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** void delay_milli(unsigned int ms) {
- 258              		.loc 1 62 0
- 259              		.cfi_startproc
- 260              		@ args = 0, pretend = 0, frame = 8
- 261              		@ frame_needed = 1, uses_anonymous_args = 0
- 262 00e8 80B5     		push	{r7, lr}
- 263              		.cfi_def_cfa_offset 8
- 264              		.cfi_offset 7, -8
- 265              		.cfi_offset 14, -4
- 266 00ea 82B0     		sub	sp, sp, #8
- 267              		.cfi_def_cfa_offset 16
- 268 00ec 00AF     		add	r7, sp, #0
- 269              		.cfi_def_cfa_register 7
- 270 00ee 7860     		str	r0, [r7, #4]
+ 250              		.loc 1 62 0
+ 251              		.cfi_startproc
+ 252              		@ args = 0, pretend = 0, frame = 8
+ 253              		@ frame_needed = 1, uses_anonymous_args = 0
+ 254 00e0 80B5     		push	{r7, lr}
+ 255              		.cfi_def_cfa_offset 8
+ 256              		.cfi_offset 7, -8
+ 257              		.cfi_offset 14, -4
+ 258 00e2 82B0     		sub	sp, sp, #8
+ 259              		.cfi_def_cfa_offset 16
+ 260 00e4 00AF     		add	r7, sp, #0
+ 261              		.cfi_def_cfa_register 7
+ 262 00e6 7860     		str	r0, [r7, #4]
   63:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 	#ifdef SIMULATOR
-  64:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 		ms = ms / 1000;
- 271              		.loc 1 64 0
- 272 00f0 7A68     		ldr	r2, [r7, #4]
- 273 00f2 FA23     		movs	r3, #250
- 274 00f4 9900     		lsls	r1, r3, #2
- 275 00f6 1000     		movs	r0, r2
- 276 00f8 FFF7FEFF 		bl	__aeabi_uidiv
- 277              	.LVL0:
- 278 00fc 0300     		movs	r3, r0
- 279 00fe 7B60     		str	r3, [r7, #4]
-  65:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 		ms++;
- 280              		.loc 1 65 0
- 281 0100 7B68     		ldr	r3, [r7, #4]
- 282 0102 0133     		adds	r3, r3, #1
- 283 0104 7B60     		str	r3, [r7, #4]
-  66:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 	#endif
-  67:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 	
-  68:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 	delay_mikro(1000 * ms);	
- 284              		.loc 1 68 0
- 285 0106 7B68     		ldr	r3, [r7, #4]
- 286 0108 FA22     		movs	r2, #250
- 287 010a 9200     		lsls	r2, r2, #2
- 288 010c 5343     		muls	r3, r2
- 289 010e 1800     		movs	r0, r3
- 290 0110 FFF7FEFF 		bl	delay_mikro
-  69:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** }
- 291              		.loc 1 69 0
- 292 0114 C046     		nop
- 293 0116 BD46     		mov	sp, r7
- 294 0118 02B0     		add	sp, sp, #8
- 295              		@ sp needed
- 296 011a 80BD     		pop	{r7, pc}
- 297              		.cfi_endproc
- 298              	.LFE4:
- 300              		.align	1
- 301              		.global	main
- 302              		.syntax unified
- 303              		.code	16
- 304              		.thumb_func
- 305              		.fpu softvfp
- 307              	main:
- 308              	.LFB5:
-  70:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 
-  71:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** void main(void) {
- 309              		.loc 1 71 0
- 310              		.cfi_startproc
- 311              		@ args = 0, pretend = 0, frame = 0
- 312              		@ frame_needed = 1, uses_anonymous_args = 0
- 313 011c 80B5     		push	{r7, lr}
- 314              		.cfi_def_cfa_offset 8
- 315              		.cfi_offset 7, -8
- 316              		.cfi_offset 14, -4
- 317 011e 00AF     		add	r7, sp, #0
- 318              		.cfi_def_cfa_register 7
-  72:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 	init_app();
- 319              		.loc 1 72 0
- 320 0120 FFF7FEFF 		bl	init_app
- 321              	.L14:
-  73:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 	while(1) {
-  74:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 		*GPIO_ODR_LOW = 0;
- 322              		.loc 1 74 0 discriminator 1
- 323 0124 084B     		ldr	r3, .L15
- 324 0126 0022     		movs	r2, #0
- 325 0128 1A70     		strb	r2, [r3]
-  75:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 		delay_milli(500);
- 326              		.loc 1 75 0 discriminator 1
- 327 012a FA23     		movs	r3, #250
- 328 012c 5B00     		lsls	r3, r3, #1
- 329 012e 1800     		movs	r0, r3
- 330 0130 FFF7FEFF 		bl	delay_milli
-  76:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 		*GPIO_ODR_LOW = 0xFF;
- 331              		.loc 1 76 0 discriminator 1
- 332 0134 044B     		ldr	r3, .L15
- 333 0136 FF22     		movs	r2, #255
- 334 0138 1A70     		strb	r2, [r3]
-  77:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 		delay_milli(500);
- 335              		.loc 1 77 0 discriminator 1
- 336 013a FA23     		movs	r3, #250
- 337 013c 5B00     		lsls	r3, r3, #1
- 338 013e 1800     		movs	r0, r3
- 339 0140 FFF7FEFF 		bl	delay_milli
+  64:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 		delay_mikro(ms);
+ 263              		.loc 1 64 0
+ 264 00e8 7B68     		ldr	r3, [r7, #4]
+ 265 00ea 1800     		movs	r0, r3
+ 266 00ec FFF7FEFF 		bl	delay_mikro
+  65:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 	#else
+  66:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 		delay_mikro(1000 * ms)
+  67:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 	#endif
+  68:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** }
+ 267              		.loc 1 68 0
+ 268 00f0 C046     		nop
+ 269 00f2 BD46     		mov	sp, r7
+ 270 00f4 02B0     		add	sp, sp, #8
+ 271              		@ sp needed
+ 272 00f6 80BD     		pop	{r7, pc}
+ 273              		.cfi_endproc
+ 274              	.LFE4:
+ 276              		.align	1
+ 277              		.global	main
+ 278              		.syntax unified
+ 279              		.code	16
+ 280              		.thumb_func
+ 281              		.fpu softvfp
+ 283              	main:
+ 284              	.LFB5:
+  69:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 
+  70:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** void main(void) {
+ 285              		.loc 1 70 0
+ 286              		.cfi_startproc
+ 287              		@ args = 0, pretend = 0, frame = 0
+ 288              		@ frame_needed = 1, uses_anonymous_args = 0
+ 289 00f8 80B5     		push	{r7, lr}
+ 290              		.cfi_def_cfa_offset 8
+ 291              		.cfi_offset 7, -8
+ 292              		.cfi_offset 14, -4
+ 293 00fa 00AF     		add	r7, sp, #0
+ 294              		.cfi_def_cfa_register 7
+  71:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 	init_app();
+ 295              		.loc 1 71 0
+ 296 00fc FFF7FEFF 		bl	init_app
+ 297              	.L14:
+  72:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 	while(1) {
+  73:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 		*GPIO_ODR_LOW = 0;
+ 298              		.loc 1 73 0 discriminator 1
+ 299 0100 084B     		ldr	r3, .L15
+ 300 0102 0022     		movs	r2, #0
+ 301 0104 1A70     		strb	r2, [r3]
   74:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 		delay_milli(500);
- 340              		.loc 1 74 0 discriminator 1
- 341 0144 EEE7     		b	.L14
- 342              	.L16:
- 343 0146 C046     		.align	2
- 344              	.L15:
- 345 0148 14100240 		.word	1073877012
- 346              		.cfi_endproc
- 347              	.LFE5:
- 349              	.Letext0:
+ 302              		.loc 1 74 0 discriminator 1
+ 303 0106 FA23     		movs	r3, #250
+ 304 0108 5B00     		lsls	r3, r3, #1
+ 305 010a 1800     		movs	r0, r3
+ 306 010c FFF7FEFF 		bl	delay_milli
+  75:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 		*GPIO_ODR_LOW = 0xFF;
+ 307              		.loc 1 75 0 discriminator 1
+ 308 0110 044B     		ldr	r3, .L15
+ 309 0112 FF22     		movs	r2, #255
+ 310 0114 1A70     		strb	r2, [r3]
+  76:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 		delay_milli(500);
+ 311              		.loc 1 76 0 discriminator 1
+ 312 0116 FA23     		movs	r3, #250
+ 313 0118 5B00     		lsls	r3, r3, #1
+ 314 011a 1800     		movs	r0, r3
+ 315 011c FFF7FEFF 		bl	delay_milli
+  73:C:/Users/Hampus/Desktop/DAT017/CodeLite/delay\startup.c **** 		delay_milli(500);
+ 316              		.loc 1 73 0 discriminator 1
+ 317 0120 EEE7     		b	.L14
+ 318              	.L16:
+ 319 0122 C046     		.align	2
+ 320              	.L15:
+ 321 0124 14100240 		.word	1073877012
+ 322              		.cfi_endproc
+ 323              	.LFE5:
+ 325              	.Letext0:

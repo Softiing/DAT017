@@ -36,24 +36,22 @@ __asm volatile(
 
 void init_app(void) {
 	// Setup output pins for asciidisplay
-	*GPIO_MODER &= 0xFFFFFFFF;
-	*GPIO_MODER |= 0x55555555;
+	*GPIO_MODER = 0x55555555;
 	
-	*GPIO_OTYPER &= 0xFFFF;
-	*GPIO_OTYPER |= 0x7777;
+	*GPIO_OTYPER = 0x7777;
 	
-	*GPIO_PUPDR &= 0xFFFFFFFF;
-	*GPIO_PUPDR |= 0xAAAAAAAA;
+	*GPIO_PUPDR = 0xAAAAAAAA;
 	
 	*GPIO_ODR_HIGH = 0;
-	*GPIO_IDR_LOW = 0;
+	*GPIO_ODR_LOW = 0;
+	*GPIO_IDR_HIGH = 0;
 	
 }
 
 void delay_250ns(void) {
 	*STK_CTRL = 0;
-	*STK_VAL = 0;
 	*STK_LOAD = 49; //  48 + 1. Have to add one as said in manual
+	*STK_VAL = 0;
 	*STK_CTRL = 5;
 	while((*STK_CTRL & 0x10000) == 0) {
 		// Do nothing :S
@@ -62,7 +60,7 @@ void delay_250ns(void) {
 }
 
 void delay_mikro(unsigned int us) {
-	for(unsigned int i = 0; i < us; i++) {
+	while(us--) {
 		delay_250ns();
 		delay_250ns();
 		delay_250ns();
@@ -72,36 +70,35 @@ void delay_mikro(unsigned int us) {
 
 void delay_milli(unsigned int ms) {
 	#ifdef SIMULATOR
-		ms = ms / 1000;
-		ms++;
+		delay_mikro(ms);
+	#else
+		delay_mikro(1000 * ms)
 	#endif
-	
-	delay_mikro(1000 * ms);	
 }
 
-void ascii_ctrl_bit_set(unsigned char x) {
+void ascii_ctrl_bit_set(unsigned int x) {
 	switch(x) {
-		case(0): *GPIO_ODR_LOW |= 0x00000001; break;
-		case(1): *GPIO_ODR_LOW |= 0x00000010; break;
-		case(2): *GPIO_ODR_LOW |= 0x00000100; break;
-		case(3): *GPIO_ODR_LOW |= 0x00001000; break;
-		case(4): *GPIO_ODR_LOW |= 0x00010000; break;
-		case(5): *GPIO_ODR_LOW |= 0x00100000; break;
-		case(6): *GPIO_ODR_LOW |= 0x01000000; break;
-		case(7): *GPIO_ODR_LOW |= 0x10000000; break;
+		case 0: *GPIO_ODR_LOW |= 1; break;
+		case 1: *GPIO_ODR_LOW |= 2; break;
+		case 2: *GPIO_ODR_LOW |= 4; break;
+		case 3: *GPIO_ODR_LOW |= 8; break;
+		case 4: *GPIO_ODR_LOW |= 16; break;
+		case 5: *GPIO_ODR_LOW |= 32; break;
+		case 6: *GPIO_ODR_LOW |= 64; break;
+		case 7: *GPIO_ODR_LOW |= 128; break;
 	}
 }
 
-void ascii_ctrl_bit_clear(unsigned char x) {
+void ascii_ctrl_bit_clear(unsigned int x) {
 	switch(x) {
-		case(0): *GPIO_ODR_LOW &= 0x11111110; break;
-		case(1): *GPIO_ODR_LOW &= 0x11111101; break;
-		case(2): *GPIO_ODR_LOW &= 0x11111011; break;
-		case(3): *GPIO_ODR_LOW &= 0x11110111; break;
-		case(4): *GPIO_ODR_LOW &= 0x11101111; break;
-		case(5): *GPIO_ODR_LOW &= 0x11011111; break;
-		case(6): *GPIO_ODR_LOW &= 0x10111111; break;
-		case(7): *GPIO_ODR_LOW &= 0x01111111; break;
+		case(0): *GPIO_ODR_LOW &= 0xFE; break;
+		case(1): *GPIO_ODR_LOW &= 0xFD; break;
+		case(2): *GPIO_ODR_LOW &= 0xFB; break;
+		case(3): *GPIO_ODR_LOW &= 0xF7; break;
+		case(4): *GPIO_ODR_LOW &= 0xEF; break;
+		case(5): *GPIO_ODR_LOW &= 0xDF; break;
+		case(6): *GPIO_ODR_LOW &= 0xBF; break;
+		case(7): *GPIO_ODR_LOW &= 0x7F; break;
 	}
 }
 
@@ -153,19 +150,20 @@ unsigned char ascii_read_data(void) {
 	return rv;
 }
 
-void ascii_command(char command) {
+void ascii_command(char command, unsigned int delayMicro) {
 	while((ascii_read_status() & 0x80) == 0x80) {
 		// Do nothing, wait for status flag
 	}
 	delay_mikro(8);
 	ascii_write_cmd(command);
-	delay_milli(2);
+	delay_mikro(delayMicro);
 }
 
 void ascii_init(void) {
-	ascii_command(0x00111000); // Set display size and font size
-    ascii_command(0x00001110); // Set display, cursor on
-    ascii_command(0x00000110); // Inc, no shift
+	ascii_command(0x38, 40); // Set display size and font size
+    ascii_command(0xE, 40); // Set display, cursor on
+	ascii_command(0x01, 1530); // Clear display
+    ascii_command(0x6, 40); // Inc, no shift
 }
 
 void ascii_write_char(unsigned char charToWrite) {
@@ -174,7 +172,7 @@ void ascii_write_char(unsigned char charToWrite) {
     }
 	delay_mikro(8);
     ascii_write_data(charToWrite);
-    delay_milli(2);
+    delay_mikro(45);
 }
 
 void goToXY(unsigned char row, unsigned char column) {
@@ -185,11 +183,11 @@ void goToXY(unsigned char row, unsigned char column) {
 	ascii_write_cmd(0x80 | address);
 }
 
-void main(void) {
+void main(int argc, char **argv) {
 	char *s;
 	char test1[] = "Alfanumerisk ";
 	char test2[] = "Display - test";
-	
+//	
 	init_app();
     ascii_init();
 	goToXY(1,1);
@@ -202,5 +200,24 @@ void main(void) {
 	while(*s) {
 		ascii_write_char(*s++);
 	}
+//		ascii_write_char(*s++);
+//	}
+//	ascii_ctrl_bit_set(0);
+//	ascii_ctrl_bit_set(1);
+//	ascii_ctrl_bit_set(2);
+//	ascii_ctrl_bit_set(3);
+//	ascii_ctrl_bit_set(4);
+//	ascii_ctrl_bit_set(5);
+//	ascii_ctrl_bit_set(6);
+//	ascii_ctrl_bit_set(7);
+//	
+//	ascii_ctrl_bit_clear(0);
+//	ascii_ctrl_bit_clear(1);
+//	ascii_ctrl_bit_clear(2);
+//	ascii_ctrl_bit_clear(3);
+//	ascii_ctrl_bit_clear(4);
+//	ascii_ctrl_bit_clear(5);
+//	ascii_ctrl_bit_clear(6);
+//	ascii_ctrl_bit_clear(7);
 	return 0;
 }

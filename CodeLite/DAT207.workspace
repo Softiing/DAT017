@@ -5,8 +5,8 @@
   <Project Name="testing" Path="testing/testing.project" Active="No"/>
   <Project Name="basic_io" Path="basic_io/basic_io.project" Active="No"/>
   <Project Name="keyboard" Path="keyboard/keyboard.project" Active="No"/>
-  <Project Name="delay" Path="delay/delay.project" Active="Yes"/>
-  <Project Name="asciidisplay" Path="asciidisplay/asciidisplay.project" Active="No"/>
+  <Project Name="delay" Path="delay/delay.project" Active="No"/>
+  <Project Name="asciidisplay" Path="asciidisplay/asciidisplay.project" Active="Yes"/>
   <BuildMatrix>
     <WorkspaceConfiguration Name="Debug" Selected="yes">
       <Environment/>
