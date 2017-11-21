@@ -129,7 +129,7 @@ void ascii_write_data(unsigned char data) {
 	ascii_write_controller(data);
 }
 
-unsigned char acii_read_status(void) {
+unsigned char ascii_read_status(void) {
 	*GPIO_MODER &= 0x0000FFFF;	
 	ascii_ctrl_bit_clear(B_RS);
 	ascii_ctrl_bit_set(B_RW);
@@ -147,14 +147,43 @@ unsigned char ascii_read_data(void) {
 	return rv;
 }
 
+void ascii_command(char command) {
+	while((ascii_read_status() & 80) == 0x80) {
+		// Do nothing, wait for status flag
+	}
+	delay_mikro(8);
+	ascii_write_cmd(1);
+	delay_milli(2);
+}
 
+void ascii_init(void) {
+	ascii_command(0x00111000); // Set display size and font size
+    ascii_command(0x00001110); // Set display, cursor on
+    ascii_command(0x00000110); // Inc, no shift
+}
+
+void ascii_write_char(unsigned char charToWrite) {
+	while((ascii_read_status() & 80) == 0x80) {
+	// Do nothing, wait for status flag
+    }
+	delay_mikro(8);
+    ascii_write_data(charToWrite);
+    delay_milli(2);
+}
 
 void main(void) {
 	init_app();
-	while(1) {
-		*GPIO_ODR_LOW = 0;
-		delay_milli(500);
-		*GPIO_ODR_LOW = 0xFF;
-		delay_milli(500);
-	}
+    ascii_init();
+	ascii_write_char('a');
+	ascii_write_char('a');
+	ascii_write_char('a');
+	ascii_write_char('a');
+	ascii_write_char('a');
+	ascii_write_char('a');
+	ascii_write_char('a');
+	ascii_write_char('a');
+	ascii_write_char('a');
+	ascii_write_char('a');
+	ascii_write_char('a');
+	ascii_write_char('a');
 }
