@@ -14,6 +14,11 @@
 #define GPIO_ODR_LOW ((volatile unsigned char *) (GPIO_E+0x14))
 #define GPIO_ODR_HIGH ((volatile unsigned char *) (GPIO_E+0x15))
 
+// AciiiDisplay values
+#define B_E 6
+#define B_SELECT 2
+#define B_RW 1
+#define B_RS 0
 
 
 void startup(void) __attribute__((naked)) __attribute__((section (".start_section")) );
@@ -95,6 +100,54 @@ void ascii_ctrl_bit_clear(unsigned char x) {
 		case(7): *GPIO_ODR_LOW &= 0x01111111; break;
 	}
 }
+
+void ascii_write_controller(unsigned char byte) {
+	ascii_ctrl_bit_set(B_E);
+	*GPIO_ODR_HIGH = byte;
+	delay_250ns();
+	ascii_ctrl_bit_clear(B_E);
+}
+
+unsigned char ascii_read_controller() {
+	ascii_ctrl_bit_set(B_E);
+	delay_250ns();
+	delay_250ns();
+	unsigned char rv = *GPIO_IDR_HIGH;
+	ascii_ctrl_bit_clear(B_E);
+	return rv;
+}
+
+void ascii_write_cmd(unsigned char command) {
+	ascii_ctrl_bit_set(B_RS);
+	ascii_ctrl_bit_set(B_RW);
+	ascii_write_controller(command);
+}
+
+void ascii_write_data(unsigned char data) {
+	ascii_ctrl_bit_set(B_RS);
+	ascii_ctrl_bit_clear(B_RW);
+	ascii_write_controller(data);
+}
+
+unsigned char acii_read_status(void) {
+	*GPIO_MODER &= 0x0000FFFF;	
+	ascii_ctrl_bit_clear(B_RS);
+	ascii_ctrl_bit_set(B_RW);
+	unsigned char rv = ascii_read_controller();
+	*GPIO_MODER |= 0x5555FFFF;	
+	return rv;
+}
+
+unsigned char ascii_read_data(void) {
+	*GPIO_MODER &= 0x0000FFFF;	
+	ascii_ctrl_bit_set(B_RS);
+	ascii_ctrl_bit_set(B_RW);
+	unsigned char rv = ascii_read_controller();
+	*GPIO_MODER |= 0x5555FFFF;	
+	return rv;
+}
+
+
 
 void main(void) {
 	init_app();
