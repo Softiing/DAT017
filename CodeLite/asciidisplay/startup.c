@@ -171,6 +171,14 @@ void ascii_write_char(unsigned char charToWrite) {
     delay_milli(2);
 }
 
+void goToXY(unsigned char row, unsigned char column) {
+	unsigned char address = row - 1;
+	if(column == 2) {
+		address = address + 0x40;
+	}
+	ascii_write_cmd(0x80 | address);
+}
+
 void main(void) {
 	init_app();
     ascii_init();
