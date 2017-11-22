@@ -1,6 +1,7 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
-
+#include "renderer.h"
+#include "vecmath.h"
 typedef struct tGameObject{
 	GfxObject gfxObject;
 	vec2f position;
@@ -10,5 +11,7 @@ typedef struct tGameObject{
 	void (*update) (struct tGameObject* this);
 	void (*render) (struct tGameObject* this);
 } GameObject;
+
+void render(GameObject* this);
 
 #endif

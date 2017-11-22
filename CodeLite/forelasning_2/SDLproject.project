@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CodeLite_Project Name="forelasning_2_3" InternalType="Console" Version="10.0.0">
+<CodeLite_Project Name="forelasning_2_3_4" InternalType="Console" Version="10.0.0">
   <Plugins>
     <Plugin Name="qmake">
       <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
@@ -13,6 +13,11 @@
     <File Name="renderer.h"/>
     <File Name="vecmath.h"/>
     <File Name="gameobject.h"/>
+    <File Name="player.h"/>
+    <File Name="background.h"/>
+    <File Name="background.c"/>
+    <File Name="gameobject.c"/>
+    <File Name="player.c"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>
