@@ -3,10 +3,14 @@
 static GameObject aliens[3];
 
 static void updateAlien(GameObject* this) {
-	static float i = 0;
-	this->position.x *= 5 * sin(i);
+	static float i = 1;
+	static int count = 0;
+	this->position.x += gameWidth * sin(i) * 0.01;
 //	this->position.y += gameWidth * sin(i);
-	i=+0.1;
+	if(count % 3 == 0) {
+		i += 0.02;
+	}
+	count ++;
 }
 
 void createAliens() {
@@ -16,8 +20,8 @@ void createAliens() {
 	if(init) {
 		init = false;
 		gfx = createGfxObject(  "../alienship.png" );
-		gfx.outputWidth = 200;
-		gfx.outputHeight = 200;
+		gfx.outputWidth = 100;
+		gfx.outputHeight = 100;
 	}
 	
 	aliens[0].gfxObject = gfx;
