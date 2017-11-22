@@ -5,11 +5,9 @@
 #include "gameobject.h"
 #include "player.h"
 #include "background.h"
+#include "aliens.h"
 
-
-extern GameObject player;
-extern GameObject background;
-extern GameObject gameObjects[];
+extern GameObject* gameObjects[];
 extern int nGameObjects;
 void close(); 
 
@@ -39,10 +37,8 @@ int main( int argc, char* args[] ) {
 	// Init player and background
 	createBackground();
 	createPlayer();
+	createAliens();
 	
-	// Create array of gameobjects
-	gameObjects[0] = background;
-	gameObjects[1] = player;
 	
 	// Init print function pointer
 	void (*print) (char* str, int x, int y) = printToWindow;
@@ -74,12 +70,12 @@ int main( int argc, char* args[] ) {
 		
 		// Update all gameobjects
 		for(int i = 0; i < nGameObjects; i++) {
-			gameObjects[i].update(&gameObjects[i]);
+			gameObjects[i]->update(gameObjects[i]);
 		}
 		
 		// Render all gameobjects
 		for(int i = 0; i < nGameObjects; i++) {
-			gameObjects[i].render(&gameObjects[i]);
+			gameObjects[i]->render(gameObjects[i]);
 		}
 
 
@@ -98,8 +94,9 @@ int main( int argc, char* args[] ) {
 void close()
 {
     //Preferably, you should free all your GfxObjects, by calls to freeGfxObject(GfxObject* obj), but you don't have to.
-    freeGfxObject(&background.gfxObject);
-    freeGfxObject(&player.gfxObject);
+	for(int i = 0; i < nGameObjects; i++) {
+		freeGfxObject(gameObjects[i]);
+	}
     
     closeRenderer(); //Free resources and close SDL
 }

@@ -62,7 +62,7 @@ AS       := $(CodeLiteDir)/tools/gcc/bin/as
 ## User defined environment variables
 ##
 CodeLiteDir:=C:\cseapp\CodeLite
-Objects0=$(IntermediateDirectory)/main.c$(ObjectSuffix) $(IntermediateDirectory)/renderer.c$(ObjectSuffix) $(IntermediateDirectory)/background.c$(ObjectSuffix) $(IntermediateDirectory)/gameobject.c$(ObjectSuffix) $(IntermediateDirectory)/player.c$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/main.c$(ObjectSuffix) $(IntermediateDirectory)/renderer.c$(ObjectSuffix) $(IntermediateDirectory)/background.c$(ObjectSuffix) $(IntermediateDirectory)/gameobject.c$(ObjectSuffix) $(IntermediateDirectory)/player.c$(ObjectSuffix) $(IntermediateDirectory)/aliens.c$(ObjectSuffix) 
 
 
 
@@ -122,6 +122,11 @@ $(IntermediateDirectory)/player.c$(ObjectSuffix): player.c
 	$(CC) $(SourceSwitch) "C:/Users/Hampus/Desktop/DAT017/CodeLite/forelasning_2/player.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/player.c$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/player.c$(PreprocessSuffix): player.c
 	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/player.c$(PreprocessSuffix) player.c
+
+$(IntermediateDirectory)/aliens.c$(ObjectSuffix): aliens.c 
+	$(CC) $(SourceSwitch) "C:/Users/Hampus/Desktop/DAT017/CodeLite/forelasning_2/aliens.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/aliens.c$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/aliens.c$(PreprocessSuffix): aliens.c
+	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/aliens.c$(PreprocessSuffix) aliens.c
 
 ##
 ## Clean

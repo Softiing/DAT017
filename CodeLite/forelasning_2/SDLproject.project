@@ -18,6 +18,8 @@
     <File Name="background.c"/>
     <File Name="gameobject.c"/>
     <File Name="player.c"/>
+    <File Name="aliens.h"/>
+    <File Name="aliens.c"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>

@@ -13,7 +13,7 @@ typedef struct tGameObject{
 	void (*render) (struct tGameObject* this);
 } GameObject;
 
-extern GameObject gameObjects[];
+extern GameObject* gameObjects[];
 extern int nGameObjects;
 
 void render(GameObject* this);

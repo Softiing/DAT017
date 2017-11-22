@@ -52,4 +52,5 @@ void createPlayer() {
 	player.gfxObject.outputHeight = 200;
 	player.update = updatePlayer;
 	player.render = render;
+	gameObjects[nGameObjects++] = &player;
 }

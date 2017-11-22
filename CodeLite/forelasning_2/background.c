@@ -1,6 +1,6 @@
 #include "background.h"  
 
-GameObject background;
+static GameObject background;
 
 void renderBackground(GameObject* this) {
     renderGfxObject(&this->gfxObject, gameWidth/2, gameHeight/2, this->angle, (1.8f + 0.2*sin(this->scale)));
@@ -20,4 +20,5 @@ void createBackground() {
 	background.scaleSpeed = 0.007;
 	background.update = updateBackground;
 	background.render = renderBackground;
+	gameObjects[nGameObjects++] = &background;
 }
