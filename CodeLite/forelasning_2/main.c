@@ -9,6 +9,8 @@
 
 extern GameObject player;
 extern GameObject background;
+extern GameObject gameObjects[];
+extern int nGameObjects;
 void close(); 
 
 
@@ -35,11 +37,12 @@ int main( int argc, char* args[] ) {
     state = SDL_GetKeyboardState(NULL); 
 	
 	// Init player and background
-	createPlayer();
 	createBackground();
+	createPlayer();
 	
 	// Create array of gameobjects
-	GameObject gameObjects[] = {background, player};
+	gameObjects[0] = background;
+	gameObjects[1] = player;
 	
 	// Init print function pointer
 	void (*print) (char* str, int x, int y) = printToWindow;
@@ -70,12 +73,12 @@ int main( int argc, char* args[] ) {
         SDL_RenderClear( gRenderer );
 		
 		// Update all gameobjects
-		for(int i = 0; i < (sizeof(gameObjects)/sizeof(*gameObjects)); i++) {
+		for(int i = 0; i < nGameObjects; i++) {
 			gameObjects[i].update(&gameObjects[i]);
 		}
 		
 		// Render all gameobjects
-		for(int i = 0; i < (sizeof(gameObjects)/sizeof(*gameObjects)); i++) {
+		for(int i = 0; i < nGameObjects; i++) {
 			gameObjects[i].render(&gameObjects[i]);
 		}
 
