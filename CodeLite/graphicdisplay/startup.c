@@ -4,6 +4,28 @@
 #define STK_LOAD ((volatile unsigned int *) (STK + 0x4))
 #define STK_VAL ((volatile unsigned int *) (STK + 0x8))
 
+// Port E setup
+#define GPIO_E 0x40021000
+#define GPIO_MODER ((volatile unsigned int *) (GPIO_E))
+#define GPIO_OTYPER ((volatile unsigned short *) (GPIO_E+0x4))
+#define GPIO_PUPDR ((volatile unsigned int *) (GPIO_E+0xC))
+#define GPIO_IDR_LOW ((volatile unsigned char *) (GPIO_E+0x10))
+#define GPIO_IDR_HIGH ((volatile unsigned char *) (GPIO_E+0x11))
+#define GPIO_ODR_LOW ((volatile unsigned char *) (GPIO_E+0x14))
+#define GPIO_ODR_HIGH ((volatile unsigned char *) (GPIO_E+0x15))
+
+// Control for display
+#define B_E 0x40
+#define B_SELECT 0x04
+#define B_RW 0x02
+#define B_RS 0x01
+
+#define B_RST 0x20
+#define B_CS2 = 0x10
+#define B_CS1 = 0x08
+
+typedef unsigned char uint8_t;
+
 void startup(void) __attribute__((naked)) __attribute__((section (".start_section")) );
 
 void startup ( void )
@@ -14,6 +36,9 @@ __asm volatile(
 	" BL main\n"				/* call main */
 	"_exit: B .\n"				/* never return */
 	) ;
+	
+	// Setup output pins for display
+	*GPIO_MODER = 0x55555555;
 }
 
 void delay_250ns(void) {
@@ -49,7 +74,30 @@ void delay_500ns(void) {
 	delay_250ns();
 }
 
-void main(void)
-{
+void graphic_ctrl_bit_set(uint8_t x) {
+    *portOdrLow |= (x & ~B_SELECT);
+}
+
+void graphic_ctrl_bit_clear(uint8_t x) {
+    *portOdrLow &= ~x;
+}
+
+void select_cotroller(uint8_t controller) {
+	if(controller == 0) {
+		graphic_ctrl_bit_clear(B_CS1);
+		graphic_ctrl_bit_clear(B_CS2);
+	} else if(controller == B_CS1 | B_CS2) {
+		graphic_ctrl_bit_set(B_CS1);
+		graphic_ctrl_bit_set(B_CS2);
+	} else if(controller == B_CS1) {
+		graphic_ctrl_bit_set(B_CS1);
+		graphic_ctrl_bit_clear(B_CS2);
+	} else if(controller == B_CS2) {
+		graphic_ctrl_bit_clear(B_CS1);
+		graphic_ctrl_bit_set(B_CS2);
+	}
+}
+
+void main(void) {
 }
 
