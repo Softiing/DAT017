@@ -119,7 +119,7 @@ void graphic_wait_ready() {
 	*GPIO_MODER = 0x00005555;
 	graphic_ctrl_bit_clear(B_RS);
 	graphic_ctrl_bit_set(B_RW);
-	delay_500ns;
+	delay_500ns();
 	while(*GPIO_IDR_HIGH & LCD_BUSY) { // Wait for display not to be busy
 		graphic_ctrl_bit_set(B_E);
 		delay_500ns();
@@ -145,7 +145,8 @@ unsigned char graphic_read(unsigned char controller) {
 	if(controller == B_CS1) {
 		select_cotroller(B_CS1);
 		graphic_wait_ready();
-	} else if(controller == B_CS2) {
+	}
+	if(controller == B_CS2) {
 		select_cotroller(B_CS2);
 		graphic_wait_ready();
 	}
@@ -230,19 +231,5 @@ void main(void) {
 	graphic_write_command(LCD_SET_ADD | 10, B_CS1 | B_CS2);
 	graphic_write_command(LCD_SET_PAGE | 1, B_CS1 | B_CS2);
 	graphic_write(0xFF, B_CS1 | B_CS2);
-	
-//	char i = *GPIO_ODR_LOW;
-//	graphic_ctrl_bit_clear(0xFF);
-//	i = *GPIO_ODR_LOW;
-//	graphic_ctrl_bit_set(0x01);
-//	i = *GPIO_ODR_LOW;
-//	graphic_ctrl_bit_set(0x02);
-//	i = *GPIO_ODR_LOW;
-//	graphic_ctrl_bit_set(0x04);
-//	i = *GPIO_ODR_LOW;
-//	graphic_ctrl_bit_set(0x08);
-//	i = *GPIO_ODR_LOW;
-//	graphic_ctrl_bit_set(0x10);
-//	i = *GPIO_ODR_LOW;
 }
 
