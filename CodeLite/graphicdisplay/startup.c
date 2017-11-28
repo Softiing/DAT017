@@ -134,9 +134,53 @@ char graphic_read(unsigned int controller) {
 		graphic_wait_ready();
 	}
 	return RV;
-	
-	
 }
+
+void graphic_write(unsigned char value, unsigned int controller) {
+	*GPIO_ODR_HIGH = value;
+	select_cotroller(controller);
+	delay_500ns();
+	graphic_ctrl_bit_set(B_E);
+	delay_500ns();
+	graphic_ctrl_bit_clear(B_E);
+	
+	//Kanske inte ska vara så här för this statement
+	if(controller | B_CS1) {
+		select_cotroller(B_CS1);
+		graphic_wait_ready();
+	}
+	
+	if(controller | B_CS2) {
+		select_cotroller(B_CS2);
+		graphic_wait_ready();
+	}
+	
+	*GPIO_ODR_HIGH = 0;
+	graphic_ctrl_bit_set(B_E);
+	select_cotroller(0);
+}
+
+void graphic_write_command(unsigned int command, unsigned int controller) {
+	graphic_ctrl_bit_clear(B_E);
+	select_cotroller(controller);
+	graphic_ctrl_bit_clear(B_RS);
+	graphic_ctrl_bit_clear(B_RW);
+	graphic_write(command, controller);
+}
+
+void graphic_write_data(unsigned int data, unsigned int controller) {
+	graphic_ctrl_bit_set(B_E);
+	select_cotroller(controller);
+	graphic_ctrl_bit_set(B_RS);
+	graphic_ctrl_bit_clear(B_RW);
+	graphic_write(data, controller);
+}
+
+unsigned char graphic_read_data(unsigned char controller) {
+	(void) graphic_read(controller);
+	return graphic_read(controller);
+}
+
 
 void main(void) {
 }
