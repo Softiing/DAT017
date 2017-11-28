@@ -52,9 +52,9 @@ void init_app(void) {
 	*GPIO_MODER = 0x55555555;
 //	*GPIO_OTYPER = 0x7777;
 //	*GPIO_PUPDR = 0xAAAAAAAA;
-	*GPIO_ODR_HIGH = 0;
-	*GPIO_ODR_LOW = 0;
-	*GPIO_IDR_HIGH = 0;
+//	*GPIO_ODR_HIGH = 0;
+//	*GPIO_ODR_LOW = 0;
+//	*GPIO_IDR_HIGH = 0;
 }
 
 void delay_250ns(void) {
@@ -137,8 +137,7 @@ void graphic_wait_ready() {
 unsigned char graphic_read(unsigned char controller) {
 	graphic_ctrl_bit_clear(B_E);
 	*GPIO_MODER = 0x00005555;
-	graphic_ctrl_bit_set(B_RS);
-	graphic_ctrl_bit_set(B_RW);
+	graphic_ctrl_bit_set(B_RS | B_RW);
 	select_cotroller(controller);
 	delay_500ns();
 	graphic_ctrl_bit_set(B_E);
@@ -184,13 +183,12 @@ void graphic_write(unsigned char value, unsigned char controller) {
 void graphic_write_command(unsigned char command, unsigned char controller) {
 	graphic_ctrl_bit_clear(B_E);
 	select_cotroller(controller);
-	graphic_ctrl_bit_clear(B_RS);
-	graphic_ctrl_bit_clear(B_RW);
+	graphic_ctrl_bit_clear(B_RS | B_RW);
 	graphic_write(command, controller);
 }
 
 void graphic_write_data(unsigned char data, unsigned char controller) {
-	graphic_ctrl_bit_set(B_E);
+	graphic_ctrl_bit_clear(B_E);
 	select_cotroller(controller);
 	graphic_ctrl_bit_set(B_RS);
 	graphic_ctrl_bit_clear(B_RW);
@@ -234,6 +232,6 @@ void main(void) {
   #endif
 	graphic_write_command(LCD_SET_ADD | 10, B_CS1 | B_CS2);
 	graphic_write_command(LCD_SET_PAGE | 1, B_CS1 | B_CS2);
-	graphic_write(0xFF, B_CS1 | B_CS2);
+	graphic_write_data(0xFF, B_CS1 | B_CS2);
 }
 
