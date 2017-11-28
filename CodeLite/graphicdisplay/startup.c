@@ -120,11 +120,15 @@ void graphic_wait_ready() {
 	graphic_ctrl_bit_clear(B_RS);
 	graphic_ctrl_bit_set(B_RW);
 	delay_500ns();
-	while(*GPIO_IDR_HIGH & LCD_BUSY) { // Wait for display not to be busy
+	while(1) { // Wait for display not to be busy
 		graphic_ctrl_bit_set(B_E);
 		delay_500ns();
 		graphic_ctrl_bit_clear(B_E);
 		delay_500ns();		
+		unsigned char i = *GPIO_IDR_HIGH;
+		if((*GPIO_IDR_HIGH & LCD_BUSY) == 0) {
+			break;
+		}
 	}
 	graphic_ctrl_bit_set(B_E);
 	*GPIO_MODER = 0x55555555;

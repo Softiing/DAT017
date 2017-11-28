@@ -585,722 +585,740 @@
  117:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** void graphic_wait_ready() {
  478              		.loc 1 117 0
  479              		.cfi_startproc
- 480              		@ args = 0, pretend = 0, frame = 0
+ 480              		@ args = 0, pretend = 0, frame = 8
  481              		@ frame_needed = 1, uses_anonymous_args = 0
  482 01a6 80B5     		push	{r7, lr}
  483              		.cfi_def_cfa_offset 8
  484              		.cfi_offset 7, -8
  485              		.cfi_offset 14, -4
- 486 01a8 00AF     		add	r7, sp, #0
- 487              		.cfi_def_cfa_register 7
+ 486 01a8 82B0     		sub	sp, sp, #8
+ 487              		.cfi_def_cfa_offset 16
+ 488 01aa 00AF     		add	r7, sp, #0
+ 489              		.cfi_def_cfa_register 7
  118:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_clear(B_E);
- 488              		.loc 1 118 0
- 489 01aa 4020     		movs	r0, #64
- 490 01ac FFF7FEFF 		bl	graphic_ctrl_bit_clear
+ 490              		.loc 1 118 0
+ 491 01ac 4020     		movs	r0, #64
+ 492 01ae FFF7FEFF 		bl	graphic_ctrl_bit_clear
  119:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	*GPIO_MODER = 0x00005555;
- 491              		.loc 1 119 0
- 492 01b0 124B     		ldr	r3, .L29
- 493 01b2 134A     		ldr	r2, .L29+4
- 494 01b4 1A60     		str	r2, [r3]
+ 493              		.loc 1 119 0
+ 494 01b2 154B     		ldr	r3, .L32
+ 495 01b4 154A     		ldr	r2, .L32+4
+ 496 01b6 1A60     		str	r2, [r3]
  120:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_clear(B_RS);
- 495              		.loc 1 120 0
- 496 01b6 0120     		movs	r0, #1
- 497 01b8 FFF7FEFF 		bl	graphic_ctrl_bit_clear
+ 497              		.loc 1 120 0
+ 498 01b8 0120     		movs	r0, #1
+ 499 01ba FFF7FEFF 		bl	graphic_ctrl_bit_clear
  121:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_set(B_RW);
- 498              		.loc 1 121 0
- 499 01bc 0220     		movs	r0, #2
- 500 01be FFF7FEFF 		bl	graphic_ctrl_bit_set
+ 500              		.loc 1 121 0
+ 501 01be 0220     		movs	r0, #2
+ 502 01c0 FFF7FEFF 		bl	graphic_ctrl_bit_set
  122:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	delay_500ns();
- 501              		.loc 1 122 0
- 502 01c2 FFF7FEFF 		bl	delay_500ns
- 123:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	while(*GPIO_IDR_HIGH & LCD_BUSY) { // Wait for display not to be busy
- 503              		.loc 1 123 0
- 504 01c6 09E0     		b	.L27
- 505              	.L28:
+ 503              		.loc 1 122 0
+ 504 01c4 FFF7FEFF 		bl	delay_500ns
+ 505              	.L29:
+ 506              	.LBB2:
+ 123:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	while(1) { // Wait for display not to be busy
  124:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		graphic_ctrl_bit_set(B_E);
- 506              		.loc 1 124 0
- 507 01c8 4020     		movs	r0, #64
- 508 01ca FFF7FEFF 		bl	graphic_ctrl_bit_set
+ 507              		.loc 1 124 0
+ 508 01c8 4020     		movs	r0, #64
+ 509 01ca FFF7FEFF 		bl	graphic_ctrl_bit_set
  125:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		delay_500ns();
- 509              		.loc 1 125 0
- 510 01ce FFF7FEFF 		bl	delay_500ns
+ 510              		.loc 1 125 0
+ 511 01ce FFF7FEFF 		bl	delay_500ns
  126:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		graphic_ctrl_bit_clear(B_E);
- 511              		.loc 1 126 0
- 512 01d2 4020     		movs	r0, #64
- 513 01d4 FFF7FEFF 		bl	graphic_ctrl_bit_clear
+ 512              		.loc 1 126 0
+ 513 01d2 4020     		movs	r0, #64
+ 514 01d4 FFF7FEFF 		bl	graphic_ctrl_bit_clear
  127:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		delay_500ns();		
- 514              		.loc 1 127 0
- 515 01d8 FFF7FEFF 		bl	delay_500ns
- 516              	.L27:
+ 515              		.loc 1 127 0
+ 516 01d8 FFF7FEFF 		bl	delay_500ns
+ 128:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		unsigned char i = *GPIO_IDR_HIGH;
+ 517              		.loc 1 128 0
+ 518 01dc 0C4A     		ldr	r2, .L32+8
+ 519 01de FB1D     		adds	r3, r7, #7
+ 520 01e0 1278     		ldrb	r2, [r2]
+ 521 01e2 1A70     		strb	r2, [r3]
+ 129:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		if((*GPIO_IDR_HIGH & LCD_BUSY) == 0) {
+ 522              		.loc 1 129 0
+ 523 01e4 0A4B     		ldr	r3, .L32+8
+ 524 01e6 1B78     		ldrb	r3, [r3]
+ 525 01e8 DBB2     		uxtb	r3, r3
+ 526 01ea 5BB2     		sxtb	r3, r3
+ 527 01ec 002B     		cmp	r3, #0
+ 528 01ee 00DA     		bge	.L31
+ 529              	.LBE2:
  123:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		graphic_ctrl_bit_set(B_E);
- 517              		.loc 1 123 0
- 518 01dc 094B     		ldr	r3, .L29+8
- 519 01de 1B78     		ldrb	r3, [r3]
- 520 01e0 DBB2     		uxtb	r3, r3
- 521 01e2 5BB2     		sxtb	r3, r3
- 522 01e4 002B     		cmp	r3, #0
- 523 01e6 EFDB     		blt	.L28
- 128:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	}
- 129:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_set(B_E);
- 524              		.loc 1 129 0
- 525 01e8 4020     		movs	r0, #64
- 526 01ea FFF7FEFF 		bl	graphic_ctrl_bit_set
- 130:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	*GPIO_MODER = 0x55555555;
- 527              		.loc 1 130 0
- 528 01ee 034B     		ldr	r3, .L29
- 529 01f0 054A     		ldr	r2, .L29+12
- 530 01f2 1A60     		str	r2, [r3]
- 131:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** }
- 531              		.loc 1 131 0
- 532 01f4 C046     		nop
- 533 01f6 BD46     		mov	sp, r7
- 534              		@ sp needed
- 535 01f8 80BD     		pop	{r7, pc}
- 536              	.L30:
- 537 01fa C046     		.align	2
- 538              	.L29:
- 539 01fc 00100240 		.word	1073876992
- 540 0200 55550000 		.word	21845
- 541 0204 11100240 		.word	1073877009
- 542 0208 55555555 		.word	1431655765
- 543              		.cfi_endproc
- 544              	.LFE9:
- 546              		.align	1
- 547              		.global	graphic_read
- 548              		.syntax unified
- 549              		.code	16
- 550              		.thumb_func
- 551              		.fpu softvfp
- 553              	graphic_read:
- 554              	.LFB10:
- 132:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 
- 133:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** unsigned char graphic_read(unsigned char controller) {
- 555              		.loc 1 133 0
- 556              		.cfi_startproc
- 557              		@ args = 0, pretend = 0, frame = 16
- 558              		@ frame_needed = 1, uses_anonymous_args = 0
- 559 020c 80B5     		push	{r7, lr}
- 560              		.cfi_def_cfa_offset 8
- 561              		.cfi_offset 7, -8
- 562              		.cfi_offset 14, -4
- 563 020e 84B0     		sub	sp, sp, #16
- 564              		.cfi_def_cfa_offset 24
- 565 0210 00AF     		add	r7, sp, #0
- 566              		.cfi_def_cfa_register 7
- 567 0212 0200     		movs	r2, r0
- 568 0214 FB1D     		adds	r3, r7, #7
- 569 0216 1A70     		strb	r2, [r3]
- 134:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_clear(B_E);
- 570              		.loc 1 134 0
- 571 0218 4020     		movs	r0, #64
- 572 021a FFF7FEFF 		bl	graphic_ctrl_bit_clear
- 135:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	*GPIO_MODER = 0x00005555;
- 573              		.loc 1 135 0
- 574 021e 1C4B     		ldr	r3, .L35
- 575 0220 1C4A     		ldr	r2, .L35+4
- 576 0222 1A60     		str	r2, [r3]
- 136:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_set(B_RS);
- 577              		.loc 1 136 0
- 578 0224 0120     		movs	r0, #1
- 579 0226 FFF7FEFF 		bl	graphic_ctrl_bit_set
- 137:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_set(B_RW);
- 580              		.loc 1 137 0
- 581 022a 0220     		movs	r0, #2
- 582 022c FFF7FEFF 		bl	graphic_ctrl_bit_set
- 138:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	select_cotroller(controller);
- 583              		.loc 1 138 0
- 584 0230 FB1D     		adds	r3, r7, #7
- 585 0232 1B78     		ldrb	r3, [r3]
- 586 0234 1800     		movs	r0, r3
- 587 0236 FFF7FEFF 		bl	select_cotroller
- 139:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	delay_500ns();
- 588              		.loc 1 139 0
- 589 023a FFF7FEFF 		bl	delay_500ns
- 140:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_set(B_E);
- 590              		.loc 1 140 0
- 591 023e 4020     		movs	r0, #64
- 592 0240 FFF7FEFF 		bl	graphic_ctrl_bit_set
- 141:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	delay_500ns();
- 593              		.loc 1 141 0
- 594 0244 FFF7FEFF 		bl	delay_500ns
- 142:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	unsigned char RV = *GPIO_IDR_HIGH;
- 595              		.loc 1 142 0
- 596 0248 134A     		ldr	r2, .L35+8
- 597 024a 0F23     		movs	r3, #15
- 598 024c FB18     		adds	r3, r7, r3
- 599 024e 1278     		ldrb	r2, [r2]
- 600 0250 1A70     		strb	r2, [r3]
- 143:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_clear(B_E);
- 601              		.loc 1 143 0
- 602 0252 4020     		movs	r0, #64
- 603 0254 FFF7FEFF 		bl	graphic_ctrl_bit_clear
- 144:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	*GPIO_MODER = 0x55555555;
+ 530              		.loc 1 123 0
+ 531 01f0 EAE7     		b	.L29
+ 532              	.L31:
+ 533              	.LBB3:
+ 130:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 			break;
+ 534              		.loc 1 130 0
+ 535 01f2 C046     		nop
+ 536              	.LBE3:
+ 131:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		}
+ 132:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	}
+ 133:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_set(B_E);
+ 537              		.loc 1 133 0
+ 538 01f4 4020     		movs	r0, #64
+ 539 01f6 FFF7FEFF 		bl	graphic_ctrl_bit_set
+ 134:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	*GPIO_MODER = 0x55555555;
+ 540              		.loc 1 134 0
+ 541 01fa 034B     		ldr	r3, .L32
+ 542 01fc 054A     		ldr	r2, .L32+12
+ 543 01fe 1A60     		str	r2, [r3]
+ 135:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** }
+ 544              		.loc 1 135 0
+ 545 0200 C046     		nop
+ 546 0202 BD46     		mov	sp, r7
+ 547 0204 02B0     		add	sp, sp, #8
+ 548              		@ sp needed
+ 549 0206 80BD     		pop	{r7, pc}
+ 550              	.L33:
+ 551              		.align	2
+ 552              	.L32:
+ 553 0208 00100240 		.word	1073876992
+ 554 020c 55550000 		.word	21845
+ 555 0210 11100240 		.word	1073877009
+ 556 0214 55555555 		.word	1431655765
+ 557              		.cfi_endproc
+ 558              	.LFE9:
+ 560              		.align	1
+ 561              		.global	graphic_read
+ 562              		.syntax unified
+ 563              		.code	16
+ 564              		.thumb_func
+ 565              		.fpu softvfp
+ 567              	graphic_read:
+ 568              	.LFB10:
+ 136:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 
+ 137:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** unsigned char graphic_read(unsigned char controller) {
+ 569              		.loc 1 137 0
+ 570              		.cfi_startproc
+ 571              		@ args = 0, pretend = 0, frame = 16
+ 572              		@ frame_needed = 1, uses_anonymous_args = 0
+ 573 0218 80B5     		push	{r7, lr}
+ 574              		.cfi_def_cfa_offset 8
+ 575              		.cfi_offset 7, -8
+ 576              		.cfi_offset 14, -4
+ 577 021a 84B0     		sub	sp, sp, #16
+ 578              		.cfi_def_cfa_offset 24
+ 579 021c 00AF     		add	r7, sp, #0
+ 580              		.cfi_def_cfa_register 7
+ 581 021e 0200     		movs	r2, r0
+ 582 0220 FB1D     		adds	r3, r7, #7
+ 583 0222 1A70     		strb	r2, [r3]
+ 138:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_clear(B_E);
+ 584              		.loc 1 138 0
+ 585 0224 4020     		movs	r0, #64
+ 586 0226 FFF7FEFF 		bl	graphic_ctrl_bit_clear
+ 139:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	*GPIO_MODER = 0x00005555;
+ 587              		.loc 1 139 0
+ 588 022a 1C4B     		ldr	r3, .L38
+ 589 022c 1C4A     		ldr	r2, .L38+4
+ 590 022e 1A60     		str	r2, [r3]
+ 140:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_set(B_RS);
+ 591              		.loc 1 140 0
+ 592 0230 0120     		movs	r0, #1
+ 593 0232 FFF7FEFF 		bl	graphic_ctrl_bit_set
+ 141:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_set(B_RW);
+ 594              		.loc 1 141 0
+ 595 0236 0220     		movs	r0, #2
+ 596 0238 FFF7FEFF 		bl	graphic_ctrl_bit_set
+ 142:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	select_cotroller(controller);
+ 597              		.loc 1 142 0
+ 598 023c FB1D     		adds	r3, r7, #7
+ 599 023e 1B78     		ldrb	r3, [r3]
+ 600 0240 1800     		movs	r0, r3
+ 601 0242 FFF7FEFF 		bl	select_cotroller
+ 143:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	delay_500ns();
+ 602              		.loc 1 143 0
+ 603 0246 FFF7FEFF 		bl	delay_500ns
+ 144:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_set(B_E);
  604              		.loc 1 144 0
- 605 0258 0D4B     		ldr	r3, .L35
- 606 025a 104A     		ldr	r2, .L35+12
- 607 025c 1A60     		str	r2, [r3]
- 145:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	if(controller == B_CS1) {
- 608              		.loc 1 145 0
- 609 025e FB1D     		adds	r3, r7, #7
- 610 0260 1B78     		ldrb	r3, [r3]
- 611 0262 082B     		cmp	r3, #8
- 612 0264 04D1     		bne	.L32
- 146:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		select_cotroller(B_CS1);
- 613              		.loc 1 146 0
- 614 0266 0820     		movs	r0, #8
- 615 0268 FFF7FEFF 		bl	select_cotroller
- 147:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		graphic_wait_ready();
- 616              		.loc 1 147 0
- 617 026c FFF7FEFF 		bl	graphic_wait_ready
- 618              	.L32:
- 148:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	}
- 149:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	if(controller == B_CS2) {
- 619              		.loc 1 149 0
- 620 0270 FB1D     		adds	r3, r7, #7
- 621 0272 1B78     		ldrb	r3, [r3]
- 622 0274 102B     		cmp	r3, #16
- 623 0276 04D1     		bne	.L33
- 150:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		select_cotroller(B_CS2);
- 624              		.loc 1 150 0
- 625 0278 1020     		movs	r0, #16
- 626 027a FFF7FEFF 		bl	select_cotroller
+ 605 024a 4020     		movs	r0, #64
+ 606 024c FFF7FEFF 		bl	graphic_ctrl_bit_set
+ 145:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	delay_500ns();
+ 607              		.loc 1 145 0
+ 608 0250 FFF7FEFF 		bl	delay_500ns
+ 146:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	unsigned char RV = *GPIO_IDR_HIGH;
+ 609              		.loc 1 146 0
+ 610 0254 134A     		ldr	r2, .L38+8
+ 611 0256 0F23     		movs	r3, #15
+ 612 0258 FB18     		adds	r3, r7, r3
+ 613 025a 1278     		ldrb	r2, [r2]
+ 614 025c 1A70     		strb	r2, [r3]
+ 147:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_clear(B_E);
+ 615              		.loc 1 147 0
+ 616 025e 4020     		movs	r0, #64
+ 617 0260 FFF7FEFF 		bl	graphic_ctrl_bit_clear
+ 148:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	*GPIO_MODER = 0x55555555;
+ 618              		.loc 1 148 0
+ 619 0264 0D4B     		ldr	r3, .L38
+ 620 0266 104A     		ldr	r2, .L38+12
+ 621 0268 1A60     		str	r2, [r3]
+ 149:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	if(controller == B_CS1) {
+ 622              		.loc 1 149 0
+ 623 026a FB1D     		adds	r3, r7, #7
+ 624 026c 1B78     		ldrb	r3, [r3]
+ 625 026e 082B     		cmp	r3, #8
+ 626 0270 04D1     		bne	.L35
+ 150:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		select_cotroller(B_CS1);
+ 627              		.loc 1 150 0
+ 628 0272 0820     		movs	r0, #8
+ 629 0274 FFF7FEFF 		bl	select_cotroller
  151:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		graphic_wait_ready();
- 627              		.loc 1 151 0
- 628 027e FFF7FEFF 		bl	graphic_wait_ready
- 629              	.L33:
+ 630              		.loc 1 151 0
+ 631 0278 FFF7FEFF 		bl	graphic_wait_ready
+ 632              	.L35:
  152:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	}
- 153:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	return RV;
- 630              		.loc 1 153 0
- 631 0282 0F23     		movs	r3, #15
- 632 0284 FB18     		adds	r3, r7, r3
- 633 0286 1B78     		ldrb	r3, [r3]
- 154:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** }
- 634              		.loc 1 154 0
- 635 0288 1800     		movs	r0, r3
- 636 028a BD46     		mov	sp, r7
- 637 028c 04B0     		add	sp, sp, #16
- 638              		@ sp needed
- 639 028e 80BD     		pop	{r7, pc}
- 640              	.L36:
- 641              		.align	2
- 642              	.L35:
- 643 0290 00100240 		.word	1073876992
- 644 0294 55550000 		.word	21845
- 645 0298 11100240 		.word	1073877009
- 646 029c 55555555 		.word	1431655765
- 647              		.cfi_endproc
- 648              	.LFE10:
- 650              		.align	1
- 651              		.global	graphic_write
- 652              		.syntax unified
- 653              		.code	16
- 654              		.thumb_func
- 655              		.fpu softvfp
- 657              	graphic_write:
- 658              	.LFB11:
- 155:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 
- 156:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** void graphic_write(unsigned char value, unsigned char controller) {
- 659              		.loc 1 156 0
- 660              		.cfi_startproc
- 661              		@ args = 0, pretend = 0, frame = 8
- 662              		@ frame_needed = 1, uses_anonymous_args = 0
- 663 02a0 80B5     		push	{r7, lr}
- 664              		.cfi_def_cfa_offset 8
- 665              		.cfi_offset 7, -8
- 666              		.cfi_offset 14, -4
- 667 02a2 82B0     		sub	sp, sp, #8
- 668              		.cfi_def_cfa_offset 16
- 669 02a4 00AF     		add	r7, sp, #0
- 670              		.cfi_def_cfa_register 7
- 671 02a6 0200     		movs	r2, r0
- 672 02a8 FB1D     		adds	r3, r7, #7
- 673 02aa 1A70     		strb	r2, [r3]
- 674 02ac BB1D     		adds	r3, r7, #6
- 675 02ae 0A1C     		adds	r2, r1, #0
- 676 02b0 1A70     		strb	r2, [r3]
- 157:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	*GPIO_ODR_HIGH = value;
- 677              		.loc 1 157 0
- 678 02b2 1A4A     		ldr	r2, .L40
- 679 02b4 FB1D     		adds	r3, r7, #7
- 680 02b6 1B78     		ldrb	r3, [r3]
- 681 02b8 1370     		strb	r3, [r2]
- 158:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	select_cotroller(controller);
- 682              		.loc 1 158 0
- 683 02ba BB1D     		adds	r3, r7, #6
- 684 02bc 1B78     		ldrb	r3, [r3]
- 685 02be 1800     		movs	r0, r3
- 686 02c0 FFF7FEFF 		bl	select_cotroller
- 159:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	delay_500ns();
- 687              		.loc 1 159 0
- 688 02c4 FFF7FEFF 		bl	delay_500ns
- 160:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_set(B_E);
- 689              		.loc 1 160 0
- 690 02c8 4020     		movs	r0, #64
- 691 02ca FFF7FEFF 		bl	graphic_ctrl_bit_set
- 161:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	delay_500ns();
- 692              		.loc 1 161 0
- 693 02ce FFF7FEFF 		bl	delay_500ns
- 162:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_clear(B_E);
- 694              		.loc 1 162 0
- 695 02d2 4020     		movs	r0, #64
- 696 02d4 FFF7FEFF 		bl	graphic_ctrl_bit_clear
- 163:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	
- 164:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	//Kanske inte ska vara så här för this statement
- 165:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	if(controller & B_CS1) {
- 697              		.loc 1 165 0
- 698 02d8 BB1D     		adds	r3, r7, #6
- 699 02da 1B78     		ldrb	r3, [r3]
- 700 02dc 0822     		movs	r2, #8
- 701 02de 1340     		ands	r3, r2
- 702 02e0 04D0     		beq	.L38
- 166:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		select_cotroller(B_CS1);
- 703              		.loc 1 166 0
- 704 02e2 0820     		movs	r0, #8
- 705 02e4 FFF7FEFF 		bl	select_cotroller
- 167:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		graphic_wait_ready();
- 706              		.loc 1 167 0
- 707 02e8 FFF7FEFF 		bl	graphic_wait_ready
- 708              	.L38:
- 168:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	}
- 169:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	
- 170:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	if(controller & B_CS2) {
- 709              		.loc 1 170 0
- 710 02ec BB1D     		adds	r3, r7, #6
- 711 02ee 1B78     		ldrb	r3, [r3]
- 712 02f0 1022     		movs	r2, #16
- 713 02f2 1340     		ands	r3, r2
- 714 02f4 04D0     		beq	.L39
- 171:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		select_cotroller(B_CS2);
- 715              		.loc 1 171 0
- 716 02f6 1020     		movs	r0, #16
- 717 02f8 FFF7FEFF 		bl	select_cotroller
- 172:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		graphic_wait_ready();
- 718              		.loc 1 172 0
- 719 02fc FFF7FEFF 		bl	graphic_wait_ready
- 720              	.L39:
- 173:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	}
- 174:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	
- 175:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	*GPIO_ODR_HIGH = 0;
- 721              		.loc 1 175 0
- 722 0300 064B     		ldr	r3, .L40
- 723 0302 0022     		movs	r2, #0
- 724 0304 1A70     		strb	r2, [r3]
- 176:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_set(B_E);
- 725              		.loc 1 176 0
- 726 0306 4020     		movs	r0, #64
- 727 0308 FFF7FEFF 		bl	graphic_ctrl_bit_set
- 177:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	select_cotroller(0);
- 728              		.loc 1 177 0
- 729 030c 0020     		movs	r0, #0
- 730 030e FFF7FEFF 		bl	select_cotroller
- 178:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** }
- 731              		.loc 1 178 0
- 732 0312 C046     		nop
- 733 0314 BD46     		mov	sp, r7
- 734 0316 02B0     		add	sp, sp, #8
- 735              		@ sp needed
- 736 0318 80BD     		pop	{r7, pc}
- 737              	.L41:
- 738 031a C046     		.align	2
- 739              	.L40:
- 740 031c 15100240 		.word	1073877013
- 741              		.cfi_endproc
- 742              	.LFE11:
- 744              		.align	1
- 745              		.global	graphic_write_command
- 746              		.syntax unified
- 747              		.code	16
- 748              		.thumb_func
- 749              		.fpu softvfp
- 751              	graphic_write_command:
- 752              	.LFB12:
- 179:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 
- 180:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** void graphic_write_command(unsigned char command, unsigned char controller) {
- 753              		.loc 1 180 0
- 754              		.cfi_startproc
- 755              		@ args = 0, pretend = 0, frame = 8
- 756              		@ frame_needed = 1, uses_anonymous_args = 0
- 757 0320 80B5     		push	{r7, lr}
- 758              		.cfi_def_cfa_offset 8
- 759              		.cfi_offset 7, -8
- 760              		.cfi_offset 14, -4
- 761 0322 82B0     		sub	sp, sp, #8
- 762              		.cfi_def_cfa_offset 16
- 763 0324 00AF     		add	r7, sp, #0
- 764              		.cfi_def_cfa_register 7
- 765 0326 0200     		movs	r2, r0
- 766 0328 FB1D     		adds	r3, r7, #7
- 767 032a 1A70     		strb	r2, [r3]
- 768 032c BB1D     		adds	r3, r7, #6
- 769 032e 0A1C     		adds	r2, r1, #0
- 770 0330 1A70     		strb	r2, [r3]
- 181:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_clear(B_E);
- 771              		.loc 1 181 0
- 772 0332 4020     		movs	r0, #64
- 773 0334 FFF7FEFF 		bl	graphic_ctrl_bit_clear
- 182:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	select_cotroller(controller);
- 774              		.loc 1 182 0
- 775 0338 BB1D     		adds	r3, r7, #6
- 776 033a 1B78     		ldrb	r3, [r3]
- 777 033c 1800     		movs	r0, r3
- 778 033e FFF7FEFF 		bl	select_cotroller
- 183:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_clear(B_RS);
- 779              		.loc 1 183 0
- 780 0342 0120     		movs	r0, #1
- 781 0344 FFF7FEFF 		bl	graphic_ctrl_bit_clear
- 184:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_clear(B_RW);
- 782              		.loc 1 184 0
- 783 0348 0220     		movs	r0, #2
- 784 034a FFF7FEFF 		bl	graphic_ctrl_bit_clear
- 185:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_write(command, controller);
+ 153:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	if(controller == B_CS2) {
+ 633              		.loc 1 153 0
+ 634 027c FB1D     		adds	r3, r7, #7
+ 635 027e 1B78     		ldrb	r3, [r3]
+ 636 0280 102B     		cmp	r3, #16
+ 637 0282 04D1     		bne	.L36
+ 154:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		select_cotroller(B_CS2);
+ 638              		.loc 1 154 0
+ 639 0284 1020     		movs	r0, #16
+ 640 0286 FFF7FEFF 		bl	select_cotroller
+ 155:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		graphic_wait_ready();
+ 641              		.loc 1 155 0
+ 642 028a FFF7FEFF 		bl	graphic_wait_ready
+ 643              	.L36:
+ 156:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	}
+ 157:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	return RV;
+ 644              		.loc 1 157 0
+ 645 028e 0F23     		movs	r3, #15
+ 646 0290 FB18     		adds	r3, r7, r3
+ 647 0292 1B78     		ldrb	r3, [r3]
+ 158:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** }
+ 648              		.loc 1 158 0
+ 649 0294 1800     		movs	r0, r3
+ 650 0296 BD46     		mov	sp, r7
+ 651 0298 04B0     		add	sp, sp, #16
+ 652              		@ sp needed
+ 653 029a 80BD     		pop	{r7, pc}
+ 654              	.L39:
+ 655              		.align	2
+ 656              	.L38:
+ 657 029c 00100240 		.word	1073876992
+ 658 02a0 55550000 		.word	21845
+ 659 02a4 11100240 		.word	1073877009
+ 660 02a8 55555555 		.word	1431655765
+ 661              		.cfi_endproc
+ 662              	.LFE10:
+ 664              		.align	1
+ 665              		.global	graphic_write
+ 666              		.syntax unified
+ 667              		.code	16
+ 668              		.thumb_func
+ 669              		.fpu softvfp
+ 671              	graphic_write:
+ 672              	.LFB11:
+ 159:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 
+ 160:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** void graphic_write(unsigned char value, unsigned char controller) {
+ 673              		.loc 1 160 0
+ 674              		.cfi_startproc
+ 675              		@ args = 0, pretend = 0, frame = 8
+ 676              		@ frame_needed = 1, uses_anonymous_args = 0
+ 677 02ac 80B5     		push	{r7, lr}
+ 678              		.cfi_def_cfa_offset 8
+ 679              		.cfi_offset 7, -8
+ 680              		.cfi_offset 14, -4
+ 681 02ae 82B0     		sub	sp, sp, #8
+ 682              		.cfi_def_cfa_offset 16
+ 683 02b0 00AF     		add	r7, sp, #0
+ 684              		.cfi_def_cfa_register 7
+ 685 02b2 0200     		movs	r2, r0
+ 686 02b4 FB1D     		adds	r3, r7, #7
+ 687 02b6 1A70     		strb	r2, [r3]
+ 688 02b8 BB1D     		adds	r3, r7, #6
+ 689 02ba 0A1C     		adds	r2, r1, #0
+ 690 02bc 1A70     		strb	r2, [r3]
+ 161:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	*GPIO_ODR_HIGH = value;
+ 691              		.loc 1 161 0
+ 692 02be 1A4A     		ldr	r2, .L43
+ 693 02c0 FB1D     		adds	r3, r7, #7
+ 694 02c2 1B78     		ldrb	r3, [r3]
+ 695 02c4 1370     		strb	r3, [r2]
+ 162:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	select_cotroller(controller);
+ 696              		.loc 1 162 0
+ 697 02c6 BB1D     		adds	r3, r7, #6
+ 698 02c8 1B78     		ldrb	r3, [r3]
+ 699 02ca 1800     		movs	r0, r3
+ 700 02cc FFF7FEFF 		bl	select_cotroller
+ 163:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	delay_500ns();
+ 701              		.loc 1 163 0
+ 702 02d0 FFF7FEFF 		bl	delay_500ns
+ 164:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_set(B_E);
+ 703              		.loc 1 164 0
+ 704 02d4 4020     		movs	r0, #64
+ 705 02d6 FFF7FEFF 		bl	graphic_ctrl_bit_set
+ 165:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	delay_500ns();
+ 706              		.loc 1 165 0
+ 707 02da FFF7FEFF 		bl	delay_500ns
+ 166:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_clear(B_E);
+ 708              		.loc 1 166 0
+ 709 02de 4020     		movs	r0, #64
+ 710 02e0 FFF7FEFF 		bl	graphic_ctrl_bit_clear
+ 167:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	
+ 168:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	//Kanske inte ska vara så här för this statement
+ 169:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	if(controller & B_CS1) {
+ 711              		.loc 1 169 0
+ 712 02e4 BB1D     		adds	r3, r7, #6
+ 713 02e6 1B78     		ldrb	r3, [r3]
+ 714 02e8 0822     		movs	r2, #8
+ 715 02ea 1340     		ands	r3, r2
+ 716 02ec 04D0     		beq	.L41
+ 170:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		select_cotroller(B_CS1);
+ 717              		.loc 1 170 0
+ 718 02ee 0820     		movs	r0, #8
+ 719 02f0 FFF7FEFF 		bl	select_cotroller
+ 171:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		graphic_wait_ready();
+ 720              		.loc 1 171 0
+ 721 02f4 FFF7FEFF 		bl	graphic_wait_ready
+ 722              	.L41:
+ 172:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	}
+ 173:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	
+ 174:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	if(controller & B_CS2) {
+ 723              		.loc 1 174 0
+ 724 02f8 BB1D     		adds	r3, r7, #6
+ 725 02fa 1B78     		ldrb	r3, [r3]
+ 726 02fc 1022     		movs	r2, #16
+ 727 02fe 1340     		ands	r3, r2
+ 728 0300 04D0     		beq	.L42
+ 175:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		select_cotroller(B_CS2);
+ 729              		.loc 1 175 0
+ 730 0302 1020     		movs	r0, #16
+ 731 0304 FFF7FEFF 		bl	select_cotroller
+ 176:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		graphic_wait_ready();
+ 732              		.loc 1 176 0
+ 733 0308 FFF7FEFF 		bl	graphic_wait_ready
+ 734              	.L42:
+ 177:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	}
+ 178:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	
+ 179:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	*GPIO_ODR_HIGH = 0;
+ 735              		.loc 1 179 0
+ 736 030c 064B     		ldr	r3, .L43
+ 737 030e 0022     		movs	r2, #0
+ 738 0310 1A70     		strb	r2, [r3]
+ 180:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_set(B_E);
+ 739              		.loc 1 180 0
+ 740 0312 4020     		movs	r0, #64
+ 741 0314 FFF7FEFF 		bl	graphic_ctrl_bit_set
+ 181:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	select_cotroller(0);
+ 742              		.loc 1 181 0
+ 743 0318 0020     		movs	r0, #0
+ 744 031a FFF7FEFF 		bl	select_cotroller
+ 182:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** }
+ 745              		.loc 1 182 0
+ 746 031e C046     		nop
+ 747 0320 BD46     		mov	sp, r7
+ 748 0322 02B0     		add	sp, sp, #8
+ 749              		@ sp needed
+ 750 0324 80BD     		pop	{r7, pc}
+ 751              	.L44:
+ 752 0326 C046     		.align	2
+ 753              	.L43:
+ 754 0328 15100240 		.word	1073877013
+ 755              		.cfi_endproc
+ 756              	.LFE11:
+ 758              		.align	1
+ 759              		.global	graphic_write_command
+ 760              		.syntax unified
+ 761              		.code	16
+ 762              		.thumb_func
+ 763              		.fpu softvfp
+ 765              	graphic_write_command:
+ 766              	.LFB12:
+ 183:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 
+ 184:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** void graphic_write_command(unsigned char command, unsigned char controller) {
+ 767              		.loc 1 184 0
+ 768              		.cfi_startproc
+ 769              		@ args = 0, pretend = 0, frame = 8
+ 770              		@ frame_needed = 1, uses_anonymous_args = 0
+ 771 032c 80B5     		push	{r7, lr}
+ 772              		.cfi_def_cfa_offset 8
+ 773              		.cfi_offset 7, -8
+ 774              		.cfi_offset 14, -4
+ 775 032e 82B0     		sub	sp, sp, #8
+ 776              		.cfi_def_cfa_offset 16
+ 777 0330 00AF     		add	r7, sp, #0
+ 778              		.cfi_def_cfa_register 7
+ 779 0332 0200     		movs	r2, r0
+ 780 0334 FB1D     		adds	r3, r7, #7
+ 781 0336 1A70     		strb	r2, [r3]
+ 782 0338 BB1D     		adds	r3, r7, #6
+ 783 033a 0A1C     		adds	r2, r1, #0
+ 784 033c 1A70     		strb	r2, [r3]
+ 185:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_clear(B_E);
  785              		.loc 1 185 0
- 786 034e BB1D     		adds	r3, r7, #6
- 787 0350 1A78     		ldrb	r2, [r3]
- 788 0352 FB1D     		adds	r3, r7, #7
- 789 0354 1B78     		ldrb	r3, [r3]
- 790 0356 1100     		movs	r1, r2
- 791 0358 1800     		movs	r0, r3
- 792 035a FFF7FEFF 		bl	graphic_write
- 186:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** }
- 793              		.loc 1 186 0
- 794 035e C046     		nop
- 795 0360 BD46     		mov	sp, r7
- 796 0362 02B0     		add	sp, sp, #8
- 797              		@ sp needed
- 798 0364 80BD     		pop	{r7, pc}
- 799              		.cfi_endproc
- 800              	.LFE12:
- 802              		.align	1
- 803              		.global	graphic_write_data
- 804              		.syntax unified
- 805              		.code	16
- 806              		.thumb_func
- 807              		.fpu softvfp
- 809              	graphic_write_data:
- 810              	.LFB13:
- 187:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 
- 188:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** void graphic_write_data(unsigned char data, unsigned char controller) {
- 811              		.loc 1 188 0
- 812              		.cfi_startproc
- 813              		@ args = 0, pretend = 0, frame = 8
- 814              		@ frame_needed = 1, uses_anonymous_args = 0
- 815 0366 80B5     		push	{r7, lr}
- 816              		.cfi_def_cfa_offset 8
- 817              		.cfi_offset 7, -8
- 818              		.cfi_offset 14, -4
- 819 0368 82B0     		sub	sp, sp, #8
- 820              		.cfi_def_cfa_offset 16
- 821 036a 00AF     		add	r7, sp, #0
- 822              		.cfi_def_cfa_register 7
- 823 036c 0200     		movs	r2, r0
- 824 036e FB1D     		adds	r3, r7, #7
- 825 0370 1A70     		strb	r2, [r3]
- 826 0372 BB1D     		adds	r3, r7, #6
- 827 0374 0A1C     		adds	r2, r1, #0
- 828 0376 1A70     		strb	r2, [r3]
- 189:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_set(B_E);
- 829              		.loc 1 189 0
- 830 0378 4020     		movs	r0, #64
- 831 037a FFF7FEFF 		bl	graphic_ctrl_bit_set
- 190:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	select_cotroller(controller);
- 832              		.loc 1 190 0
- 833 037e BB1D     		adds	r3, r7, #6
- 834 0380 1B78     		ldrb	r3, [r3]
- 835 0382 1800     		movs	r0, r3
- 836 0384 FFF7FEFF 		bl	select_cotroller
- 191:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_set(B_RS);
- 837              		.loc 1 191 0
- 838 0388 0120     		movs	r0, #1
- 839 038a FFF7FEFF 		bl	graphic_ctrl_bit_set
- 192:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_clear(B_RW);
- 840              		.loc 1 192 0
- 841 038e 0220     		movs	r0, #2
- 842 0390 FFF7FEFF 		bl	graphic_ctrl_bit_clear
- 193:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_write(data, controller);
+ 786 033e 4020     		movs	r0, #64
+ 787 0340 FFF7FEFF 		bl	graphic_ctrl_bit_clear
+ 186:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	select_cotroller(controller);
+ 788              		.loc 1 186 0
+ 789 0344 BB1D     		adds	r3, r7, #6
+ 790 0346 1B78     		ldrb	r3, [r3]
+ 791 0348 1800     		movs	r0, r3
+ 792 034a FFF7FEFF 		bl	select_cotroller
+ 187:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_clear(B_RS);
+ 793              		.loc 1 187 0
+ 794 034e 0120     		movs	r0, #1
+ 795 0350 FFF7FEFF 		bl	graphic_ctrl_bit_clear
+ 188:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_clear(B_RW);
+ 796              		.loc 1 188 0
+ 797 0354 0220     		movs	r0, #2
+ 798 0356 FFF7FEFF 		bl	graphic_ctrl_bit_clear
+ 189:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_write(command, controller);
+ 799              		.loc 1 189 0
+ 800 035a BB1D     		adds	r3, r7, #6
+ 801 035c 1A78     		ldrb	r2, [r3]
+ 802 035e FB1D     		adds	r3, r7, #7
+ 803 0360 1B78     		ldrb	r3, [r3]
+ 804 0362 1100     		movs	r1, r2
+ 805 0364 1800     		movs	r0, r3
+ 806 0366 FFF7FEFF 		bl	graphic_write
+ 190:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** }
+ 807              		.loc 1 190 0
+ 808 036a C046     		nop
+ 809 036c BD46     		mov	sp, r7
+ 810 036e 02B0     		add	sp, sp, #8
+ 811              		@ sp needed
+ 812 0370 80BD     		pop	{r7, pc}
+ 813              		.cfi_endproc
+ 814              	.LFE12:
+ 816              		.align	1
+ 817              		.global	graphic_write_data
+ 818              		.syntax unified
+ 819              		.code	16
+ 820              		.thumb_func
+ 821              		.fpu softvfp
+ 823              	graphic_write_data:
+ 824              	.LFB13:
+ 191:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 
+ 192:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** void graphic_write_data(unsigned char data, unsigned char controller) {
+ 825              		.loc 1 192 0
+ 826              		.cfi_startproc
+ 827              		@ args = 0, pretend = 0, frame = 8
+ 828              		@ frame_needed = 1, uses_anonymous_args = 0
+ 829 0372 80B5     		push	{r7, lr}
+ 830              		.cfi_def_cfa_offset 8
+ 831              		.cfi_offset 7, -8
+ 832              		.cfi_offset 14, -4
+ 833 0374 82B0     		sub	sp, sp, #8
+ 834              		.cfi_def_cfa_offset 16
+ 835 0376 00AF     		add	r7, sp, #0
+ 836              		.cfi_def_cfa_register 7
+ 837 0378 0200     		movs	r2, r0
+ 838 037a FB1D     		adds	r3, r7, #7
+ 839 037c 1A70     		strb	r2, [r3]
+ 840 037e BB1D     		adds	r3, r7, #6
+ 841 0380 0A1C     		adds	r2, r1, #0
+ 842 0382 1A70     		strb	r2, [r3]
+ 193:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_set(B_E);
  843              		.loc 1 193 0
- 844 0394 BB1D     		adds	r3, r7, #6
- 845 0396 1A78     		ldrb	r2, [r3]
- 846 0398 FB1D     		adds	r3, r7, #7
- 847 039a 1B78     		ldrb	r3, [r3]
- 848 039c 1100     		movs	r1, r2
- 849 039e 1800     		movs	r0, r3
- 850 03a0 FFF7FEFF 		bl	graphic_write
- 194:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** }
- 851              		.loc 1 194 0
- 852 03a4 C046     		nop
- 853 03a6 BD46     		mov	sp, r7
- 854 03a8 02B0     		add	sp, sp, #8
- 855              		@ sp needed
- 856 03aa 80BD     		pop	{r7, pc}
- 857              		.cfi_endproc
- 858              	.LFE13:
- 860              		.align	1
- 861              		.global	graphic_read_data
- 862              		.syntax unified
- 863              		.code	16
- 864              		.thumb_func
- 865              		.fpu softvfp
- 867              	graphic_read_data:
- 868              	.LFB14:
- 195:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 
- 196:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** unsigned char graphic_read_data(unsigned char controller) {
- 869              		.loc 1 196 0
- 870              		.cfi_startproc
- 871              		@ args = 0, pretend = 0, frame = 8
- 872              		@ frame_needed = 1, uses_anonymous_args = 0
- 873 03ac 80B5     		push	{r7, lr}
- 874              		.cfi_def_cfa_offset 8
- 875              		.cfi_offset 7, -8
- 876              		.cfi_offset 14, -4
- 877 03ae 82B0     		sub	sp, sp, #8
- 878              		.cfi_def_cfa_offset 16
- 879 03b0 00AF     		add	r7, sp, #0
- 880              		.cfi_def_cfa_register 7
- 881 03b2 0200     		movs	r2, r0
- 882 03b4 FB1D     		adds	r3, r7, #7
- 883 03b6 1A70     		strb	r2, [r3]
- 197:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	(void) graphic_read(controller);
- 884              		.loc 1 197 0
- 885 03b8 FB1D     		adds	r3, r7, #7
- 886 03ba 1B78     		ldrb	r3, [r3]
- 887 03bc 1800     		movs	r0, r3
- 888 03be FFF7FEFF 		bl	graphic_read
- 198:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	return graphic_read(controller);
- 889              		.loc 1 198 0
- 890 03c2 FB1D     		adds	r3, r7, #7
- 891 03c4 1B78     		ldrb	r3, [r3]
- 892 03c6 1800     		movs	r0, r3
- 893 03c8 FFF7FEFF 		bl	graphic_read
- 894 03cc 0300     		movs	r3, r0
- 199:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** }
- 895              		.loc 1 199 0
- 896 03ce 1800     		movs	r0, r3
- 897 03d0 BD46     		mov	sp, r7
- 898 03d2 02B0     		add	sp, sp, #8
- 899              		@ sp needed
- 900 03d4 80BD     		pop	{r7, pc}
- 901              		.cfi_endproc
- 902              	.LFE14:
- 904              		.align	1
- 905              		.global	graphic_initalize
- 906              		.syntax unified
- 907              		.code	16
- 908              		.thumb_func
- 909              		.fpu softvfp
- 911              	graphic_initalize:
- 912              	.LFB15:
- 200:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 
- 201:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** void graphic_initalize(void) {
- 913              		.loc 1 201 0
- 914              		.cfi_startproc
- 915              		@ args = 0, pretend = 0, frame = 0
- 916              		@ frame_needed = 1, uses_anonymous_args = 0
- 917 03d6 80B5     		push	{r7, lr}
- 918              		.cfi_def_cfa_offset 8
- 919              		.cfi_offset 7, -8
- 920              		.cfi_offset 14, -4
- 921 03d8 00AF     		add	r7, sp, #0
- 922              		.cfi_def_cfa_register 7
- 202:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_set(B_E);
- 923              		.loc 1 202 0
- 924 03da 4020     		movs	r0, #64
- 925 03dc FFF7FEFF 		bl	graphic_ctrl_bit_set
- 203:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	delay_mikro(10);
- 926              		.loc 1 203 0
- 927 03e0 0A20     		movs	r0, #10
- 928 03e2 FFF7FEFF 		bl	delay_mikro
- 204:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_clear(B_CS1 | B_CS2 | B_RST | B_E);
- 929              		.loc 1 204 0
- 930 03e6 7820     		movs	r0, #120
- 931 03e8 FFF7FEFF 		bl	graphic_ctrl_bit_clear
- 205:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	delay_milli(30);
- 932              		.loc 1 205 0
- 933 03ec 1E20     		movs	r0, #30
- 934 03ee FFF7FEFF 		bl	delay_milli
- 206:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_set(B_RST);
- 935              		.loc 1 206 0
- 936 03f2 2020     		movs	r0, #32
- 937 03f4 FFF7FEFF 		bl	graphic_ctrl_bit_set
- 207:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_write_command(LCD_OFF, B_CS1 | B_CS2);
- 938              		.loc 1 207 0
- 939 03f8 1821     		movs	r1, #24
- 940 03fa 3E20     		movs	r0, #62
- 941 03fc FFF7FEFF 		bl	graphic_write_command
- 208:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_write_command(LCD_ON, B_CS1 | B_CS2);
- 942              		.loc 1 208 0
- 943 0400 1821     		movs	r1, #24
- 944 0402 3F20     		movs	r0, #63
- 945 0404 FFF7FEFF 		bl	graphic_write_command
- 209:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_write_command(LCD_DISP_START, B_CS1 | B_CS2);
+ 844 0384 4020     		movs	r0, #64
+ 845 0386 FFF7FEFF 		bl	graphic_ctrl_bit_set
+ 194:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	select_cotroller(controller);
+ 846              		.loc 1 194 0
+ 847 038a BB1D     		adds	r3, r7, #6
+ 848 038c 1B78     		ldrb	r3, [r3]
+ 849 038e 1800     		movs	r0, r3
+ 850 0390 FFF7FEFF 		bl	select_cotroller
+ 195:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_set(B_RS);
+ 851              		.loc 1 195 0
+ 852 0394 0120     		movs	r0, #1
+ 853 0396 FFF7FEFF 		bl	graphic_ctrl_bit_set
+ 196:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_clear(B_RW);
+ 854              		.loc 1 196 0
+ 855 039a 0220     		movs	r0, #2
+ 856 039c FFF7FEFF 		bl	graphic_ctrl_bit_clear
+ 197:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_write(data, controller);
+ 857              		.loc 1 197 0
+ 858 03a0 BB1D     		adds	r3, r7, #6
+ 859 03a2 1A78     		ldrb	r2, [r3]
+ 860 03a4 FB1D     		adds	r3, r7, #7
+ 861 03a6 1B78     		ldrb	r3, [r3]
+ 862 03a8 1100     		movs	r1, r2
+ 863 03aa 1800     		movs	r0, r3
+ 864 03ac FFF7FEFF 		bl	graphic_write
+ 198:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** }
+ 865              		.loc 1 198 0
+ 866 03b0 C046     		nop
+ 867 03b2 BD46     		mov	sp, r7
+ 868 03b4 02B0     		add	sp, sp, #8
+ 869              		@ sp needed
+ 870 03b6 80BD     		pop	{r7, pc}
+ 871              		.cfi_endproc
+ 872              	.LFE13:
+ 874              		.align	1
+ 875              		.global	graphic_read_data
+ 876              		.syntax unified
+ 877              		.code	16
+ 878              		.thumb_func
+ 879              		.fpu softvfp
+ 881              	graphic_read_data:
+ 882              	.LFB14:
+ 199:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 
+ 200:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** unsigned char graphic_read_data(unsigned char controller) {
+ 883              		.loc 1 200 0
+ 884              		.cfi_startproc
+ 885              		@ args = 0, pretend = 0, frame = 8
+ 886              		@ frame_needed = 1, uses_anonymous_args = 0
+ 887 03b8 80B5     		push	{r7, lr}
+ 888              		.cfi_def_cfa_offset 8
+ 889              		.cfi_offset 7, -8
+ 890              		.cfi_offset 14, -4
+ 891 03ba 82B0     		sub	sp, sp, #8
+ 892              		.cfi_def_cfa_offset 16
+ 893 03bc 00AF     		add	r7, sp, #0
+ 894              		.cfi_def_cfa_register 7
+ 895 03be 0200     		movs	r2, r0
+ 896 03c0 FB1D     		adds	r3, r7, #7
+ 897 03c2 1A70     		strb	r2, [r3]
+ 201:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	(void) graphic_read(controller);
+ 898              		.loc 1 201 0
+ 899 03c4 FB1D     		adds	r3, r7, #7
+ 900 03c6 1B78     		ldrb	r3, [r3]
+ 901 03c8 1800     		movs	r0, r3
+ 902 03ca FFF7FEFF 		bl	graphic_read
+ 202:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	return graphic_read(controller);
+ 903              		.loc 1 202 0
+ 904 03ce FB1D     		adds	r3, r7, #7
+ 905 03d0 1B78     		ldrb	r3, [r3]
+ 906 03d2 1800     		movs	r0, r3
+ 907 03d4 FFF7FEFF 		bl	graphic_read
+ 908 03d8 0300     		movs	r3, r0
+ 203:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** }
+ 909              		.loc 1 203 0
+ 910 03da 1800     		movs	r0, r3
+ 911 03dc BD46     		mov	sp, r7
+ 912 03de 02B0     		add	sp, sp, #8
+ 913              		@ sp needed
+ 914 03e0 80BD     		pop	{r7, pc}
+ 915              		.cfi_endproc
+ 916              	.LFE14:
+ 918              		.align	1
+ 919              		.global	graphic_initalize
+ 920              		.syntax unified
+ 921              		.code	16
+ 922              		.thumb_func
+ 923              		.fpu softvfp
+ 925              	graphic_initalize:
+ 926              	.LFB15:
+ 204:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 
+ 205:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** void graphic_initalize(void) {
+ 927              		.loc 1 205 0
+ 928              		.cfi_startproc
+ 929              		@ args = 0, pretend = 0, frame = 0
+ 930              		@ frame_needed = 1, uses_anonymous_args = 0
+ 931 03e2 80B5     		push	{r7, lr}
+ 932              		.cfi_def_cfa_offset 8
+ 933              		.cfi_offset 7, -8
+ 934              		.cfi_offset 14, -4
+ 935 03e4 00AF     		add	r7, sp, #0
+ 936              		.cfi_def_cfa_register 7
+ 206:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_set(B_E);
+ 937              		.loc 1 206 0
+ 938 03e6 4020     		movs	r0, #64
+ 939 03e8 FFF7FEFF 		bl	graphic_ctrl_bit_set
+ 207:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	delay_mikro(10);
+ 940              		.loc 1 207 0
+ 941 03ec 0A20     		movs	r0, #10
+ 942 03ee FFF7FEFF 		bl	delay_mikro
+ 208:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_clear(B_CS1 | B_CS2 | B_RST | B_E);
+ 943              		.loc 1 208 0
+ 944 03f2 7820     		movs	r0, #120
+ 945 03f4 FFF7FEFF 		bl	graphic_ctrl_bit_clear
+ 209:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	delay_milli(30);
  946              		.loc 1 209 0
- 947 0408 1821     		movs	r1, #24
- 948 040a C020     		movs	r0, #192
- 949 040c FFF7FEFF 		bl	graphic_write_command
- 210:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_write_command(LCD_SET_ADD, B_CS1 | B_CS2);
- 950              		.loc 1 210 0
- 951 0410 1821     		movs	r1, #24
- 952 0412 4020     		movs	r0, #64
- 953 0414 FFF7FEFF 		bl	graphic_write_command
- 211:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_write_command(LCD_SET_PAGE, B_CS1 | B_CS2);
- 954              		.loc 1 211 0
- 955 0418 1821     		movs	r1, #24
- 956 041a B820     		movs	r0, #184
- 957 041c FFF7FEFF 		bl	graphic_write_command
- 212:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	select_cotroller(0);
- 958              		.loc 1 212 0
- 959 0420 0020     		movs	r0, #0
- 960 0422 FFF7FEFF 		bl	select_cotroller
- 213:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** }
- 961              		.loc 1 213 0
- 962 0426 C046     		nop
- 963 0428 BD46     		mov	sp, r7
- 964              		@ sp needed
- 965 042a 80BD     		pop	{r7, pc}
- 966              		.cfi_endproc
- 967              	.LFE15:
- 969              		.align	1
- 970              		.global	graphic_clear_screen
- 971              		.syntax unified
- 972              		.code	16
- 973              		.thumb_func
- 974              		.fpu softvfp
- 976              	graphic_clear_screen:
- 977              	.LFB16:
- 214:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 
- 215:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** void graphic_clear_screen(void) {
- 978              		.loc 1 215 0
- 979              		.cfi_startproc
- 980              		@ args = 0, pretend = 0, frame = 8
- 981              		@ frame_needed = 1, uses_anonymous_args = 0
- 982 042c 80B5     		push	{r7, lr}
- 983              		.cfi_def_cfa_offset 8
- 984              		.cfi_offset 7, -8
- 985              		.cfi_offset 14, -4
- 986 042e 82B0     		sub	sp, sp, #8
- 987              		.cfi_def_cfa_offset 16
- 988 0430 00AF     		add	r7, sp, #0
- 989              		.cfi_def_cfa_register 7
- 990              	.LBB2:
- 216:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	for(int page = 0; page < 7; page++) {
- 991              		.loc 1 216 0
- 992 0432 0023     		movs	r3, #0
- 993 0434 7B60     		str	r3, [r7, #4]
- 994 0436 1EE0     		b	.L48
- 995              	.L51:
- 217:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		graphic_write_command(LCD_SET_PAGE | page, B_CS1 | B_CS2);
- 996              		.loc 1 217 0
- 997 0438 7B68     		ldr	r3, [r7, #4]
- 998 043a 5BB2     		sxtb	r3, r3
- 999 043c 4822     		movs	r2, #72
- 1000 043e 5242     		rsbs	r2, r2, #0
- 1001 0440 1343     		orrs	r3, r2
- 1002 0442 5BB2     		sxtb	r3, r3
- 1003 0444 DBB2     		uxtb	r3, r3
- 1004 0446 1821     		movs	r1, #24
- 1005 0448 1800     		movs	r0, r3
- 1006 044a FFF7FEFF 		bl	graphic_write_command
- 218:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		graphic_write_command(LCD_SET_ADD | 0, B_CS1 | B_CS2);
- 1007              		.loc 1 218 0
- 1008 044e 1821     		movs	r1, #24
- 1009 0450 4020     		movs	r0, #64
- 1010 0452 FFF7FEFF 		bl	graphic_write_command
- 1011              	.LBB3:
- 219:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		for(int add = 0; add < 63; add++) {
- 1012              		.loc 1 219 0
- 1013 0456 0023     		movs	r3, #0
- 1014 0458 3B60     		str	r3, [r7]
- 1015 045a 06E0     		b	.L49
- 1016              	.L50:
- 220:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 			graphic_write_data(0, B_CS1 | B_CS2);
- 1017              		.loc 1 220 0 discriminator 3
- 1018 045c 1821     		movs	r1, #24
- 1019 045e 0020     		movs	r0, #0
- 1020 0460 FFF7FEFF 		bl	graphic_write_data
- 219:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		for(int add = 0; add < 63; add++) {
- 1021              		.loc 1 219 0 discriminator 3
- 1022 0464 3B68     		ldr	r3, [r7]
- 1023 0466 0133     		adds	r3, r3, #1
- 1024 0468 3B60     		str	r3, [r7]
- 1025              	.L49:
- 219:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		for(int add = 0; add < 63; add++) {
- 1026              		.loc 1 219 0 is_stmt 0 discriminator 1
- 1027 046a 3B68     		ldr	r3, [r7]
- 1028 046c 3E2B     		cmp	r3, #62
- 1029 046e F5DD     		ble	.L50
- 1030              	.LBE3:
- 216:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		graphic_write_command(LCD_SET_PAGE | page, B_CS1 | B_CS2);
- 1031              		.loc 1 216 0 is_stmt 1 discriminator 2
- 1032 0470 7B68     		ldr	r3, [r7, #4]
- 1033 0472 0133     		adds	r3, r3, #1
- 1034 0474 7B60     		str	r3, [r7, #4]
- 1035              	.L48:
- 216:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		graphic_write_command(LCD_SET_PAGE | page, B_CS1 | B_CS2);
- 1036              		.loc 1 216 0 is_stmt 0 discriminator 1
- 1037 0476 7B68     		ldr	r3, [r7, #4]
- 1038 0478 062B     		cmp	r3, #6
- 1039 047a DDDD     		ble	.L51
- 1040              	.LBE2:
- 221:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		}
- 222:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	}
- 223:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** }
- 1041              		.loc 1 223 0 is_stmt 1
- 1042 047c C046     		nop
- 1043 047e BD46     		mov	sp, r7
- 1044 0480 02B0     		add	sp, sp, #8
- 1045              		@ sp needed
- 1046 0482 80BD     		pop	{r7, pc}
- 1047              		.cfi_endproc
- 1048              	.LFE16:
- 1050              		.align	1
- 1051              		.global	main
- 1052              		.syntax unified
- 1053              		.code	16
- 1054              		.thumb_func
- 1055              		.fpu softvfp
- 1057              	main:
- 1058              	.LFB17:
- 224:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 
- 225:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** void main(void) {
- 1059              		.loc 1 225 0
- 1060              		.cfi_startproc
- 1061              		@ args = 0, pretend = 0, frame = 0
- 1062              		@ frame_needed = 1, uses_anonymous_args = 0
- 1063 0484 80B5     		push	{r7, lr}
- 1064              		.cfi_def_cfa_offset 8
- 1065              		.cfi_offset 7, -8
- 1066              		.cfi_offset 14, -4
- 1067 0486 00AF     		add	r7, sp, #0
- 1068              		.cfi_def_cfa_register 7
- 226:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	init_app();
- 1069              		.loc 1 226 0
- 1070 0488 FFF7FEFF 		bl	init_app
- 227:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_initalize();
- 1071              		.loc 1 227 0
- 1072 048c FFF7FEFF 		bl	graphic_initalize
- 228:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c ****   #ifndef SIMULATOR
- 229:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_clear_screen();
- 230:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c ****   #endif
- 231:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_write_command(LCD_SET_ADD | 10, B_CS1 | B_CS2);
- 1073              		.loc 1 231 0
- 1074 0490 1821     		movs	r1, #24
- 1075 0492 4A20     		movs	r0, #74
- 1076 0494 FFF7FEFF 		bl	graphic_write_command
- 232:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_write_command(LCD_SET_PAGE | 1, B_CS1 | B_CS2);
- 1077              		.loc 1 232 0
- 1078 0498 1821     		movs	r1, #24
- 1079 049a B920     		movs	r0, #185
- 1080 049c FFF7FEFF 		bl	graphic_write_command
- 233:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_write(0xFF, B_CS1 | B_CS2);
- 1081              		.loc 1 233 0
- 1082 04a0 1821     		movs	r1, #24
- 1083 04a2 FF20     		movs	r0, #255
- 1084 04a4 FFF7FEFF 		bl	graphic_write
- 234:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** }
- 1085              		.loc 1 234 0
- 1086 04a8 C046     		nop
- 1087 04aa BD46     		mov	sp, r7
- 1088              		@ sp needed
- 1089 04ac 80BD     		pop	{r7, pc}
- 1090              		.cfi_endproc
- 1091              	.LFE17:
- 1093              	.Letext0:
+ 947 03f8 1E20     		movs	r0, #30
+ 948 03fa FFF7FEFF 		bl	delay_milli
+ 210:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_ctrl_bit_set(B_RST);
+ 949              		.loc 1 210 0
+ 950 03fe 2020     		movs	r0, #32
+ 951 0400 FFF7FEFF 		bl	graphic_ctrl_bit_set
+ 211:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_write_command(LCD_OFF, B_CS1 | B_CS2);
+ 952              		.loc 1 211 0
+ 953 0404 1821     		movs	r1, #24
+ 954 0406 3E20     		movs	r0, #62
+ 955 0408 FFF7FEFF 		bl	graphic_write_command
+ 212:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_write_command(LCD_ON, B_CS1 | B_CS2);
+ 956              		.loc 1 212 0
+ 957 040c 1821     		movs	r1, #24
+ 958 040e 3F20     		movs	r0, #63
+ 959 0410 FFF7FEFF 		bl	graphic_write_command
+ 213:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_write_command(LCD_DISP_START, B_CS1 | B_CS2);
+ 960              		.loc 1 213 0
+ 961 0414 1821     		movs	r1, #24
+ 962 0416 C020     		movs	r0, #192
+ 963 0418 FFF7FEFF 		bl	graphic_write_command
+ 214:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_write_command(LCD_SET_ADD, B_CS1 | B_CS2);
+ 964              		.loc 1 214 0
+ 965 041c 1821     		movs	r1, #24
+ 966 041e 4020     		movs	r0, #64
+ 967 0420 FFF7FEFF 		bl	graphic_write_command
+ 215:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_write_command(LCD_SET_PAGE, B_CS1 | B_CS2);
+ 968              		.loc 1 215 0
+ 969 0424 1821     		movs	r1, #24
+ 970 0426 B820     		movs	r0, #184
+ 971 0428 FFF7FEFF 		bl	graphic_write_command
+ 216:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	select_cotroller(0);
+ 972              		.loc 1 216 0
+ 973 042c 0020     		movs	r0, #0
+ 974 042e FFF7FEFF 		bl	select_cotroller
+ 217:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** }
+ 975              		.loc 1 217 0
+ 976 0432 C046     		nop
+ 977 0434 BD46     		mov	sp, r7
+ 978              		@ sp needed
+ 979 0436 80BD     		pop	{r7, pc}
+ 980              		.cfi_endproc
+ 981              	.LFE15:
+ 983              		.align	1
+ 984              		.global	graphic_clear_screen
+ 985              		.syntax unified
+ 986              		.code	16
+ 987              		.thumb_func
+ 988              		.fpu softvfp
+ 990              	graphic_clear_screen:
+ 991              	.LFB16:
+ 218:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 
+ 219:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** void graphic_clear_screen(void) {
+ 992              		.loc 1 219 0
+ 993              		.cfi_startproc
+ 994              		@ args = 0, pretend = 0, frame = 8
+ 995              		@ frame_needed = 1, uses_anonymous_args = 0
+ 996 0438 80B5     		push	{r7, lr}
+ 997              		.cfi_def_cfa_offset 8
+ 998              		.cfi_offset 7, -8
+ 999              		.cfi_offset 14, -4
+ 1000 043a 82B0     		sub	sp, sp, #8
+ 1001              		.cfi_def_cfa_offset 16
+ 1002 043c 00AF     		add	r7, sp, #0
+ 1003              		.cfi_def_cfa_register 7
+ 1004              	.LBB4:
+ 220:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	for(int page = 0; page < 7; page++) {
+ 1005              		.loc 1 220 0
+ 1006 043e 0023     		movs	r3, #0
+ 1007 0440 7B60     		str	r3, [r7, #4]
+ 1008 0442 1EE0     		b	.L51
+ 1009              	.L54:
+ 221:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		graphic_write_command(LCD_SET_PAGE | page, B_CS1 | B_CS2);
+ 1010              		.loc 1 221 0
+ 1011 0444 7B68     		ldr	r3, [r7, #4]
+ 1012 0446 5BB2     		sxtb	r3, r3
+ 1013 0448 4822     		movs	r2, #72
+ 1014 044a 5242     		rsbs	r2, r2, #0
+ 1015 044c 1343     		orrs	r3, r2
+ 1016 044e 5BB2     		sxtb	r3, r3
+ 1017 0450 DBB2     		uxtb	r3, r3
+ 1018 0452 1821     		movs	r1, #24
+ 1019 0454 1800     		movs	r0, r3
+ 1020 0456 FFF7FEFF 		bl	graphic_write_command
+ 222:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		graphic_write_command(LCD_SET_ADD | 0, B_CS1 | B_CS2);
+ 1021              		.loc 1 222 0
+ 1022 045a 1821     		movs	r1, #24
+ 1023 045c 4020     		movs	r0, #64
+ 1024 045e FFF7FEFF 		bl	graphic_write_command
+ 1025              	.LBB5:
+ 223:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		for(int add = 0; add < 63; add++) {
+ 1026              		.loc 1 223 0
+ 1027 0462 0023     		movs	r3, #0
+ 1028 0464 3B60     		str	r3, [r7]
+ 1029 0466 06E0     		b	.L52
+ 1030              	.L53:
+ 224:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 			graphic_write_data(0, B_CS1 | B_CS2);
+ 1031              		.loc 1 224 0 discriminator 3
+ 1032 0468 1821     		movs	r1, #24
+ 1033 046a 0020     		movs	r0, #0
+ 1034 046c FFF7FEFF 		bl	graphic_write_data
+ 223:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		for(int add = 0; add < 63; add++) {
+ 1035              		.loc 1 223 0 discriminator 3
+ 1036 0470 3B68     		ldr	r3, [r7]
+ 1037 0472 0133     		adds	r3, r3, #1
+ 1038 0474 3B60     		str	r3, [r7]
+ 1039              	.L52:
+ 223:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		for(int add = 0; add < 63; add++) {
+ 1040              		.loc 1 223 0 is_stmt 0 discriminator 1
+ 1041 0476 3B68     		ldr	r3, [r7]
+ 1042 0478 3E2B     		cmp	r3, #62
+ 1043 047a F5DD     		ble	.L53
+ 1044              	.LBE5:
+ 220:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		graphic_write_command(LCD_SET_PAGE | page, B_CS1 | B_CS2);
+ 1045              		.loc 1 220 0 is_stmt 1 discriminator 2
+ 1046 047c 7B68     		ldr	r3, [r7, #4]
+ 1047 047e 0133     		adds	r3, r3, #1
+ 1048 0480 7B60     		str	r3, [r7, #4]
+ 1049              	.L51:
+ 220:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		graphic_write_command(LCD_SET_PAGE | page, B_CS1 | B_CS2);
+ 1050              		.loc 1 220 0 is_stmt 0 discriminator 1
+ 1051 0482 7B68     		ldr	r3, [r7, #4]
+ 1052 0484 062B     		cmp	r3, #6
+ 1053 0486 DDDD     		ble	.L54
+ 1054              	.LBE4:
+ 225:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 		}
+ 226:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	}
+ 227:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** }
+ 1055              		.loc 1 227 0 is_stmt 1
+ 1056 0488 C046     		nop
+ 1057 048a BD46     		mov	sp, r7
+ 1058 048c 02B0     		add	sp, sp, #8
+ 1059              		@ sp needed
+ 1060 048e 80BD     		pop	{r7, pc}
+ 1061              		.cfi_endproc
+ 1062              	.LFE16:
+ 1064              		.align	1
+ 1065              		.global	main
+ 1066              		.syntax unified
+ 1067              		.code	16
+ 1068              		.thumb_func
+ 1069              		.fpu softvfp
+ 1071              	main:
+ 1072              	.LFB17:
+ 228:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 
+ 229:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** void main(void) {
+ 1073              		.loc 1 229 0
+ 1074              		.cfi_startproc
+ 1075              		@ args = 0, pretend = 0, frame = 0
+ 1076              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1077 0490 80B5     		push	{r7, lr}
+ 1078              		.cfi_def_cfa_offset 8
+ 1079              		.cfi_offset 7, -8
+ 1080              		.cfi_offset 14, -4
+ 1081 0492 00AF     		add	r7, sp, #0
+ 1082              		.cfi_def_cfa_register 7
+ 230:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	init_app();
+ 1083              		.loc 1 230 0
+ 1084 0494 FFF7FEFF 		bl	init_app
+ 231:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_initalize();
+ 1085              		.loc 1 231 0
+ 1086 0498 FFF7FEFF 		bl	graphic_initalize
+ 232:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c ****   #ifndef SIMULATOR
+ 233:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_clear_screen();
+ 234:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c ****   #endif
+ 235:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_write_command(LCD_SET_ADD | 10, B_CS1 | B_CS2);
+ 1087              		.loc 1 235 0
+ 1088 049c 1821     		movs	r1, #24
+ 1089 049e 4A20     		movs	r0, #74
+ 1090 04a0 FFF7FEFF 		bl	graphic_write_command
+ 236:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_write_command(LCD_SET_PAGE | 1, B_CS1 | B_CS2);
+ 1091              		.loc 1 236 0
+ 1092 04a4 1821     		movs	r1, #24
+ 1093 04a6 B920     		movs	r0, #185
+ 1094 04a8 FFF7FEFF 		bl	graphic_write_command
+ 237:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** 	graphic_write(0xFF, B_CS1 | B_CS2);
+ 1095              		.loc 1 237 0
+ 1096 04ac 1821     		movs	r1, #24
+ 1097 04ae FF20     		movs	r0, #255
+ 1098 04b0 FFF7FEFF 		bl	graphic_write
+ 238:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\startup.c **** }
+ 1099              		.loc 1 238 0
+ 1100 04b4 C046     		nop
+ 1101 04b6 BD46     		mov	sp, r7
+ 1102              		@ sp needed
+ 1103 04b8 80BD     		pop	{r7, pc}
+ 1104              		.cfi_endproc
+ 1105              	.LFE17:
+ 1107              	.Letext0:
