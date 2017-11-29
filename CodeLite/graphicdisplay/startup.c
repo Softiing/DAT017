@@ -21,13 +21,26 @@ void init_app(void) {
 
 
 void main(void) {
+	unsigned char i;
 	init_app();
 	graphic_initalize();
   #ifndef SIMULATOR
 	graphic_clear_screen();
   #endif
-	graphic_write_command(LCD_SET_ADD | 10, B_CS1 | B_CS2);
-	graphic_write_command(LCD_SET_PAGE | 1, B_CS1 | B_CS2);
-	graphic_write_data(0xFF, B_CS1 | B_CS2);
+  
+	for(i = 0; i < 128; i++) {
+		pixel(i, 10, 1);
+	}
+	for(i = 0; i < 64; i++) {
+		pixel(10, i, 1);
+	}
+	delay_milli(50);
+	for(i = 0; i < 128; i++) {
+		pixel(i, 10, 0);
+	}
+	for(i = 0; i < 64; i++) {
+		pixel(10, i, 0);
+	}
+
 }
 

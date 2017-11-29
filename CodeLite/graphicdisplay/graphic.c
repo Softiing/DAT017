@@ -125,11 +125,56 @@ void graphic_initalize(void) {
 }
 
 void graphic_clear_screen(void) {
-	for(int page = 0; page < 7; page++) {
+	for(int page = 0; page <= 7; page++) {
 		graphic_write_command(LCD_SET_PAGE | page, B_CS1 | B_CS2);
 		graphic_write_command(LCD_SET_ADD | 0, B_CS1 | B_CS2);
-		for(int add = 0; add < 63; add++) {
+		for(int add = 0; add <= 63; add++) {
 			graphic_write_data(0, B_CS1 | B_CS2);
 		}
 	}
+}
+
+
+void pixel(unsigned char x, unsigned char y, unsigned char set) {
+	if(x < 0 || y < 0) return;
+	if(x > 127 || y > 63) return;
+	unsigned char mask;
+	unsigned char index = y / 8;
+	
+	switch(y % 8) {
+		case 0: mask = 1; break;
+		case 1: mask = 2; break;
+		case 2: mask = 4; break;
+		case 3: mask = 8; break;
+		case 4: mask = 16; break;
+		case 5: mask = 32; break;
+		case 6: mask = 64; break;
+		case 7: mask = 128; break;
+	}
+	
+	if(set == 0) {
+		mask = ~mask;
+	}
+	
+	unsigned char controller;
+	if(x > 63) {
+		controller = B_CS2;
+		x = x - 64;
+	} else {
+		controller = B_CS1;
+	}
+	
+	graphic_write_command(LCD_SET_ADD | x, controller);
+	graphic_write_command(LCD_SET_PAGE | index, controller);
+	unsigned char temp = graphic_read_data(controller);
+	graphic_write_command(LCD_SET_ADD | x, controller);
+	
+	if(set) {
+		mask = mask | temp;
+	} else {
+		mask = mask & temp;
+	}
+	
+	graphic_write_data(mask, controller);
+	
 }

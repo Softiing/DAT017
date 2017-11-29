@@ -54,4 +54,6 @@ void graphic_initalize(void);
 
 void graphic_clear_screen(void);
 
+void pixel(unsigned char x, unsigned char y, unsigned char set);
+
 #endif

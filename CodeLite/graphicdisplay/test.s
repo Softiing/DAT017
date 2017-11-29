@@ -851,7 +851,7 @@
  735 0362 00AF     		add	r7, sp, #0
  736              		.cfi_def_cfa_register 7
  737              	.LBB4:
- 128:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 	for(int page = 0; page < 7; page++) {
+ 128:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 	for(int page = 0; page <= 7; page++) {
  738              		.loc 1 128 0
  739 0364 0023     		movs	r3, #0
  740 0366 7B60     		str	r3, [r7, #4]
@@ -875,7 +875,7 @@
  756 0382 4020     		movs	r0, #64
  757 0384 FFF7FEFF 		bl	graphic_write_command
  758              	.LBB5:
- 131:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 		for(int add = 0; add < 63; add++) {
+ 131:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 		for(int add = 0; add <= 63; add++) {
  759              		.loc 1 131 0
  760 0388 0023     		movs	r3, #0
  761 038a 3B60     		str	r3, [r7]
@@ -886,16 +886,16 @@
  765 038e 1821     		movs	r1, #24
  766 0390 0020     		movs	r0, #0
  767 0392 FFF7FEFF 		bl	graphic_write_data
- 131:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 		for(int add = 0; add < 63; add++) {
+ 131:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 		for(int add = 0; add <= 63; add++) {
  768              		.loc 1 131 0 discriminator 3
  769 0396 3B68     		ldr	r3, [r7]
  770 0398 0133     		adds	r3, r3, #1
  771 039a 3B60     		str	r3, [r7]
  772              	.L39:
- 131:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 		for(int add = 0; add < 63; add++) {
+ 131:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 		for(int add = 0; add <= 63; add++) {
  773              		.loc 1 131 0 is_stmt 0 discriminator 1
  774 039c 3B68     		ldr	r3, [r7]
- 775 039e 3E2B     		cmp	r3, #62
+ 775 039e 3F2B     		cmp	r3, #63
  776 03a0 F5DD     		ble	.L40
  777              	.LBE5:
  128:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 		graphic_write_command(LCD_SET_PAGE | page, B_CS1 | B_CS2);
@@ -907,12 +907,12 @@
  128:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 		graphic_write_command(LCD_SET_PAGE | page, B_CS1 | B_CS2);
  783              		.loc 1 128 0 is_stmt 0 discriminator 1
  784 03a8 7B68     		ldr	r3, [r7, #4]
- 785 03aa 062B     		cmp	r3, #6
+ 785 03aa 072B     		cmp	r3, #7
  786 03ac DDDD     		ble	.L41
  787              	.LBE4:
  133:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 		}
  134:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 	}
- 135:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** }...
+ 135:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** }
  788              		.loc 1 135 0 is_stmt 1
  789 03ae C046     		nop
  790 03b0 BD46     		mov	sp, r7
@@ -921,5 +921,329 @@
  793 03b4 80BD     		pop	{r7, pc}
  794              		.cfi_endproc
  795              	.LFE10:
- 797              	.Letext0:
- 798              		.file 2 "C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay/graphic.h"
+ 797              		.align	1
+ 798              		.global	pixel
+ 799              		.syntax unified
+ 800              		.code	16
+ 801              		.thumb_func
+ 802              		.fpu softvfp
+ 804              	pixel:
+ 805              	.LFB11:
+ 136:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 
+ 137:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 
+ 138:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** void pixel(unsigned char x, unsigned char y, unsigned char set) {
+ 806              		.loc 1 138 0
+ 807              		.cfi_startproc
+ 808              		@ args = 0, pretend = 0, frame = 16
+ 809              		@ frame_needed = 1, uses_anonymous_args = 0
+ 810 03b6 90B5     		push	{r4, r7, lr}
+ 811              		.cfi_def_cfa_offset 12
+ 812              		.cfi_offset 4, -12
+ 813              		.cfi_offset 7, -8
+ 814              		.cfi_offset 14, -4
+ 815 03b8 85B0     		sub	sp, sp, #20
+ 816              		.cfi_def_cfa_offset 32
+ 817 03ba 00AF     		add	r7, sp, #0
+ 818              		.cfi_def_cfa_register 7
+ 819 03bc 0400     		movs	r4, r0
+ 820 03be 0800     		movs	r0, r1
+ 821 03c0 1100     		movs	r1, r2
+ 822 03c2 FB1D     		adds	r3, r7, #7
+ 823 03c4 221C     		adds	r2, r4, #0
+ 824 03c6 1A70     		strb	r2, [r3]
+ 825 03c8 BB1D     		adds	r3, r7, #6
+ 826 03ca 021C     		adds	r2, r0, #0
+ 827 03cc 1A70     		strb	r2, [r3]
+ 828 03ce 7B1D     		adds	r3, r7, #5
+ 829 03d0 0A1C     		adds	r2, r1, #0
+ 830 03d2 1A70     		strb	r2, [r3]
+ 139:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 	if(x < 0 || y < 0) return;
+ 140:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 	if(x > 127 || y > 63) return;
+ 831              		.loc 1 140 0
+ 832 03d4 FB1D     		adds	r3, r7, #7
+ 833 03d6 1B78     		ldrb	r3, [r3]
+ 834 03d8 5BB2     		sxtb	r3, r3
+ 835 03da 002B     		cmp	r3, #0
+ 836 03dc 00DA     		bge	.LCB662
+ 837 03de AEE0     		b	.L61	@long jump
+ 838              	.LCB662:
+ 839              		.loc 1 140 0 is_stmt 0 discriminator 1
+ 840 03e0 BB1D     		adds	r3, r7, #6
+ 841 03e2 1B78     		ldrb	r3, [r3]
+ 842 03e4 3F2B     		cmp	r3, #63
+ 843 03e6 00D9     		bls	.LCB666
+ 844 03e8 A9E0     		b	.L61	@long jump
+ 845              	.LCB666:
+ 141:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 	unsigned char mask;
+ 142:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 	unsigned char index = y / 8;
+ 846              		.loc 1 142 0 is_stmt 1
+ 847 03ea 0D23     		movs	r3, #13
+ 848 03ec FB18     		adds	r3, r7, r3
+ 849 03ee BA1D     		adds	r2, r7, #6
+ 850 03f0 1278     		ldrb	r2, [r2]
+ 851 03f2 D208     		lsrs	r2, r2, #3
+ 852 03f4 1A70     		strb	r2, [r3]
+ 143:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 	
+ 144:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 	switch(y % 8) {
+ 853              		.loc 1 144 0
+ 854 03f6 BB1D     		adds	r3, r7, #6
+ 855 03f8 1B78     		ldrb	r3, [r3]
+ 856 03fa 0722     		movs	r2, #7
+ 857 03fc 1340     		ands	r3, r2
+ 858 03fe 072B     		cmp	r3, #7
+ 859 0400 2CD8     		bhi	.L46
+ 860 0402 9A00     		lsls	r2, r3, #2
+ 861 0404 504B     		ldr	r3, .L62
+ 862 0406 D318     		adds	r3, r2, r3
+ 863 0408 1B68     		ldr	r3, [r3]
+ 864 040a 9F46     		mov	pc, r3
+ 865              		.section	.rodata
+ 866              		.align	2
+ 867              	.L48:
+ 868 0000 0C040000 		.word	.L47
+ 869 0004 16040000 		.word	.L49
+ 870 0008 20040000 		.word	.L50
+ 871 000c 2A040000 		.word	.L51
+ 872 0010 34040000 		.word	.L52
+ 873 0014 3E040000 		.word	.L53
+ 874 0018 48040000 		.word	.L54
+ 875 001c 52040000 		.word	.L55
+ 876              		.text
+ 877              	.L47:
+ 145:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 		case 0: mask = 1; break;
+ 878              		.loc 1 145 0
+ 879 040c 0F23     		movs	r3, #15
+ 880 040e FB18     		adds	r3, r7, r3
+ 881 0410 0122     		movs	r2, #1
+ 882 0412 1A70     		strb	r2, [r3]
+ 883 0414 22E0     		b	.L46
+ 884              	.L49:
+ 146:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 		case 1: mask = 2; break;
+ 885              		.loc 1 146 0
+ 886 0416 0F23     		movs	r3, #15
+ 887 0418 FB18     		adds	r3, r7, r3
+ 888 041a 0222     		movs	r2, #2
+ 889 041c 1A70     		strb	r2, [r3]
+ 890 041e 1DE0     		b	.L46
+ 891              	.L50:
+ 147:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 		case 2: mask = 4; break;
+ 892              		.loc 1 147 0
+ 893 0420 0F23     		movs	r3, #15
+ 894 0422 FB18     		adds	r3, r7, r3
+ 895 0424 0422     		movs	r2, #4
+ 896 0426 1A70     		strb	r2, [r3]
+ 897 0428 18E0     		b	.L46
+ 898              	.L51:
+ 148:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 		case 3: mask = 8; break;
+ 899              		.loc 1 148 0
+ 900 042a 0F23     		movs	r3, #15
+ 901 042c FB18     		adds	r3, r7, r3
+ 902 042e 0822     		movs	r2, #8
+ 903 0430 1A70     		strb	r2, [r3]
+ 904 0432 13E0     		b	.L46
+ 905              	.L52:
+ 149:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 		case 4: mask = 16; break;
+ 906              		.loc 1 149 0
+ 907 0434 0F23     		movs	r3, #15
+ 908 0436 FB18     		adds	r3, r7, r3
+ 909 0438 1022     		movs	r2, #16
+ 910 043a 1A70     		strb	r2, [r3]
+ 911 043c 0EE0     		b	.L46
+ 912              	.L53:
+ 150:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 		case 5: mask = 32; break;
+ 913              		.loc 1 150 0
+ 914 043e 0F23     		movs	r3, #15
+ 915 0440 FB18     		adds	r3, r7, r3
+ 916 0442 2022     		movs	r2, #32
+ 917 0444 1A70     		strb	r2, [r3]
+ 918 0446 09E0     		b	.L46
+ 919              	.L54:
+ 151:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 		case 6: mask = 64; break;
+ 920              		.loc 1 151 0
+ 921 0448 0F23     		movs	r3, #15
+ 922 044a FB18     		adds	r3, r7, r3
+ 923 044c 4022     		movs	r2, #64
+ 924 044e 1A70     		strb	r2, [r3]
+ 925 0450 04E0     		b	.L46
+ 926              	.L55:
+ 152:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 		case 7: mask = 128; break;
+ 927              		.loc 1 152 0
+ 928 0452 0F23     		movs	r3, #15
+ 929 0454 FB18     		adds	r3, r7, r3
+ 930 0456 8022     		movs	r2, #128
+ 931 0458 1A70     		strb	r2, [r3]
+ 932 045a C046     		nop
+ 933              	.L46:
+ 153:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 	}
+ 154:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 	
+ 155:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 	if(set == 0) {
+ 934              		.loc 1 155 0
+ 935 045c 7B1D     		adds	r3, r7, #5
+ 936 045e 1B78     		ldrb	r3, [r3]
+ 937 0460 002B     		cmp	r3, #0
+ 938 0462 06D1     		bne	.L56
+ 156:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 		mask = ~mask;
+ 939              		.loc 1 156 0
+ 940 0464 0F23     		movs	r3, #15
+ 941 0466 FB18     		adds	r3, r7, r3
+ 942 0468 0F22     		movs	r2, #15
+ 943 046a BA18     		adds	r2, r7, r2
+ 944 046c 1278     		ldrb	r2, [r2]
+ 945 046e D243     		mvns	r2, r2
+ 946 0470 1A70     		strb	r2, [r3]
+ 947              	.L56:
+ 157:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 	}
+ 158:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 	
+ 159:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 	unsigned char controller;
+ 160:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 	if(x > 63) {
+ 948              		.loc 1 160 0
+ 949 0472 FB1D     		adds	r3, r7, #7
+ 950 0474 1B78     		ldrb	r3, [r3]
+ 951 0476 3F2B     		cmp	r3, #63
+ 952 0478 09D9     		bls	.L57
+ 161:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 		controller = B_CS2;
+ 953              		.loc 1 161 0
+ 954 047a 0E23     		movs	r3, #14
+ 955 047c FB18     		adds	r3, r7, r3
+ 956 047e 1022     		movs	r2, #16
+ 957 0480 1A70     		strb	r2, [r3]
+ 162:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 		x = x - 64;
+ 958              		.loc 1 162 0
+ 959 0482 FB1D     		adds	r3, r7, #7
+ 960 0484 FA1D     		adds	r2, r7, #7
+ 961 0486 1278     		ldrb	r2, [r2]
+ 962 0488 403A     		subs	r2, r2, #64
+ 963 048a 1A70     		strb	r2, [r3]
+ 964 048c 03E0     		b	.L58
+ 965              	.L57:
+ 163:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 	} else {
+ 164:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 		controller = B_CS1;
+ 966              		.loc 1 164 0
+ 967 048e 0E23     		movs	r3, #14
+ 968 0490 FB18     		adds	r3, r7, r3
+ 969 0492 0822     		movs	r2, #8
+ 970 0494 1A70     		strb	r2, [r3]
+ 971              	.L58:
+ 165:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 	}
+ 166:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 	
+ 167:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 	graphic_write_command(LCD_SET_ADD | x, controller);
+ 972              		.loc 1 167 0
+ 973 0496 FB1D     		adds	r3, r7, #7
+ 974 0498 1B78     		ldrb	r3, [r3]
+ 975 049a 4022     		movs	r2, #64
+ 976 049c 1343     		orrs	r3, r2
+ 977 049e DAB2     		uxtb	r2, r3
+ 978 04a0 0E23     		movs	r3, #14
+ 979 04a2 FB18     		adds	r3, r7, r3
+ 980 04a4 1B78     		ldrb	r3, [r3]
+ 981 04a6 1900     		movs	r1, r3
+ 982 04a8 1000     		movs	r0, r2
+ 983 04aa FFF7FEFF 		bl	graphic_write_command
+ 168:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 	graphic_write_command(LCD_SET_PAGE | index, controller);
+ 984              		.loc 1 168 0
+ 985 04ae 0D23     		movs	r3, #13
+ 986 04b0 FB18     		adds	r3, r7, r3
+ 987 04b2 1B78     		ldrb	r3, [r3]
+ 988 04b4 4822     		movs	r2, #72
+ 989 04b6 5242     		rsbs	r2, r2, #0
+ 990 04b8 1343     		orrs	r3, r2
+ 991 04ba DAB2     		uxtb	r2, r3
+ 992 04bc 0E23     		movs	r3, #14
+ 993 04be FB18     		adds	r3, r7, r3
+ 994 04c0 1B78     		ldrb	r3, [r3]
+ 995 04c2 1900     		movs	r1, r3
+ 996 04c4 1000     		movs	r0, r2
+ 997 04c6 FFF7FEFF 		bl	graphic_write_command
+ 169:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 	unsigned char temp = graphic_read_data(controller);
+ 998              		.loc 1 169 0
+ 999 04ca 0C23     		movs	r3, #12
+ 1000 04cc FC18     		adds	r4, r7, r3
+ 1001 04ce 0E23     		movs	r3, #14
+ 1002 04d0 FB18     		adds	r3, r7, r3
+ 1003 04d2 1B78     		ldrb	r3, [r3]
+ 1004 04d4 1800     		movs	r0, r3
+ 1005 04d6 FFF7FEFF 		bl	graphic_read_data
+ 1006 04da 0300     		movs	r3, r0
+ 1007 04dc 2370     		strb	r3, [r4]
+ 170:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 	graphic_write_command(LCD_SET_ADD | x, controller);
+ 1008              		.loc 1 170 0
+ 1009 04de FB1D     		adds	r3, r7, #7
+ 1010 04e0 1B78     		ldrb	r3, [r3]
+ 1011 04e2 4022     		movs	r2, #64
+ 1012 04e4 1343     		orrs	r3, r2
+ 1013 04e6 DAB2     		uxtb	r2, r3
+ 1014 04e8 0E23     		movs	r3, #14
+ 1015 04ea FB18     		adds	r3, r7, r3
+ 1016 04ec 1B78     		ldrb	r3, [r3]
+ 1017 04ee 1900     		movs	r1, r3
+ 1018 04f0 1000     		movs	r0, r2
+ 1019 04f2 FFF7FEFF 		bl	graphic_write_command
+ 171:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 	
+ 172:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 	if(set) {
+ 1020              		.loc 1 172 0
+ 1021 04f6 7B1D     		adds	r3, r7, #5
+ 1022 04f8 1B78     		ldrb	r3, [r3]
+ 1023 04fa 002B     		cmp	r3, #0
+ 1024 04fc 0AD0     		beq	.L59
+ 173:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 		mask = mask | temp;
+ 1025              		.loc 1 173 0
+ 1026 04fe 0F23     		movs	r3, #15
+ 1027 0500 FB18     		adds	r3, r7, r3
+ 1028 0502 0F22     		movs	r2, #15
+ 1029 0504 B918     		adds	r1, r7, r2
+ 1030 0506 0C22     		movs	r2, #12
+ 1031 0508 BA18     		adds	r2, r7, r2
+ 1032 050a 0978     		ldrb	r1, [r1]
+ 1033 050c 1278     		ldrb	r2, [r2]
+ 1034 050e 0A43     		orrs	r2, r1
+ 1035 0510 1A70     		strb	r2, [r3]
+ 1036 0512 09E0     		b	.L60
+ 1037              	.L59:
+ 174:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 	} else {
+ 175:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 		mask = mask & temp;
+ 1038              		.loc 1 175 0
+ 1039 0514 0F23     		movs	r3, #15
+ 1040 0516 FB18     		adds	r3, r7, r3
+ 1041 0518 0F22     		movs	r2, #15
+ 1042 051a BA18     		adds	r2, r7, r2
+ 1043 051c 0C21     		movs	r1, #12
+ 1044 051e 7918     		adds	r1, r7, r1
+ 1045 0520 1278     		ldrb	r2, [r2]
+ 1046 0522 0978     		ldrb	r1, [r1]
+ 1047 0524 0A40     		ands	r2, r1
+ 1048 0526 1A70     		strb	r2, [r3]
+ 1049              	.L60:
+ 176:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 	}
+ 177:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 	
+ 178:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 	graphic_write_data(mask, controller);
+ 1050              		.loc 1 178 0
+ 1051 0528 0E23     		movs	r3, #14
+ 1052 052a FB18     		adds	r3, r7, r3
+ 1053 052c 1A78     		ldrb	r2, [r3]
+ 1054 052e 0F23     		movs	r3, #15
+ 1055 0530 FB18     		adds	r3, r7, r3
+ 1056 0532 1B78     		ldrb	r3, [r3]
+ 1057 0534 1100     		movs	r1, r2
+ 1058 0536 1800     		movs	r0, r3
+ 1059 0538 FFF7FEFF 		bl	graphic_write_data
+ 1060 053c 00E0     		b	.L42
+ 1061              	.L61:
+ 140:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 	unsigned char mask;
+ 1062              		.loc 1 140 0
+ 1063 053e C046     		nop
+ 1064              	.L42:
+ 179:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** 	
+ 180:C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay\graphic.c **** }...
+ 1065              		.loc 1 180 0
+ 1066 0540 BD46     		mov	sp, r7
+ 1067 0542 05B0     		add	sp, sp, #20
+ 1068              		@ sp needed
+ 1069 0544 90BD     		pop	{r4, r7, pc}
+ 1070              	.L63:
+ 1071 0546 C046     		.align	2
+ 1072              	.L62:
+ 1073 0548 00000000 		.word	.L48
+ 1074              		.cfi_endproc
+ 1075              	.LFE11:
+ 1077              	.Letext0:
+ 1078              		.file 2 "C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay/graphic.h"
