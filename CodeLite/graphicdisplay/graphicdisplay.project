@@ -21,6 +21,10 @@
   <Dependencies/>
   <VirtualDirectory Name="src">
     <File Name="startup.c"/>
+    <File Name="timer.h"/>
+    <File Name="timer.c"/>
+    <File Name="graphic.h"/>
+    <File Name="graphic.c"/>
   </VirtualDirectory>
   <VirtualDirectory Name="resources">
     <File Name="md407-ram.x"/>

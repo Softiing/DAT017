@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Hampus
-Date                   :=28/11/2017
+Date                   :=29/11/2017
 CodeLitePath           :=C:/cseapp/CodeLite
 LinkerName             :=$(CodeLiteDir)/tools/gcc-arm/bin/arm-none-eabi-g++.exe
 SharedObjectLinkerName :=$(CodeLiteDir)/tools/gcc-arm/arm-none-eabi-g++.exe -shared -fPIC
@@ -66,7 +66,7 @@ ARM_V6LIB:=$(CodeLiteDir)/tools/gcc-arm/arm-none-eabi/lib/thumb/v6-m
 ARM_GCC_V6LIB:=$(CodeLiteDir)/tools/gcc-arm/lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m
 ARM_M4FPLIB:=$(CodeLiteDir)/tools/gcc-arm/arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard
 ARM_GCC_M4FPLIB:=$(CodeLiteDir)/tools/gcc-arm/lib/gcc/arm-none-eabi/6.3.1/thumb/v7e-m
-Objects0=$(IntermediateDirectory)/startup.c$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/startup.c$(ObjectSuffix) $(IntermediateDirectory)/timer.c$(ObjectSuffix) $(IntermediateDirectory)/graphic.c$(ObjectSuffix) 
 
 
 
@@ -110,6 +110,22 @@ $(IntermediateDirectory)/startup.c$(DependSuffix): startup.c
 
 $(IntermediateDirectory)/startup.c$(PreprocessSuffix): startup.c
 	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/startup.c$(PreprocessSuffix) startup.c
+
+$(IntermediateDirectory)/timer.c$(ObjectSuffix): timer.c $(IntermediateDirectory)/timer.c$(DependSuffix)
+	$(CC) $(SourceSwitch) "C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay/timer.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/timer.c$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/timer.c$(DependSuffix): timer.c
+	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/timer.c$(ObjectSuffix) -MF$(IntermediateDirectory)/timer.c$(DependSuffix) -MM timer.c
+
+$(IntermediateDirectory)/timer.c$(PreprocessSuffix): timer.c
+	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/timer.c$(PreprocessSuffix) timer.c
+
+$(IntermediateDirectory)/graphic.c$(ObjectSuffix): graphic.c $(IntermediateDirectory)/graphic.c$(DependSuffix)
+	$(CC) $(SourceSwitch) "C:/Users/Hampus/Desktop/DAT017/CodeLite/graphicdisplay/graphic.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/graphic.c$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/graphic.c$(DependSuffix): graphic.c
+	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/graphic.c$(ObjectSuffix) -MF$(IntermediateDirectory)/graphic.c$(DependSuffix) -MM graphic.c
+
+$(IntermediateDirectory)/graphic.c$(PreprocessSuffix): graphic.c
+	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/graphic.c$(PreprocessSuffix) graphic.c
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)
