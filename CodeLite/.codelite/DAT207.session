@@ -1,23 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Session Name="C:\Users\Hampus\Desktop\DAT017\CodeLite\DAT207.workspace">
-  <int Value="1" Name="m_selectedTab"/>
+  <int Value="0" Name="m_selectedTab"/>
   <wxString Value="C:\Users\Hampus\Desktop\DAT017\CodeLite\DAT207.workspace" Name="m_workspaceName"/>
-  <TabInfoArray Name="TabInfoArray">
-    <TabInfo>
-      <wxString Value="C:\Users\Hampus\Desktop\DAT017\CodeLite\asciidisplay\startup.c" Name="FileName"/>
-      <int Value="0" Name="FirstVisibleLine"/>
-      <int Value="40" Name="CurrentLine"/>
-      <wxArrayString Name="Bookmarks"/>
-      <IntVector Name="CollapsedFolds"/>
-    </TabInfo>
-    <TabInfo>
-      <wxString Value="C:\Users\Hampus\Desktop\DAT017\CodeLite\graphicdisplay\startup.c" Name="FileName"/>
-      <int Value="87" Name="FirstVisibleLine"/>
-      <int Value="97" Name="CurrentLine"/>
-      <wxArrayString Name="Bookmarks"/>
-      <IntVector Name="CollapsedFolds"/>
-    </TabInfo>
-  </TabInfoArray>
+  <TabInfoArray Name="TabInfoArray"/>
   <SerializedObject Name="m_breakpoints">
     <long Value="0" Name="Count"/>
   </SerializedObject>
