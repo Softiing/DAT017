@@ -30,7 +30,7 @@ void main(void) {
 	graphic_clear_screen();
   #endif
   
-	p->set_speed(p, 4, 4);
+	p->set_speed(p, 16, 16);
 	while(1) {
 		p->move(p);
 		delay_milli(40);

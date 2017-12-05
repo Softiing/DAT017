@@ -1078,12 +1078,12 @@ void main(void) {
 	graphic_clear_screen();
   #endif
   
-	p->set_speed(p, 4, 4);
+	p->set_speed(p, 16, 16);
 200006d6:	687b      	ldr	r3, [r7, #4]
 200006d8:	6a1b      	ldr	r3, [r3, #32]
 200006da:	6878      	ldr	r0, [r7, #4]
-200006dc:	2204      	movs	r2, #4
-200006de:	2104      	movs	r1, #4
+200006dc:	2210      	movs	r2, #16
+200006de:	2110      	movs	r1, #16
 200006e0:	4798      	blx	r3
 	while(1) {
 		p->move(p);

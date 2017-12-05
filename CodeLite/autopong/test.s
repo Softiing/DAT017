@@ -136,13 +136,13 @@
   30:C:/Users/Hampus/Desktop/DAT017/CodeLite/autopong\startup.c **** 	graphic_clear_screen();
   31:C:/Users/Hampus/Desktop/DAT017/CodeLite/autopong\startup.c ****   #endif
   32:C:/Users/Hampus/Desktop/DAT017/CodeLite/autopong\startup.c ****   
-  33:C:/Users/Hampus/Desktop/DAT017/CodeLite/autopong\startup.c **** 	p->set_speed(p, 4, 4);
+  33:C:/Users/Hampus/Desktop/DAT017/CodeLite/autopong\startup.c **** 	p->set_speed(p, 16, 16);
  112              		.loc 1 33 0
  113 002a 7B68     		ldr	r3, [r7, #4]
  114 002c 1B6A     		ldr	r3, [r3, #32]
  115 002e 7868     		ldr	r0, [r7, #4]
- 116 0030 0422     		movs	r2, #4
- 117 0032 0421     		movs	r1, #4
+ 116 0030 1022     		movs	r2, #16
+ 117 0032 1021     		movs	r1, #16
  118 0034 9847     		blx	r3
  119              	.LVL0:
  120              	.L6:
