@@ -64,7 +64,6 @@ void interrupt_handler(void) {
 		count = ~count;
 		*EXTI_PR = 0x04;
 	}
-//	*EXTI_PR |= 0x00000008;
 }
 
 void init_app(void) {
