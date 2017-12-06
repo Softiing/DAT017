@@ -116,283 +116,298 @@
   70              		.cfi_offset 14, -4
   71 0002 00AF     		add	r7, sp, #0
   72              		.cfi_def_cfa_register 7
-  52:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	// IRQ0
-  53:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	if(*EXTI_PR & 0x01) {
-  73              		.loc 1 53 0
-  74 0004 164B     		ldr	r3, .L7
+  52:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	if(*EXTI_PR & 0x08) {
+  73              		.loc 1 52 0
+  74 0004 204B     		ldr	r3, .L8
   75 0006 1B68     		ldr	r3, [r3]
-  76 0008 0122     		movs	r2, #1
+  76 0008 0822     		movs	r2, #8
   77 000a 1340     		ands	r3, r2
-  78 000c 0AD0     		beq	.L3
-  54:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 		count++;
+  78 000c 39D0     		beq	.L7
+  53:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 		// IRQ0
+  54:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 		if(*EXTI_PR & 0x01) {
   79              		.loc 1 54 0
-  80 000e 154B     		ldr	r3, .L7+4
-  81 0010 1B78     		ldrb	r3, [r3]
-  82 0012 DBB2     		uxtb	r3, r3
-  83 0014 0133     		adds	r3, r3, #1
-  84 0016 DAB2     		uxtb	r2, r3
-  85 0018 124B     		ldr	r3, .L7+4
-  86 001a 1A70     		strb	r2, [r3]
-  55:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 		*EXTI_PR = 0x01;
-  87              		.loc 1 55 0
-  88 001c 104B     		ldr	r3, .L7
-  89 001e 0122     		movs	r2, #1
-  90 0020 1A60     		str	r2, [r3]
-  56:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	}
-  57:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	// IRQ1
-  58:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	else if(*EXTI_PR & 0x02) {
-  59:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 		count = 0;
-  60:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 		*EXTI_PR = 0x02;
-  61:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	}
-  62:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	// IRQ2
-  63:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	else if(*EXTI_PR & 0x04) {
-  64:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 		count = ~count;
-  65:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 		*EXTI_PR = 0x04;
-  66:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	}
-  67:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** //	*EXTI_PR |= 0x00000008;
-  68:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** }
-  91              		.loc 1 68 0
-  92 0022 1AE0     		b	.L6
-  93              	.L3:
-  58:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 		count = 0;
-  94              		.loc 1 58 0
-  95 0024 0E4B     		ldr	r3, .L7
-  96 0026 1B68     		ldr	r3, [r3]
-  97 0028 0222     		movs	r2, #2
-  98 002a 1340     		ands	r3, r2
-  99 002c 06D0     		beq	.L5
-  59:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 		*EXTI_PR = 0x02;
- 100              		.loc 1 59 0
- 101 002e 0D4B     		ldr	r3, .L7+4
- 102 0030 0022     		movs	r2, #0
- 103 0032 1A70     		strb	r2, [r3]
-  60:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	}
- 104              		.loc 1 60 0
- 105 0034 0A4B     		ldr	r3, .L7
- 106 0036 0222     		movs	r2, #2
- 107 0038 1A60     		str	r2, [r3]
- 108              		.loc 1 68 0
- 109 003a 0EE0     		b	.L6
- 110              	.L5:
-  63:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 		count = ~count;
- 111              		.loc 1 63 0
- 112 003c 084B     		ldr	r3, .L7
- 113 003e 1B68     		ldr	r3, [r3]
- 114 0040 0422     		movs	r2, #4
- 115 0042 1340     		ands	r3, r2
- 116 0044 09D0     		beq	.L6
-  64:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 		*EXTI_PR = 0x04;
- 117              		.loc 1 64 0
- 118 0046 074B     		ldr	r3, .L7+4
- 119 0048 1B78     		ldrb	r3, [r3]
- 120 004a DBB2     		uxtb	r3, r3
- 121 004c DB43     		mvns	r3, r3
- 122 004e DAB2     		uxtb	r2, r3
- 123 0050 044B     		ldr	r3, .L7+4
- 124 0052 1A70     		strb	r2, [r3]
-  65:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	}
- 125              		.loc 1 65 0
- 126 0054 024B     		ldr	r3, .L7
- 127 0056 0422     		movs	r2, #4
- 128 0058 1A60     		str	r2, [r3]
- 129              	.L6:
- 130              		.loc 1 68 0
- 131 005a C046     		nop
- 132 005c BD46     		mov	sp, r7
- 133              		@ sp needed
- 134 005e 80BD     		pop	{r7, pc}
- 135              	.L8:
- 136              		.align	2
- 137              	.L7:
- 138 0060 143C0140 		.word	1073822740
- 139 0064 00000000 		.word	count
- 140              		.cfi_endproc
- 141              	.LFE1:
- 143              		.align	1
- 144              		.global	init_app
- 145              		.syntax unified
- 146              		.code	16
- 147              		.thumb_func
- 148              		.fpu softvfp
- 150              	init_app:
- 151              	.LFB2:
-  69:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 
-  70:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** void init_app(void) {
- 152              		.loc 1 70 0
- 153              		.cfi_startproc
- 154              		@ args = 0, pretend = 0, frame = 0
- 155              		@ frame_needed = 1, uses_anonymous_args = 0
- 156 0068 80B5     		push	{r7, lr}
- 157              		.cfi_def_cfa_offset 8
- 158              		.cfi_offset 7, -8
- 159              		.cfi_offset 14, -4
- 160 006a 00AF     		add	r7, sp, #0
- 161              		.cfi_def_cfa_register 7
-  71:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	// Setup hex display
-  72:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	*GPIO_D_MODER &= 0xFFFF0000;
- 162              		.loc 1 72 0
- 163 006c 224B     		ldr	r3, .L10
- 164 006e 224A     		ldr	r2, .L10
- 165 0070 1268     		ldr	r2, [r2]
- 166 0072 120C     		lsrs	r2, r2, #16
- 167 0074 1204     		lsls	r2, r2, #16
- 168 0076 1A60     		str	r2, [r3]
-  73:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	*GPIO_D_MODER |= 0x00005555;
- 169              		.loc 1 73 0
- 170 0078 1F4B     		ldr	r3, .L10
- 171 007a 1F4A     		ldr	r2, .L10
- 172 007c 1268     		ldr	r2, [r2]
- 173 007e 1F49     		ldr	r1, .L10+4
- 174 0080 0A43     		orrs	r2, r1
- 175 0082 1A60     		str	r2, [r3]
-  74:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	
-  75:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	// Setup E as input
-  76:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	*GPIO_E_MODER = 0;
- 176              		.loc 1 76 0
- 177 0084 1E4B     		ldr	r3, .L10+8
- 178 0086 0022     		movs	r2, #0
- 179 0088 1A60     		str	r2, [r3]
+  80 000e 1E4B     		ldr	r3, .L8
+  81 0010 1B68     		ldr	r3, [r3]
+  82 0012 0122     		movs	r2, #1
+  83 0014 1340     		ands	r3, r2
+  84 0016 0DD0     		beq	.L4
+  55:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 			count++;
+  85              		.loc 1 55 0
+  86 0018 1C4B     		ldr	r3, .L8+4
+  87 001a 1B78     		ldrb	r3, [r3]
+  88 001c DBB2     		uxtb	r3, r3
+  89 001e 0133     		adds	r3, r3, #1
+  90 0020 DAB2     		uxtb	r2, r3
+  91 0022 1A4B     		ldr	r3, .L8+4
+  92 0024 1A70     		strb	r2, [r3]
+  56:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 			*EXTI_PR |= 0x01;
+  93              		.loc 1 56 0
+  94 0026 184B     		ldr	r3, .L8
+  95 0028 174A     		ldr	r2, .L8
+  96 002a 1268     		ldr	r2, [r2]
+  97 002c 0121     		movs	r1, #1
+  98 002e 0A43     		orrs	r2, r1
+  99 0030 1A60     		str	r2, [r3]
+ 100 0032 20E0     		b	.L5
+ 101              	.L4:
+  57:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 		}
+  58:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 		// IRQ1
+  59:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 		else if(*EXTI_PR & 0x02) {
+ 102              		.loc 1 59 0
+ 103 0034 144B     		ldr	r3, .L8
+ 104 0036 1B68     		ldr	r3, [r3]
+ 105 0038 0222     		movs	r2, #2
+ 106 003a 1340     		ands	r3, r2
+ 107 003c 09D0     		beq	.L6
+  60:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 			count = 0;
+ 108              		.loc 1 60 0
+ 109 003e 134B     		ldr	r3, .L8+4
+ 110 0040 0022     		movs	r2, #0
+ 111 0042 1A70     		strb	r2, [r3]
+  61:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 			*EXTI_PR |= 0x02;
+ 112              		.loc 1 61 0
+ 113 0044 104B     		ldr	r3, .L8
+ 114 0046 104A     		ldr	r2, .L8
+ 115 0048 1268     		ldr	r2, [r2]
+ 116 004a 0221     		movs	r1, #2
+ 117 004c 0A43     		orrs	r2, r1
+ 118 004e 1A60     		str	r2, [r3]
+ 119 0050 11E0     		b	.L5
+ 120              	.L6:
+  62:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 		}
+  63:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 		// IRQ2
+  64:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 		else if(*EXTI_PR & 0x04) {
+ 121              		.loc 1 64 0
+ 122 0052 0D4B     		ldr	r3, .L8
+ 123 0054 1B68     		ldr	r3, [r3]
+ 124 0056 0422     		movs	r2, #4
+ 125 0058 1340     		ands	r3, r2
+ 126 005a 0CD0     		beq	.L5
+  65:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 			count = ~count;
+ 127              		.loc 1 65 0
+ 128 005c 0B4B     		ldr	r3, .L8+4
+ 129 005e 1B78     		ldrb	r3, [r3]
+ 130 0060 DBB2     		uxtb	r3, r3
+ 131 0062 DB43     		mvns	r3, r3
+ 132 0064 DAB2     		uxtb	r2, r3
+ 133 0066 094B     		ldr	r3, .L8+4
+ 134 0068 1A70     		strb	r2, [r3]
+  66:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 			*EXTI_PR |= 0x04;
+ 135              		.loc 1 66 0
+ 136 006a 074B     		ldr	r3, .L8
+ 137 006c 064A     		ldr	r2, .L8
+ 138 006e 1268     		ldr	r2, [r2]
+ 139 0070 0421     		movs	r1, #4
+ 140 0072 0A43     		orrs	r2, r1
+ 141 0074 1A60     		str	r2, [r3]
+ 142              	.L5:
+  67:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 		}
+  68:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 		*EXTI_PR |= 0x08;
+ 143              		.loc 1 68 0
+ 144 0076 044B     		ldr	r3, .L8
+ 145 0078 034A     		ldr	r2, .L8
+ 146 007a 1268     		ldr	r2, [r2]
+ 147 007c 0821     		movs	r1, #8
+ 148 007e 0A43     		orrs	r2, r1
+ 149 0080 1A60     		str	r2, [r3]
+ 150              	.L7:
+  69:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	}
+  70:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	
+  71:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** }
+ 151              		.loc 1 71 0
+ 152 0082 C046     		nop
+ 153 0084 BD46     		mov	sp, r7
+ 154              		@ sp needed
+ 155 0086 80BD     		pop	{r7, pc}
+ 156              	.L9:
+ 157              		.align	2
+ 158              	.L8:
+ 159 0088 143C0140 		.word	1073822740
+ 160 008c 00000000 		.word	count
+ 161              		.cfi_endproc
+ 162              	.LFE1:
+ 164              		.align	1
+ 165              		.global	init_app
+ 166              		.syntax unified
+ 167              		.code	16
+ 168              		.thumb_func
+ 169              		.fpu softvfp
+ 171              	init_app:
+ 172              	.LFB2:
+  72:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 
+  73:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** void init_app(void) {
+ 173              		.loc 1 73 0
+ 174              		.cfi_startproc
+ 175              		@ args = 0, pretend = 0, frame = 0
+ 176              		@ frame_needed = 1, uses_anonymous_args = 0
+ 177 0090 80B5     		push	{r7, lr}
+ 178              		.cfi_def_cfa_offset 8
+ 179              		.cfi_offset 7, -8
+ 180              		.cfi_offset 14, -4
+ 181 0092 00AF     		add	r7, sp, #0
+ 182              		.cfi_def_cfa_register 7
+  74:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	// Setup hex display
+  75:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	*GPIO_D_MODER &= 0xFFFF0000;
+ 183              		.loc 1 75 0
+ 184 0094 234B     		ldr	r3, .L11
+ 185 0096 234A     		ldr	r2, .L11
+ 186 0098 1268     		ldr	r2, [r2]
+ 187 009a 120C     		lsrs	r2, r2, #16
+ 188 009c 1204     		lsls	r2, r2, #16
+ 189 009e 1A60     		str	r2, [r3]
+  76:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	*GPIO_D_MODER |= 0x00005555;
+ 190              		.loc 1 76 0
+ 191 00a0 204B     		ldr	r3, .L11
+ 192 00a2 204A     		ldr	r2, .L11
+ 193 00a4 1268     		ldr	r2, [r2]
+ 194 00a6 2049     		ldr	r1, .L11+4
+ 195 00a8 0A43     		orrs	r2, r1
+ 196 00aa 1A60     		str	r2, [r3]
   77:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	
-  78:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	// Setup PE2,PE1,PE0 to EXTICR1
-  79:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	*SYSCFG_EXTICR1 &= 0xFFFFF000; 
- 180              		.loc 1 79 0
- 181 008a 1E4B     		ldr	r3, .L10+12
- 182 008c 1D4A     		ldr	r2, .L10+12
- 183 008e 1268     		ldr	r2, [r2]
- 184 0090 120B     		lsrs	r2, r2, #12
- 185 0092 1203     		lsls	r2, r2, #12
- 186 0094 1A60     		str	r2, [r3]
-  80:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	*SYSCFG_EXTICR1 |= 0x00000444;
- 187              		.loc 1 80 0
- 188 0096 1B4B     		ldr	r3, .L10+12
- 189 0098 1A4A     		ldr	r2, .L10+12
- 190 009a 1268     		ldr	r2, [r2]
- 191 009c 1A49     		ldr	r1, .L10+16
- 192 009e 0A43     		orrs	r2, r1
- 193 00a0 1A60     		str	r2, [r3]
-  81:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	
-  82:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	// Setup EXTI for PE2,PE1,PE0
-  83:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	*EXTI_IMR |= 0x07;
- 194              		.loc 1 83 0
- 195 00a2 1A4B     		ldr	r3, .L10+20
- 196 00a4 194A     		ldr	r2, .L10+20
- 197 00a6 1268     		ldr	r2, [r2]
- 198 00a8 0721     		movs	r1, #7
- 199 00aa 0A43     		orrs	r2, r1
- 200 00ac 1A60     		str	r2, [r3]
-  84:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	*EXTI_FTSR |= 0x07;
- 201              		.loc 1 84 0
- 202 00ae 184B     		ldr	r3, .L10+24
- 203 00b0 174A     		ldr	r2, .L10+24
- 204 00b2 1268     		ldr	r2, [r2]
- 205 00b4 0721     		movs	r1, #7
- 206 00b6 0A43     		orrs	r2, r1
- 207 00b8 1A60     		str	r2, [r3]
-  85:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	
-  86:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	// Setup EXTI2,EXTI1,EXTI0 interrupt function
-  87:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	*((void (**)(void)) 0x2001C060) = interrupt_handler;
- 208              		.loc 1 87 0
- 209 00ba 164B     		ldr	r3, .L10+28
- 210 00bc 164A     		ldr	r2, .L10+32
- 211 00be 1A60     		str	r2, [r3]
-  88:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	*((void (**)(void)) 0x2001C05C) = interrupt_handler;
- 212              		.loc 1 88 0
- 213 00c0 164B     		ldr	r3, .L10+36
- 214 00c2 154A     		ldr	r2, .L10+32
- 215 00c4 1A60     		str	r2, [r3]
-  89:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	*((void (**)(void)) 0x2001C058) = interrupt_handler;
- 216              		.loc 1 89 0
- 217 00c6 164B     		ldr	r3, .L10+40
- 218 00c8 134A     		ldr	r2, .L10+32
- 219 00ca 1A60     		str	r2, [r3]
-  90:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 
-  91:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	// Enable EXTI2,EXTI1,EXTI0 in NVIC
-  92:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	*((unsigned int *) 0xE000E100) |= (1<<8);
- 220              		.loc 1 92 0
- 221 00cc 154B     		ldr	r3, .L10+44
- 222 00ce 154A     		ldr	r2, .L10+44
- 223 00d0 1268     		ldr	r2, [r2]
- 224 00d2 8021     		movs	r1, #128
- 225 00d4 4900     		lsls	r1, r1, #1
- 226 00d6 0A43     		orrs	r2, r1
- 227 00d8 1A60     		str	r2, [r3]
-  93:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	*((unsigned int *) 0xE000E100) |= (1<<7);
- 228              		.loc 1 93 0
- 229 00da 124B     		ldr	r3, .L10+44
- 230 00dc 114A     		ldr	r2, .L10+44
- 231 00de 1268     		ldr	r2, [r2]
- 232 00e0 8021     		movs	r1, #128
- 233 00e2 0A43     		orrs	r2, r1
- 234 00e4 1A60     		str	r2, [r3]
-  94:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	*((unsigned int *) 0xE000E100) |= (1<<6);
- 235              		.loc 1 94 0
- 236 00e6 0F4B     		ldr	r3, .L10+44
- 237 00e8 0E4A     		ldr	r2, .L10+44
- 238 00ea 1268     		ldr	r2, [r2]
- 239 00ec 4021     		movs	r1, #64
- 240 00ee 0A43     		orrs	r2, r1
- 241 00f0 1A60     		str	r2, [r3]
-  95:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** }
- 242              		.loc 1 95 0
- 243 00f2 C046     		nop
- 244 00f4 BD46     		mov	sp, r7
- 245              		@ sp needed
- 246 00f6 80BD     		pop	{r7, pc}
- 247              	.L11:
- 248              		.align	2
- 249              	.L10:
- 250 00f8 000C0240 		.word	1073875968
- 251 00fc 55550000 		.word	21845
- 252 0100 00100240 		.word	1073876992
- 253 0104 08380140 		.word	1073821704
- 254 0108 44040000 		.word	1092
- 255 010c 003C0140 		.word	1073822720
- 256 0110 0C3C0140 		.word	1073822732
- 257 0114 60C00120 		.word	536985696
- 258 0118 00000000 		.word	interrupt_handler
- 259 011c 5CC00120 		.word	536985692
- 260 0120 58C00120 		.word	536985688
- 261 0124 00E100E0 		.word	-536813312
- 262              		.cfi_endproc
- 263              	.LFE2:
- 265              		.align	1
- 266              		.global	main
- 267              		.syntax unified
- 268              		.code	16
- 269              		.thumb_func
- 270              		.fpu softvfp
- 272              	main:
- 273              	.LFB3:
-  96:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c ****  
-  97:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** void main(void) {
- 274              		.loc 1 97 0
- 275              		.cfi_startproc
- 276              		@ args = 0, pretend = 0, frame = 0
- 277              		@ frame_needed = 1, uses_anonymous_args = 0
- 278 0128 80B5     		push	{r7, lr}
- 279              		.cfi_def_cfa_offset 8
- 280              		.cfi_offset 7, -8
- 281              		.cfi_offset 14, -4
- 282 012a 00AF     		add	r7, sp, #0
- 283              		.cfi_def_cfa_register 7
-  98:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	init_app();
- 284              		.loc 1 98 0
- 285 012c FFF7FEFF 		bl	init_app
- 286              	.L13:
-  99:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	while(1) {
- 100:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 		*GPIO_D_ODR_LOW = count;
- 287              		.loc 1 100 0 discriminator 1
- 288 0130 024A     		ldr	r2, .L14
- 289 0132 034B     		ldr	r3, .L14+4
- 290 0134 1B78     		ldrb	r3, [r3]
- 291 0136 DBB2     		uxtb	r3, r3
- 292 0138 1370     		strb	r3, [r2]
- 293 013a F9E7     		b	.L13
- 294              	.L15:
- 295              		.align	2
- 296              	.L14:
- 297 013c 140C0240 		.word	1073875988
- 298 0140 00000000 		.word	count
- 299              		.cfi_endproc
- 300              	.LFE3:
- 302              	.Letext0:
+  78:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	// Setup E as input
+  79:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	*GPIO_E_MODER = 0;
+ 197              		.loc 1 79 0
+ 198 00ac 1F4B     		ldr	r3, .L11+8
+ 199 00ae 0022     		movs	r2, #0
+ 200 00b0 1A60     		str	r2, [r3]
+  80:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	
+  81:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	// Setup PE3,PE2,PE1,PE0 to EXTICR1
+  82:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	*SYSCFG_EXTICR1 &= 0xFFFF0000; 
+ 201              		.loc 1 82 0
+ 202 00b2 1F4B     		ldr	r3, .L11+12
+ 203 00b4 1E4A     		ldr	r2, .L11+12
+ 204 00b6 1268     		ldr	r2, [r2]
+ 205 00b8 120C     		lsrs	r2, r2, #16
+ 206 00ba 1204     		lsls	r2, r2, #16
+ 207 00bc 1A60     		str	r2, [r3]
+  83:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	*SYSCFG_EXTICR1 |= 0x00004444;
+ 208              		.loc 1 83 0
+ 209 00be 1C4B     		ldr	r3, .L11+12
+ 210 00c0 1B4A     		ldr	r2, .L11+12
+ 211 00c2 1268     		ldr	r2, [r2]
+ 212 00c4 1B49     		ldr	r1, .L11+16
+ 213 00c6 0A43     		orrs	r2, r1
+ 214 00c8 1A60     		str	r2, [r3]
+  84:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	
+  85:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	// Setup EXTI for P3,PE2,PE1,PE0
+  86:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	*EXTI_IMR |= 0x0F;
+ 215              		.loc 1 86 0
+ 216 00ca 1B4B     		ldr	r3, .L11+20
+ 217 00cc 1A4A     		ldr	r2, .L11+20
+ 218 00ce 1268     		ldr	r2, [r2]
+ 219 00d0 0F21     		movs	r1, #15
+ 220 00d2 0A43     		orrs	r2, r1
+ 221 00d4 1A60     		str	r2, [r3]
+  87:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	*EXTI_FTSR |= 0x0F;
+ 222              		.loc 1 87 0
+ 223 00d6 194B     		ldr	r3, .L11+24
+ 224 00d8 184A     		ldr	r2, .L11+24
+ 225 00da 1268     		ldr	r2, [r2]
+ 226 00dc 0F21     		movs	r1, #15
+ 227 00de 0A43     		orrs	r2, r1
+ 228 00e0 1A60     		str	r2, [r3]
+  88:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	
+  89:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	// Setup EXTI2,EXTI1,EXTI0 interrupt function
+  90:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	*((void (**)(void)) 0x2001C064) = interrupt_handler;
+ 229              		.loc 1 90 0
+ 230 00e2 174B     		ldr	r3, .L11+28
+ 231 00e4 174A     		ldr	r2, .L11+32
+ 232 00e6 1A60     		str	r2, [r3]
+  91:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 
+  92:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	// Enable EXT13,EXTI2,EXTI1,EXTI0 in NVIC
+  93:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	*((unsigned int *) 0xE000E100) |= (1<<9);
+ 233              		.loc 1 93 0
+ 234 00e8 174B     		ldr	r3, .L11+36
+ 235 00ea 174A     		ldr	r2, .L11+36
+ 236 00ec 1268     		ldr	r2, [r2]
+ 237 00ee 8021     		movs	r1, #128
+ 238 00f0 8900     		lsls	r1, r1, #2
+ 239 00f2 0A43     		orrs	r2, r1
+ 240 00f4 1A60     		str	r2, [r3]
+  94:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	*((unsigned int *) 0xE000E100) |= (1<<8);
+ 241              		.loc 1 94 0
+ 242 00f6 144B     		ldr	r3, .L11+36
+ 243 00f8 134A     		ldr	r2, .L11+36
+ 244 00fa 1268     		ldr	r2, [r2]
+ 245 00fc 8021     		movs	r1, #128
+ 246 00fe 4900     		lsls	r1, r1, #1
+ 247 0100 0A43     		orrs	r2, r1
+ 248 0102 1A60     		str	r2, [r3]
+  95:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	*((unsigned int *) 0xE000E100) |= (1<<7);
+ 249              		.loc 1 95 0
+ 250 0104 104B     		ldr	r3, .L11+36
+ 251 0106 104A     		ldr	r2, .L11+36
+ 252 0108 1268     		ldr	r2, [r2]
+ 253 010a 8021     		movs	r1, #128
+ 254 010c 0A43     		orrs	r2, r1
+ 255 010e 1A60     		str	r2, [r3]
+  96:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	*((unsigned int *) 0xE000E100) |= (1<<6);
+ 256              		.loc 1 96 0
+ 257 0110 0D4B     		ldr	r3, .L11+36
+ 258 0112 0D4A     		ldr	r2, .L11+36
+ 259 0114 1268     		ldr	r2, [r2]
+ 260 0116 4021     		movs	r1, #64
+ 261 0118 0A43     		orrs	r2, r1
+ 262 011a 1A60     		str	r2, [r3]
+  97:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** }
+ 263              		.loc 1 97 0
+ 264 011c C046     		nop
+ 265 011e BD46     		mov	sp, r7
+ 266              		@ sp needed
+ 267 0120 80BD     		pop	{r7, pc}
+ 268              	.L12:
+ 269 0122 C046     		.align	2
+ 270              	.L11:
+ 271 0124 000C0240 		.word	1073875968
+ 272 0128 55550000 		.word	21845
+ 273 012c 00100240 		.word	1073876992
+ 274 0130 08380140 		.word	1073821704
+ 275 0134 44440000 		.word	17476
+ 276 0138 003C0140 		.word	1073822720
+ 277 013c 0C3C0140 		.word	1073822732
+ 278 0140 64C00120 		.word	536985700
+ 279 0144 00000000 		.word	interrupt_handler
+ 280 0148 00E100E0 		.word	-536813312
+ 281              		.cfi_endproc
+ 282              	.LFE2:
+ 284              		.align	1
+ 285              		.global	main
+ 286              		.syntax unified
+ 287              		.code	16
+ 288              		.thumb_func
+ 289              		.fpu softvfp
+ 291              	main:
+ 292              	.LFB3:
+  98:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c ****  
+  99:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** void main(void) {
+ 293              		.loc 1 99 0
+ 294              		.cfi_startproc
+ 295              		@ args = 0, pretend = 0, frame = 0
+ 296              		@ frame_needed = 1, uses_anonymous_args = 0
+ 297 014c 80B5     		push	{r7, lr}
+ 298              		.cfi_def_cfa_offset 8
+ 299              		.cfi_offset 7, -8
+ 300              		.cfi_offset 14, -4
+ 301 014e 00AF     		add	r7, sp, #0
+ 302              		.cfi_def_cfa_register 7
+ 100:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	init_app();
+ 303              		.loc 1 100 0
+ 304 0150 FFF7FEFF 		bl	init_app
+ 305              	.L14:
+ 101:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 	while(1) {
+ 102:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq_ack\startup.c **** 		*GPIO_D_ODR_LOW = count;
+ 306              		.loc 1 102 0 discriminator 1
+ 307 0154 024A     		ldr	r2, .L15
+ 308 0156 034B     		ldr	r3, .L15+4
+ 309 0158 1B78     		ldrb	r3, [r3]
+ 310 015a DBB2     		uxtb	r3, r3
+ 311 015c 1370     		strb	r3, [r2]
+ 312 015e F9E7     		b	.L14
+ 313              	.L16:
+ 314              		.align	2
+ 315              	.L15:
+ 316 0160 140C0240 		.word	1073875988
+ 317 0164 00000000 		.word	count
+ 318              		.cfi_endproc
+ 319              	.LFE3:
+ 321              	.Letext0:

@@ -49,21 +49,25 @@ __asm volatile(
 
 volatile unsigned char count = 0;
 void interrupt_handler(void) {
-	// IRQ0
-	if(*EXTI_PR & 0x01) {
-		count++;
-		*EXTI_PR = 0x01;
+	if(*EXTI_PR & 0x08) {
+		// IRQ0
+		if(*EXTI_PR & 0x01) {
+			count++;
+			*EXTI_PR |= 0x01;
+		}
+		// IRQ1
+		else if(*EXTI_PR & 0x02) {
+			count = 0;
+			*EXTI_PR |= 0x02;
+		}
+		// IRQ2
+		else if(*EXTI_PR & 0x04) {
+			count = ~count;
+			*EXTI_PR |= 0x04;
+		}
+		*EXTI_PR |= 0x08;
 	}
-	// IRQ1
-	else if(*EXTI_PR & 0x02) {
-		count = 0;
-		*EXTI_PR = 0x02;
-	}
-	// IRQ2
-	else if(*EXTI_PR & 0x04) {
-		count = ~count;
-		*EXTI_PR = 0x04;
-	}
+	
 }
 
 void init_app(void) {
@@ -74,20 +78,19 @@ void init_app(void) {
 	// Setup E as input
 	*GPIO_E_MODER = 0;
 	
-	// Setup PE2,PE1,PE0 to EXTICR1
-	*SYSCFG_EXTICR1 &= 0xFFFFF000; 
-	*SYSCFG_EXTICR1 |= 0x00000444;
+	// Setup PE3,PE2,PE1,PE0 to EXTICR1
+	*SYSCFG_EXTICR1 &= 0xFFFF0000; 
+	*SYSCFG_EXTICR1 |= 0x00004444;
 	
-	// Setup EXTI for PE2,PE1,PE0
-	*EXTI_IMR |= 0x07;
-	*EXTI_FTSR |= 0x07;
+	// Setup EXTI for P3,PE2,PE1,PE0
+	*EXTI_IMR |= 0x0F;
+	*EXTI_FTSR |= 0x0F;
 	
 	// Setup EXTI2,EXTI1,EXTI0 interrupt function
-	*((void (**)(void)) 0x2001C060) = interrupt_handler;
-	*((void (**)(void)) 0x2001C05C) = interrupt_handler;
-	*((void (**)(void)) 0x2001C058) = interrupt_handler;
+	*((void (**)(void)) 0x2001C064) = interrupt_handler;
 
-	// Enable EXTI2,EXTI1,EXTI0 in NVIC
+	// Enable EXT13,EXTI2,EXTI1,EXTI0 in NVIC
+	*((unsigned int *) 0xE000E100) |= (1<<9);
 	*((unsigned int *) 0xE000E100) |= (1<<8);
 	*((unsigned int *) 0xE000E100) |= (1<<7);
 	*((unsigned int *) 0xE000E100) |= (1<<6);
