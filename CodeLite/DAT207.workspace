@@ -8,7 +8,8 @@
   <Project Name="delay" Path="delay/delay.project" Active="No"/>
   <Project Name="asciidisplay" Path="asciidisplay/asciidisplay.project" Active="No"/>
   <Project Name="graphicdisplay" Path="graphicdisplay/graphicdisplay.project" Active="No"/>
-  <Project Name="autopong" Path="autopong/autopong.project" Active="Yes"/>
+  <Project Name="autopong" Path="autopong/autopong.project" Active="No"/>
+  <Project Name="6_2" Path="6_2/6_2.project" Active="Yes"/>
   <BuildMatrix>
     <WorkspaceConfiguration Name="Debug" Selected="yes">
       <Environment/>
@@ -21,6 +22,7 @@
       <Project Name="asciidisplay" ConfigName="Debug"/>
       <Project Name="graphicdisplay" ConfigName="Debug"/>
       <Project Name="autopong" ConfigName="Debug"/>
+      <Project Name="6_2" ConfigName="Debug"/>
     </WorkspaceConfiguration>
     <WorkspaceConfiguration Name="Release" Selected="yes">
       <Environment/>
@@ -33,6 +35,7 @@
       <Project Name="asciidisplay" ConfigName="Release"/>
       <Project Name="graphicdisplay" ConfigName="Release"/>
       <Project Name="autopong" ConfigName="Release"/>
+      <Project Name="6_2" ConfigName="Release"/>
     </WorkspaceConfiguration>
   </BuildMatrix>
 </CodeLite_Workspace>
