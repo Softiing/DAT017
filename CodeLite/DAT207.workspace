@@ -10,7 +10,8 @@
   <Project Name="graphicdisplay" Path="graphicdisplay/graphicdisplay.project" Active="No"/>
   <Project Name="autopong" Path="autopong/autopong.project" Active="No"/>
   <Project Name="6_2" Path="6_2/6_2.project" Active="No"/>
-  <Project Name="flipflop_irq" Path="flipflop_irq/flipflop_irq.project" Active="Yes"/>
+  <Project Name="flipflop_irq" Path="flipflop_irq/flipflop_irq.project" Active="No"/>
+  <Project Name="flipflop_irq_ack" Path="flipflop_irq_ack/flipflop_irq_ack.project" Active="Yes"/>
   <BuildMatrix>
     <WorkspaceConfiguration Name="Debug" Selected="yes">
       <Environment/>
@@ -25,6 +26,7 @@
       <Project Name="autopong" ConfigName="Debug"/>
       <Project Name="6_2" ConfigName="Debug"/>
       <Project Name="flipflop_irq" ConfigName="Debug"/>
+      <Project Name="flipflop_irq_ack" ConfigName="Debug"/>
     </WorkspaceConfiguration>
     <WorkspaceConfiguration Name="Release" Selected="yes">
       <Environment/>
@@ -39,6 +41,7 @@
       <Project Name="autopong" ConfigName="Release"/>
       <Project Name="6_2" ConfigName="Release"/>
       <Project Name="flipflop_irq" ConfigName="Release"/>
+      <Project Name="flipflop_irq_ack" ConfigName="Release"/>
     </WorkspaceConfiguration>
   </BuildMatrix>
 </CodeLite_Workspace>

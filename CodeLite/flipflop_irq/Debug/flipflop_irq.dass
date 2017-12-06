@@ -39,18 +39,18 @@ void interrupt_handler(void) {
 20000018:	1c5a      	adds	r2, r3, #1
 2000001a:	4b05      	ldr	r3, [pc, #20]	; (20000030 <interrupt_handler+0x20>)
 2000001c:	601a      	str	r2, [r3, #0]
-	*EXTI_PR |= 0x00000004;
+	*EXTI_PR |= 0x00000008;
 2000001e:	4b05      	ldr	r3, [pc, #20]	; (20000034 <interrupt_handler+0x24>)
 20000020:	4a04      	ldr	r2, [pc, #16]	; (20000034 <interrupt_handler+0x24>)
 20000022:	6812      	ldr	r2, [r2, #0]
-20000024:	2104      	movs	r1, #4
+20000024:	2108      	movs	r1, #8
 20000026:	430a      	orrs	r2, r1
 20000028:	601a      	str	r2, [r3, #0]
 }
 2000002a:	46c0      	nop			; (mov r8, r8)
 2000002c:	46bd      	mov	sp, r7
 2000002e:	bd80      	pop	{r7, pc}
-20000030:	200000fc 	strdcs	r0, [r0], -ip
+20000030:	200000ec 	andcs	r0, r0, ip, ror #1
 20000034:	40013c14 	andmi	r3, r1, r4, lsl ip
 
 20000038 <init_app>:
@@ -80,7 +80,7 @@ void init_app(void) {
 20000056:	2200      	movs	r2, #0
 20000058:	601a      	str	r2, [r3, #0]
 	
-	// Setup PE3 to EXTICR3
+	// Setup PE3 to EXTICR1
 	*SYSCFG_EXTICR1 &= 0xFFFF0FFF; 
 2000005a:	4b16      	ldr	r3, [pc, #88]	; (200000b4 <init_app+0x7c>)
 2000005c:	4a15      	ldr	r2, [pc, #84]	; (200000b4 <init_app+0x7c>)
@@ -153,27 +153,17 @@ void main(void) {
 200000d4:	f7ff ffb0 	bl	20000038 <init_app>
 	while(1) {
 		*GPIO_D_ODR_LOW = count;
-200000d8:	4a06      	ldr	r2, [pc, #24]	; (200000f4 <main+0x24>)
-200000da:	4b07      	ldr	r3, [pc, #28]	; (200000f8 <main+0x28>)
+200000d8:	4a02      	ldr	r2, [pc, #8]	; (200000e4 <main+0x14>)
+200000da:	4b03      	ldr	r3, [pc, #12]	; (200000e8 <main+0x18>)
 200000dc:	681b      	ldr	r3, [r3, #0]
 200000de:	b2db      	uxtb	r3, r3
 200000e0:	7013      	strb	r3, [r2, #0]
-		*GPIO_D_ODR_LOW = count + 1;
-200000e2:	4a04      	ldr	r2, [pc, #16]	; (200000f4 <main+0x24>)
-200000e4:	4b04      	ldr	r3, [pc, #16]	; (200000f8 <main+0x28>)
-200000e6:	681b      	ldr	r3, [r3, #0]
-200000e8:	b2db      	uxtb	r3, r3
-200000ea:	3301      	adds	r3, #1
-200000ec:	b2db      	uxtb	r3, r3
-200000ee:	7013      	strb	r3, [r2, #0]
-		*GPIO_D_ODR_LOW = count;
-200000f0:	e7f2      	b.n	200000d8 <main+0x8>
-200000f2:	46c0      	nop			; (mov r8, r8)
-200000f4:	40020c14 	andmi	r0, r2, r4, lsl ip
-200000f8:	200000fc 	strdcs	r0, [r0], -ip
+200000e2:	e7f9      	b.n	200000d8 <main+0x8>
+200000e4:	40020c14 	andmi	r0, r2, r4, lsl ip
+200000e8:	200000ec 	andcs	r0, r0, ip, ror #1
 
-200000fc <count>:
-200000fc:	00000000 	andeq	r0, r0, r0
+200000ec <count>:
+200000ec:	00000000 	andeq	r0, r0, r0
 
 Disassembly of section .debug_info:
 
@@ -187,14 +177,14 @@ Disassembly of section .debug_info:
   20:	00000200 	andeq	r0, r0, r0, lsl #4
   24:	32010000 	andcc	r0, r1, #0
   28:	00000039 	andeq	r0, r0, r9, lsr r0
-  2c:	00fc0305 	rscseq	r0, ip, r5, lsl #6
+  2c:	00ec0305 	rsceq	r0, ip, r5, lsl #6
   30:	04032000 	streq	r2, [r3], #-0
   34:	00000607 	andeq	r0, r0, r7, lsl #12
   38:	00320400 	eorseq	r0, r2, r0, lsl #8
   3c:	05050000 	streq	r0, [r5, #-0]
   40:	01000001 	tsteq	r0, r1
   44:	0000d04f 	andeq	sp, r0, pc, asr #32
-  48:	00002c20 	andeq	r2, r0, r0, lsr #24
+  48:	00001c20 	andeq	r1, r0, r0, lsr #24
   4c:	069c0100 	ldreq	r0, [ip], r0, lsl #2
   50:	00000013 	andeq	r0, r0, r3, lsl r0
   54:	00383801 	eorseq	r3, r8, r1, lsl #16
@@ -249,7 +239,7 @@ Disassembly of section .debug_aranges:
    8:	00040000 	andeq	r0, r4, r0
    c:	00000000 	andeq	r0, r0, r0
   10:	20000010 	andcs	r0, r0, r0, lsl r0
-  14:	000000ec 	andeq	r0, r0, ip, ror #1
+  14:	000000dc 	ldrdeq	r0, [r0], -ip
   18:	20000000 	andcs	r0, r0, r0
   1c:	0000000c 	andeq	r0, r0, ip
 	...
@@ -258,7 +248,7 @@ Disassembly of section .debug_ranges:
 
 00000000 <.debug_ranges>:
    0:	20000010 	andcs	r0, r0, r0, lsl r0
-   4:	200000fc 	strdcs	r0, [r0], -ip
+   4:	200000ec 	andcs	r0, r0, ip, ror #1
    8:	20000000 	andcs	r0, r0, r0
    c:	2000000c 	andcs	r0, r0, ip
 	...
@@ -266,7 +256,7 @@ Disassembly of section .debug_ranges:
 Disassembly of section .debug_line:
 
 00000000 <.debug_line>:
-   0:	0000009b 	muleq	r0, fp, r0
+   0:	00000091 	muleq	r0, r1, r0
    4:	00550002 	subseq	r0, r5, r2
    8:	01020000 	mrseq	r0, (UNDEF: 2)
    c:	000d0efb 	strdeq	r0, [sp], -fp
@@ -299,13 +289,11 @@ Disassembly of section .debug_line:
   78:	592f0132 	stmdbpl	pc!, {r1, r4, r5, r8}	; <UNPREDICTABLE>
   7c:	67307667 	ldrvs	r7, [r0, -r7, ror #12]!
   80:	77673f69 	strbvc	r3, [r7, -r9, ror #30]!
-  84:	753f6967 	ldrvc	r6, [pc, #-2407]!	; fffff725 <count+0xdffff629>
+  84:	753f6967 	ldrvc	r6, [pc, #-2407]!	; fffff725 <count+0xdffff639>
   88:	002f7608 	eoreq	r7, pc, r8, lsl #12
   8c:	30010402 	andcc	r0, r1, r2, lsl #8
-  90:	01040200 	mrseq	r0, R12_usr
-  94:	04020059 	streq	r0, [r2], #-89	; 0xffffffa7
-  98:	06027301 	streq	r7, [r2], -r1, lsl #6
-  9c:	Address 0x0000009c is out of bounds.
+  90:	01000a02 	tsteq	r0, r2, lsl #20
+  94:	Address 0x00000094 is out of bounds.
 
 
 Disassembly of section .debug_str:
@@ -318,7 +306,7 @@ Disassembly of section .debug_str:
   10:	6900746e 	stmdbvs	r0, {r1, r2, r3, r5, r6, sl, ip, sp, lr}
   14:	5f74696e 	svcpl	0x0074696e
   18:	00707061 	rsbseq	r7, r0, r1, rrx
-  1c:	552f3a43 	strpl	r3, [pc, #-2627]!	; fffff5e1 <count+0xdffff4e5>
+  1c:	552f3a43 	strpl	r3, [pc, #-2627]!	; fffff5e1 <count+0xdffff4f5>
   20:	73726573 	cmnvc	r2, #482344960	; 0x1cc00000
   24:	6d61482f 	stclvs	8, cr4, [r1, #-188]!	; 0xffffff44
   28:	2f737570 	svccs	0x00737570
@@ -347,7 +335,7 @@ Disassembly of section .debug_str:
   84:	6c657228 	sfmvs	f7, 2, [r5], #-160	; 0xffffff60
   88:	65736165 	ldrbvs	r6, [r3, #-357]!	; 0xfffffe9b
   8c:	415b2029 	cmpmi	fp, r9, lsr #32
-  90:	652f4d52 	strvs	r4, [pc, #-3410]!	; fffff346 <count+0xdffff24a>
+  90:	652f4d52 	strvs	r4, [pc, #-3410]!	; fffff346 <count+0xdffff25a>
   94:	6465626d 	strbtvs	r6, [r5], #-621	; 0xfffffd93
   98:	2d646564 	cfstr64cs	mvdx6, [r4, #-400]!	; 0xfffffe70
   9c:	72622d36 	rsbvc	r2, r2, #3456	; 0xd80
@@ -463,7 +451,7 @@ Disassembly of section .debug_frame:
   58:	00000018 	andeq	r0, r0, r8, lsl r0
   5c:	00000000 	andeq	r0, r0, r0
   60:	200000d0 	ldrdcs	r0, [r0], -r0	; <UNPREDICTABLE>
-  64:	0000002c 	andeq	r0, r0, ip, lsr #32
+  64:	0000001c 	andeq	r0, r0, ip, lsl r0
   68:	40080e41 	andmi	r0, r8, r1, asr #28
   6c:	8e400287 	cdphi	2, 4, cr0, cr0, cr7, {4}
   70:	070d4101 	streq	r4, [sp, -r1, lsl #2]

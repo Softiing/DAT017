@@ -124,12 +124,12 @@
   77 0008 5A1C     		adds	r2, r3, #1
   78 000a 054B     		ldr	r3, .L3
   79 000c 1A60     		str	r2, [r3]
-  53:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq\startup.c **** 	*EXTI_PR |= 0x00000004;
+  53:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq\startup.c **** 	*EXTI_PR |= 0x00000008;
   80              		.loc 1 53 0
   81 000e 054B     		ldr	r3, .L3+4
   82 0010 044A     		ldr	r2, .L3+4
   83 0012 1268     		ldr	r2, [r2]
-  84 0014 0421     		movs	r1, #4
+  84 0014 0821     		movs	r1, #8
   85 0016 0A43     		orrs	r2, r1
   86 0018 1A60     		str	r2, [r3]
   54:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq\startup.c **** }
@@ -190,7 +190,7 @@
  135 0046 0022     		movs	r2, #0
  136 0048 1A60     		str	r2, [r3]
   63:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq\startup.c **** 	
-  64:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq\startup.c **** 	// Setup PE3 to EXTICR3
+  64:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq\startup.c **** 	// Setup PE3 to EXTICR1
   65:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq\startup.c **** 	*SYSCFG_EXTICR1 &= 0xFFFF0FFF; 
  137              		.loc 1 65 0
  138 004a 164B     		ldr	r3, .L6+12
@@ -292,28 +292,17 @@
   81:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq\startup.c **** 	while(1) {
   82:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq\startup.c **** 		*GPIO_D_ODR_LOW = count;
  221              		.loc 1 82 0 discriminator 1
- 222 00c8 064A     		ldr	r2, .L10
- 223 00ca 074B     		ldr	r3, .L10+4
+ 222 00c8 024A     		ldr	r2, .L10
+ 223 00ca 034B     		ldr	r3, .L10+4
  224 00cc 1B68     		ldr	r3, [r3]
  225 00ce DBB2     		uxtb	r3, r3
  226 00d0 1370     		strb	r3, [r2]
-  83:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq\startup.c **** 		*GPIO_D_ODR_LOW = count + 1;
- 227              		.loc 1 83 0 discriminator 1
- 228 00d2 044A     		ldr	r2, .L10
- 229 00d4 044B     		ldr	r3, .L10+4
- 230 00d6 1B68     		ldr	r3, [r3]
- 231 00d8 DBB2     		uxtb	r3, r3
- 232 00da 0133     		adds	r3, r3, #1
- 233 00dc DBB2     		uxtb	r3, r3
- 234 00de 1370     		strb	r3, [r2]
-  82:C:/Users/Hampus/Desktop/DAT017/CodeLite/flipflop_irq\startup.c **** 		*GPIO_D_ODR_LOW = count + 1;
- 235              		.loc 1 82 0 discriminator 1
- 236 00e0 F2E7     		b	.L9
- 237              	.L11:
- 238 00e2 C046     		.align	2
- 239              	.L10:
- 240 00e4 140C0240 		.word	1073875988
- 241 00e8 00000000 		.word	count
- 242              		.cfi_endproc
- 243              	.LFE3:
- 245              	.Letext0:
+ 227 00d2 F9E7     		b	.L9
+ 228              	.L11:
+ 229              		.align	2
+ 230              	.L10:
+ 231 00d4 140C0240 		.word	1073875988
+ 232 00d8 00000000 		.word	count
+ 233              		.cfi_endproc
+ 234              	.LFE3:
+ 236              	.Letext0:
