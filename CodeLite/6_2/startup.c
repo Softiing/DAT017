@@ -1,3 +1,6 @@
+#define SIMULATOR
+
+
 #define STK 0xE000E010
 #define STK_CTRL ((volatile unsigned int *) (STK))
 #define STK_LOAD ((volatile unsigned int *) (STK + 0x4))
@@ -13,12 +16,13 @@
 #define GPIO_ODR_HIGH ((volatile unsigned char *) (GPIO_E+0x15))
 
 #ifdef SIMULATOR
-#define DELAY_COUNT 100
+#define DELAY_COUNT 1000
 #else
 #define DELAY_COUNT 1000000
 #endif
 
 volatile char systick_flag = 0;
+volatile char delay_count = 0;
 
 void startup(void) __attribute__((naked)) __attribute__((section (".start_section")) );
 
@@ -33,7 +37,11 @@ __asm volatile(
 }
 
 void systick_irq_handler(void) {
-	systick_flag = 1;
+	if(delay_count-- == 0) {
+		systick_flag = 1;
+	} else {
+		delay_1micro();
+	}
 }
 
 void init_app(void) {
@@ -41,16 +49,6 @@ void init_app(void) {
 	*GPIO_MODER |= 0x00005555;
 	*((void(**)(void)) 0x2001C03C ) = systick_irq_handler;
 }
-
-//void delay_250ns(void) {
-//	*STK_CTRL = 0;
-//	*STK_LOAD = 49; //  48 + 1. Have to add one as said in manual
-//	*STK_VAL = 0;
-//	*STK_CTRL = 5;
-////	while((*STK_CTRL & 0x10000) == 0) {
-////		// Do nothing :S
-////	}
-//}
 
 void delay_1micro() {
 	systick_flag = 0;
@@ -62,10 +60,14 @@ void delay_1micro() {
 
 void delay(unsigned int count) {
 	systick_flag = 0;
-	*STK_CTRL = 0;
-	*STK_LOAD = 192*count; //  48 * 4. 48 is 250ns
-	*STK_VAL = 0;
-	*STK_CTRL = 7; // Enable interrupts by setting bit 1 to 1.
+	delay_count = count;
+	delay_1micro();
+//	*STK_CTRL = 0;
+//	*STK_LOAD = 192*count; //  48 * 4. 48 is 250ns
+//	*STK_VAL = 0;
+//	*STK_CTRL = 7; 
+	
+	// Enable interrupts by setting bit 1 to 1.
 //	for(int i = 0; i < count; i++) {
 //		delay_1micro();
 //		while(!systick_flag) {
@@ -77,7 +79,7 @@ void delay(unsigned int count) {
 void main(void) {
 	init_app();
 	*GPIO_ODR_LOW = 0;
-	delay(1000);
+	delay(DELAY_COUNT);
 	*GPIO_ODR_LOW = 0xFF;
 	while(1) {
 		if(systick_flag) {
