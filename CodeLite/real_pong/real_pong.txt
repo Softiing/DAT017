@@ -1,0 +1,1 @@
+./Debug/startup.c.o ./Debug/ball.c.o ./Debug/graphic.c.o ./Debug/object.c.o ./Debug/timer.c.o ./Debug/paddle.c.o   

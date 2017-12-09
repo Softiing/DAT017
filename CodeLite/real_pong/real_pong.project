@@ -139,6 +139,8 @@ monitor restart</PostConnectCommands>
     <File Name="object.c"/>
     <File Name="timer.c"/>
     <File Name="timer.h"/>
+    <File Name="paddle.h"/>
+    <File Name="paddle.c"/>
   </VirtualDirectory>
   <VirtualDirectory Name="resources">
     <File Name="md407-ram.x"/>

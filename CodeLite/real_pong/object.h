@@ -28,7 +28,6 @@ typedef struct tObj {
 
 void draw_object(POBJECT);
 void clear_object(POBJECT);
-void move_object(POBJECT);
 void set_object_speed(POBJECT, int, int);
 
 #endif

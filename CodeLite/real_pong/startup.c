@@ -33,7 +33,7 @@ void main(void) {
 	p->set_speed(p, 16, 16);
 	while(1) {
 		p->move(p);
-		delay_milli(40);
+		delay_milli(1);
 	}
 }
 
