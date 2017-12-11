@@ -34,14 +34,14 @@ OBJECT paddle2 = {
 void move_paddle(POBJECT this) {
 	clear_object(this);
 	
-	this->posX += this->dirX;
-//	this->posY += this->dirY;
+	// Move paddle in y direction only.
+	this->posY += this->dirY;
 	
-	// Wall collisions
+	// Wall collisions todo add width check with paddle.
 	if(this->posY < 0) {
 		this->posY = 0;
-	} else if(this->posY > 127) {
-		this->posY = 127;
+	} else if(this->posY + this->geo->sizeY > 127) {
+		this->posY = 127 - this->geo->sizeY;
 	}
 	
 	this->draw(this);

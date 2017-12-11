@@ -32,6 +32,11 @@ void move_ball(POBJECT this) {
 		this->dirY = -this->dirY;
 	}
 	
+	// End game collisions
+	if((this->posX < 0) ||  this->posX > 163 ) {
+		// Handle game over.
+	}
+	
 	// TODO Paddle collisions
 	
 	this->draw(this);
