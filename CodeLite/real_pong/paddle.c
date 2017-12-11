@@ -11,7 +11,7 @@ GEOMETRY paddle_geometry = {
 	}
 };
 
-OBJECT paddle1 = {
+OBJECT leftPaddle = {
 	&paddle_geometry,
 	0, 0,
 	1, 1,
@@ -21,7 +21,7 @@ OBJECT paddle1 = {
 	set_object_speed
 };
 
-OBJECT paddle2 = {
+OBJECT rightPaddle = {
 	&paddle_geometry,
 	0, 0,
 	1, 1,

@@ -1,4 +1,5 @@
 #include "ball.h"
+#include "paddle.h"
 
 GEOMETRY ball_geometry = {
 	12,
@@ -21,6 +22,9 @@ OBJECT ball = {
 	set_object_speed
 };
 
+extern OBJECT leftPaddle;
+extern OBJECT rightPaddle;
+
 void move_ball(POBJECT this) {
 	clear_object(this);
 	
@@ -32,12 +36,27 @@ void move_ball(POBJECT this) {
 		this->dirY = -this->dirY;
 	}
 	
-	// End game collisions
-	if((this->posX < 0) ||  this->posX > 163 ) {
-		// Handle game over.
+	// Define left and right paddle
+	POBJECT lp = &leftPaddle;
+	POBJECT rp = &rightPaddle;
+	
+	//For left paddle
+	if(this->posX <= lp->posX + lp->geo->sizeX) {
+		if((this->posY >= lp->posY) && (this->posY <= lp->posY + lp->geo->sizeY)) {
+			this->dirX = -this->dirX;
+		} else {
+			// Left player lost
+		}
 	}
 	
-	// TODO Paddle collisions
+	//For right paddle
+	if(this->posX >= rp->posX) {
+		if((this->posY >= rp->posY) && (this->posY <= rp->posY + rp->geo->sizeY)) {
+			this->dirX = -this->dirX;
+		} else {
+			// Right player lost
+		}
+	}
 	
 	this->draw(this);
 }

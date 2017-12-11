@@ -47,9 +47,9 @@
   48      00000000 
   48      00000000 
   48      00000000 
-  49              		.global	paddle1
+  49              		.global	leftPaddle
   50              		.align	2
-  53              	paddle1:
+  53              	leftPaddle:
   54 0034 00000000 		.word	paddle_geometry
   55 0038 00000000 		.word	0
   56 003c 00000000 		.word	0
@@ -59,9 +59,9 @@
   60 004c 00000000 		.word	clear_object
   61 0050 00000000 		.word	move_paddle
   62 0054 00000000 		.word	set_object_speed
-  63              		.global	paddle2
+  63              		.global	rightPaddle
   64              		.align	2
-  67              	paddle2:
+  67              	rightPaddle:
   68 0058 00000000 		.word	paddle_geometry
   69 005c 00000000 		.word	0
   70 0060 00000000 		.word	0
@@ -94,7 +94,7 @@
   11:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\paddle.c **** 	}
   12:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\paddle.c **** };
   13:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\paddle.c **** 
-  14:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\paddle.c **** OBJECT paddle1 = {
+  14:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\paddle.c **** OBJECT leftPaddle = {
   15:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\paddle.c **** 	&paddle_geometry,
   16:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\paddle.c **** 	0, 0,
   17:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\paddle.c **** 	1, 1,
@@ -104,7 +104,7 @@
   21:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\paddle.c **** 	set_object_speed
   22:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\paddle.c **** };
   23:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\paddle.c **** 
-  24:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\paddle.c **** OBJECT paddle2 = {
+  24:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\paddle.c **** OBJECT rightPaddle = {
   25:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\paddle.c **** 	&paddle_geometry,
   26:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\paddle.c **** 	0, 0,
   27:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\paddle.c **** 	1, 1,
@@ -157,7 +157,7 @@
  119 0026 7B68     		ldr	r3, [r7, #4]
  120 0028 0022     		movs	r2, #0
  121 002a 1A61     		str	r2, [r3, #16]
- 122 002c 0AE0     		b	.L3
+ 122 002c 0EE0     		b	.L3
  123              	.L2:
   43:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\paddle.c **** 	} else if(this->posY + this->geo->sizeY > 127) {
  124              		.loc 1 43 0
@@ -168,32 +168,36 @@
  129 0036 9B68     		ldr	r3, [r3, #8]
  130 0038 D318     		adds	r3, r2, r3
  131 003a 7F2B     		cmp	r3, #127
- 132 003c 02DD     		ble	.L3
-  44:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\paddle.c **** 		this->posY = 127;
+ 132 003c 06DD     		ble	.L3
+  44:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\paddle.c **** 		this->posY = 127 - this->geo->sizeY;
  133              		.loc 1 44 0
  134 003e 7B68     		ldr	r3, [r7, #4]
- 135 0040 7F22     		movs	r2, #127
- 136 0042 1A61     		str	r2, [r3, #16]
- 137              	.L3:
+ 135 0040 1B68     		ldr	r3, [r3]
+ 136 0042 9B68     		ldr	r3, [r3, #8]
+ 137 0044 7F22     		movs	r2, #127
+ 138 0046 D21A     		subs	r2, r2, r3
+ 139 0048 7B68     		ldr	r3, [r7, #4]
+ 140 004a 1A61     		str	r2, [r3, #16]
+ 141              	.L3:
   45:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\paddle.c **** 	}
   46:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\paddle.c **** 	
   47:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\paddle.c **** 	this->draw(this);
- 138              		.loc 1 47 0
- 139 0044 7B68     		ldr	r3, [r7, #4]
- 140 0046 5B69     		ldr	r3, [r3, #20]
- 141 0048 7A68     		ldr	r2, [r7, #4]
- 142 004a 1000     		movs	r0, r2
- 143 004c 9847     		blx	r3
- 144              	.LVL0:
+ 142              		.loc 1 47 0
+ 143 004c 7B68     		ldr	r3, [r7, #4]
+ 144 004e 5B69     		ldr	r3, [r3, #20]
+ 145 0050 7A68     		ldr	r2, [r7, #4]
+ 146 0052 1000     		movs	r0, r2
+ 147 0054 9847     		blx	r3
+ 148              	.LVL0:
   48:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\paddle.c **** }...
- 145              		.loc 1 48 0
- 146 004e C046     		nop
- 147 0050 BD46     		mov	sp, r7
- 148 0052 02B0     		add	sp, sp, #8
- 149              		@ sp needed
- 150 0054 80BD     		pop	{r7, pc}
- 151              		.cfi_endproc
- 152              	.LFE0:
- 154              	.Letext0:
- 155              		.file 2 "C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong/object.h"
- 156              		.file 3 "C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong/paddle.h"
+ 149              		.loc 1 48 0
+ 150 0056 C046     		nop
+ 151 0058 BD46     		mov	sp, r7
+ 152 005a 02B0     		add	sp, sp, #8
+ 153              		@ sp needed
+ 154 005c 80BD     		pop	{r7, pc}
+ 155              		.cfi_endproc
+ 156              	.LFE0:
+ 158              	.Letext0:
+ 159              		.file 2 "C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong/object.h"
+ 160              		.file 3 "C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong/paddle.h"
