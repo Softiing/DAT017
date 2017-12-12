@@ -3,13 +3,13 @@
 
 // Port E setup
 #define GPIO_E 0x40021000
-#define GPIO_MODER ((volatile unsigned int *) (GPIO_E))
-#define GPIO_OTYPER ((volatile unsigned short *) (GPIO_E+0x4))
-#define GPIO_PUPDR ((volatile unsigned int *) (GPIO_E+0xC))
-#define GPIO_IDR_LOW ((volatile unsigned char *) (GPIO_E+0x10))
-#define GPIO_IDR_HIGH ((volatile unsigned char *) (GPIO_E+0x11))
-#define GPIO_ODR_LOW ((volatile unsigned char *) (GPIO_E+0x14))
-#define GPIO_ODR_HIGH ((volatile unsigned char *) (GPIO_E+0x15))
+#define GPIO_E_MODER ((volatile unsigned int *) (GPIO_E))
+#define GPIO_E_OTYPER ((volatile unsigned short *) (GPIO_E+0x4))
+#define GPIO_E_PUPDR ((volatile unsigned int *) (GPIO_E+0xC))
+#define GPIO_E_IDR_LOW ((volatile unsigned char *) (GPIO_E+0x10))
+#define GPIO_E_IDR_HIGH ((volatile unsigned char *) (GPIO_E+0x11))
+#define GPIO_E_ODR_LOW ((volatile unsigned char *) (GPIO_E+0x14))
+#define GPIO_E_ODR_HIGH ((volatile unsigned char *) (GPIO_E+0x15))
 
 
 // Control for display
@@ -28,6 +28,12 @@
 #define LCD_SET_ADD 0x40
 #define LCD_SET_PAGE 0xB8
 #define LCD_BUSY 0x80
+
+#define PAGE 8
+#define ADD 63
+
+#define SCREEN_WIDTH  127
+#define SCREEN_HEIGHT 63
 
 typedef unsigned char uint8_t;
 
@@ -50,7 +56,7 @@ void graphic_write_data(unsigned char data, unsigned char controller);
 
 unsigned char graphic_read_data(unsigned char controller);
 
-void graphic_initalize(void);
+void graphic_initialize(void);
 
 void graphic_clear_screen(void);
 

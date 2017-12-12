@@ -1,7 +1,7 @@
 #include "paddle.h"
 
 GEOMETRY paddle_geometry = {
-	12,
+	100,
 	4, 25,
 	{
 		{0, 0}, {1, 0}, {2, 0}, {3, 0},
@@ -35,7 +35,7 @@ GEOMETRY paddle_geometry = {
 OBJECT leftPaddle = {
 	&paddle_geometry,
 	0, 0,
-	1, 1,
+	1, 32,
 	draw_object,
 	clear_object,
 	move_paddle,
@@ -45,7 +45,7 @@ OBJECT leftPaddle = {
 OBJECT rightPaddle = {
 	&paddle_geometry,
 	0, 0,
-	1, 1,
+	124, 32,
 	draw_object,
 	clear_object,
 	move_paddle,

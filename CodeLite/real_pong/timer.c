@@ -12,7 +12,7 @@ void delay_250ns(void) {
 	*STK_CTRL = 0;
 }
 
-void delay_mikro(unsigned int us) {
+void delay_micro(unsigned int us) {
 	while(us--) {
 		delay_250ns();
 		delay_250ns();
@@ -23,9 +23,9 @@ void delay_mikro(unsigned int us) {
 
 void delay_milli(unsigned int ms) {
 	#ifdef SIMULATOR
-		delay_mikro(ms);
+		delay_micro(ms);
 	#else
-		delay_mikro(1000 * ms);
+		delay_micro(1000 * ms);
 	#endif
 }
 
