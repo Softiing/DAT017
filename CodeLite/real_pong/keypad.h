@@ -9,7 +9,7 @@
 #define GPIO_D_IDR_HIGH ((volatile unsigned char *) (GPIO_D+0x11))
 #define GPIO_D_ODR_LOW ((volatile unsigned char *) (GPIO_D+0x14))
 #define GPIO_D_ODR_HIGH ((volatile unsigned char *) (GPIO_D+0x15))
-void activateRow(unsigned char row);
+void activateRow(unsigned int row);
 unsigned char readColumn(void);
 unsigned char * keyb(void);
 #endif

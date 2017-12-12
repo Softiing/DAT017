@@ -23,12 +23,10 @@ void init_app(void) {
 	*GPIO_E_MODER = 0x55555555;
 	
 	// Setup for keypad
-	*GPIO_D_MODER &= 0x0000FFFF;
-	*GPIO_D_MODER |= 0x55000000;
-	
+	*GPIO_D_MODER = 0x55000000;
 	*GPIO_D_OTYPER &= 0x0000FFFF;   
-	*GPIO_D_OTYPER |= 0x00000000;   
-	*GPIO_D_PUPDR = 0x00AA0000;   
+	*GPIO_D_OTYPER |= 0x00000000;     
+	*GPIO_D_PUPDR = 0x00AA0000;    
 }
 
 
@@ -51,16 +49,16 @@ void main(void) {
 	while(1) {
 		// Update from keypad
 		unsigned char *pressedKeys = keyb();
-		pl->set_speed(pl,0,1);
+		pl->set_speed(pl,0,0);
 		pr->set_speed(pr,0,0);
-//		for(unsigned char i = 0; i < 4; i++) {
-//			switch(pressedKeys[i]) {
-//				case 0x01: pl->set_speed(pl,0,10); break;
-//				case 0x04: pl->set_speed(pl,0,-10); break;
-//				case 0x0C: pr->set_speed(pr,0,10); break;
-//				case 0x0D: pr->set_speed(pr,0,-10); break;
-//			}
-//		}
+		for(unsigned char i = 0; i < 4; i++) {
+			switch(pressedKeys[i]) {
+				case 0x01: pl->set_speed(pl,0,10); break;
+				case 0x04: pl->set_speed(pl,0,-10); break;
+				case 0x0C: pr->set_speed(pr,0,10); break;
+				case 0x0D: pr->set_speed(pr,0,-10); break;
+			}
+		}
 		p->move(p);
 		pl->move(pl);
 		pr->move(pr);
