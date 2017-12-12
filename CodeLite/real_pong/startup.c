@@ -4,7 +4,7 @@
 #include "paddle.h"
 #include "keypad.h"
 
-#define SIMULATOR
+//#define SIMULATOR
 
 void startup(void) __attribute__((naked)) __attribute__((section (".start_section")) );
 
@@ -26,11 +26,9 @@ void init_app(void) {
 	*GPIO_D_MODER &= 0x0000FFFF;
 	*GPIO_D_MODER |= 0x55000000;
 	
-	*GPIO_D_OTYPER &= 0x00FF;
-	*GPIO_D_OTYPER |= 0x7000;
-	
-	*GPIO_D_PUPDR &= 0x0000FFFF;
-	*GPIO_D_PUPDR |= 0xAAAA0000;
+	*GPIO_D_OTYPER &= 0x0000FFFF;   
+	*GPIO_D_OTYPER |= 0x00000000;   
+	*GPIO_D_PUPDR = 0x00AA0000;   
 }
 
 
@@ -49,20 +47,20 @@ void main(void) {
 	graphic_clear_screen();
   #endif
   
-	p->set_speed(p, 16, 16);
+//	p->set_speed(p, 4, 4);
 	while(1) {
 		// Update from keypad
 		unsigned char *pressedKeys = keyb();
-		pl->set_speed(pl,0,0);
+		pl->set_speed(pl,0,1);
 		pr->set_speed(pr,0,0);
-		for(unsigned char i = 0; i < 4; i++) {
-			switch(pressedKeys[i]) {
-				case 0x01: pl->set_speed(pl,0,10); break;
-				case 0x04: pl->set_speed(pl,0,-10); break;
-				case 0x0C: pr->set_speed(pr,0,10); break;
-				case 0x0D: pr->set_speed(pr,0,-10); break;
-			}
-		}
+//		for(unsigned char i = 0; i < 4; i++) {
+//			switch(pressedKeys[i]) {
+//				case 0x01: pl->set_speed(pl,0,10); break;
+//				case 0x04: pl->set_speed(pl,0,-10); break;
+//				case 0x0C: pr->set_speed(pr,0,10); break;
+//				case 0x0D: pr->set_speed(pr,0,-10); break;
+//			}
+//		}
 		p->move(p);
 		pl->move(pl);
 		pr->move(pr);

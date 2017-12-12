@@ -61,8 +61,8 @@ void move_paddle(POBJECT this) {
 	// Wall collisions todo add width check with paddle.
 	if(this->posY < 0) {
 		this->posY = 0;
-	} else if(this->posY + this->geo->sizeY > 127) {
-		this->posY = 127 - this->geo->sizeY;
+	} else if((this->posY + this->geo->sizeY) > 63) {
+		this->posY = (63 - this->geo->sizeY);
 	}
 	
 	this->draw(this);

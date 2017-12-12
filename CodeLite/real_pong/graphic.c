@@ -38,10 +38,11 @@ void graphic_wait_ready(){
     while(1) { // Wait for display not to be busy
         graphics_ctrl_bit_set(B_E);
         delay_500ns();
+		unsigned char busy = *GPIO_E_IDR_HIGH;
         graphics_ctrl_bit_clear(B_E);
         delay_500ns();
         //unsigned char i = *GPIO_IDR_HIGH;
-        if((*GPIO_E_IDR_HIGH & LCD_BUSY) == 0) {
+        if((busy & LCD_BUSY) == 0) {
             break;
         }
     }
@@ -122,6 +123,7 @@ uint8_t graphics_read_data(uint8_t controller){
 
 void graphic_initialize(void){
     graphics_ctrl_bit_set(B_E);
+    graphics_ctrl_bit_set(B_SELECT);
     delay_micro(10);
     graphics_ctrl_bit_clear(B_CS1 | B_CS2 | B_RST | B_E);
     delay_milli(30);
@@ -146,42 +148,46 @@ void graphic_clear_screen(void){
 }
 
 
-void pixel(unsigned char x, unsigned char y, unsigned char set){
-    if((x < 0 || y < 0) || (x > SCREEN_WIDTH || y > SCREEN_HEIGHT)) return;
-    
-    unsigned char index = (y-1) / PAGE;
-    unsigned char mask;
-    
-    if((y-1) % 8 == 0){mask = 1;}
-    if((y-1) % 8 == 1){mask = 2;}
-    if((y-1) % 8 == 2){mask = 4;}
-    if((y-1) % 8 == 3){mask = 8;}
-    if((y-1) % 8 == 4){mask = 0x10;}
-    if((y-1) % 8 == 5){mask = 0x20;}
-    if((y-1) % 8 == 6){mask = 0x40;}
-    if((y-1) % 8 == 7){mask = 0x80;}
-    
-    if(set == 0){mask = ~mask;}
-    
-    unsigned char controller;
-    if(x > 64){
-        controller = B_CS2;
-        x = x - 65;
-        }
-    else{
-        controller = B_CS1;
-        x = x - 1;
-        }
-    
-    graphic_write_command(LCD_SET_ADD | x, controller);
+void pixel(unsigned char x, unsigned char y, unsigned char set) {
+	if(x < 0 || y < 0) return;
+	if(x > 127 || y > 63) return;
+	unsigned char mask;
+	unsigned char index = y / 8;
+	
+	switch(y % 8) {
+		case 0: mask = 1; break;
+		case 1: mask = 2; break;
+		case 2: mask = 4; break;
+		case 3: mask = 8; break;
+		case 4: mask = 16; break;
+		case 5: mask = 32; break;
+		case 6: mask = 64; break;
+		case 7: mask = 128; break;
+	}
+	
+	if(set == 0) {
+		mask = ~mask;
+	}
+	
+	unsigned char controller;
+	if(x > 63) {
+		controller = B_CS2;
+		x = x - 64;
+	} else {
+		controller = B_CS1;
+	}
+	
+	graphic_write_command(LCD_SET_ADD | x, controller);
 	graphic_write_command(LCD_SET_PAGE | index, controller);
 	unsigned char temp = graphics_read_data(controller);
 	graphic_write_command(LCD_SET_ADD | x, controller);
-    
-    if(set == 1)
-        {mask = mask | temp;}
-    else
-        {mask = mask & temp;}
-    
-    graphic_write_data(mask, controller);
+	
+	if(set) {
+		mask = mask | temp;
+	} else {
+		mask = mask & temp;
+	}
+	
+	graphic_write_data(mask, controller);
+	
 }

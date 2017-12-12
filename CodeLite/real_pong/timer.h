@@ -5,7 +5,7 @@
 #define STK_CTRL ((volatile unsigned int *) (STK))
 #define STK_LOAD ((volatile unsigned int *) (STK + 0x4))
 #define STK_VAL ((volatile unsigned int *) (STK + 0x8))
-#define SIMULATOR
+//#define SIMULATOR
 void delay_250ns(void);
 
 void delay_micro(unsigned int us);
