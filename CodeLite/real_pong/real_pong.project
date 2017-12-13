@@ -19,6 +19,24 @@
   </Plugins>
   <Description/>
   <Dependencies/>
+  <VirtualDirectory Name="src">
+    <File Name="startup.c"/>
+    <File Name="ball.h"/>
+    <File Name="ball.c"/>
+    <File Name="graphic.h"/>
+    <File Name="graphic.c"/>
+    <File Name="object.h"/>
+    <File Name="object.c"/>
+    <File Name="timer.c"/>
+    <File Name="timer.h"/>
+    <File Name="paddle.h"/>
+    <File Name="paddle.c"/>
+    <File Name="keypad.c"/>
+    <File Name="keypad.h"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="resources">
+    <File Name="md407-ram.x"/>
+  </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>
       <Compiler Options="" C_Options="" Assembler="">
@@ -129,22 +147,4 @@ monitor restart</PostConnectCommands>
       </Completion>
     </Configuration>
   </Settings>
-  <VirtualDirectory Name="src">
-    <File Name="startup.c"/>
-    <File Name="ball.h"/>
-    <File Name="ball.c"/>
-    <File Name="graphic.h"/>
-    <File Name="graphic.c"/>
-    <File Name="object.h"/>
-    <File Name="object.c"/>
-    <File Name="timer.c"/>
-    <File Name="timer.h"/>
-    <File Name="paddle.h"/>
-    <File Name="paddle.c"/>
-    <File Name="keypad.c"/>
-    <File Name="keypad.h"/>
-  </VirtualDirectory>
-  <VirtualDirectory Name="resources">
-    <File Name="md407-ram.x"/>
-  </VirtualDirectory>
 </CodeLite_Project>

@@ -4,7 +4,6 @@
 #include "paddle.h"
 #include "keypad.h"
 
-//#define SIMULATOR
 
 void startup(void) __attribute__((naked)) __attribute__((section (".start_section")) );
 

@@ -28,6 +28,8 @@ unsigned char * keyb(void) {
 		char column = readColumn();
 		if(column != 0) {
 			returnKeys[row-1] = keys[4 * (row - 1) + (column - 1)];
+		} else {
+			returnKeys[row-1] = 0xFF;
 		}
 	}
 	activateRow(0);

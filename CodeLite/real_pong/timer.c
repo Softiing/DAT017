@@ -1,6 +1,5 @@
 #include "timer.h"
 
-
 void delay_250ns(void) {
 	*STK_CTRL = 0;
 	*STK_LOAD = 49; //  48 + 1. Have to add one as said in manual
