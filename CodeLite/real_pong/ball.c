@@ -1,5 +1,7 @@
 #include "ball.h"
 #include "paddle.h"
+#include "asciidisplay.h"
+#include "graphic.h"
 
 GEOMETRY ball_geometry = {
 	12,
@@ -52,6 +54,16 @@ void move_ball(POBJECT this) {
 			this->dirX = -this->dirX;
 		} else {
 			// Left player lost
+			ascii_ctrl_bit_set(2);
+			goToXY(1,1);
+			char *s;
+			char test1[] = "Right player won! ";
+			s = test1;
+			while(*s) {
+				ascii_write_char(*s++);
+			}
+			graphics_ctrl_bit_clear(B_SELECT);
+			
 			delay_milli(500);
 			this->posX = 63;
 			this->dirX = -this->dirX;
@@ -66,6 +78,16 @@ void move_ball(POBJECT this) {
 			this->dirX = -this->dirX;
 		} else {
 			// Right player lost
+			ascii_ctrl_bit_set(2);
+			goToXY(1,1);
+			char *s;
+			char test1[] = "Left player won!";
+			s = test1;
+			while(*s) {
+				ascii_write_char(*s++);
+			}
+			graphics_ctrl_bit_clear(B_SELECT);
+			
 			delay_milli(500);
 			this->posX = 63;
 			this->dirX = -this->dirX;

@@ -33,6 +33,9 @@
     <File Name="paddle.c"/>
     <File Name="keypad.c"/>
     <File Name="keypad.h"/>
+    <File Name="asciidisplay.c"/>
+    <File Name="asciidisplay.h"/>
+    <File Name="GPIOE.h"/>
   </VirtualDirectory>
   <VirtualDirectory Name="resources">
     <File Name="md407-ram.x"/>

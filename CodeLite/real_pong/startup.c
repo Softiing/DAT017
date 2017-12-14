@@ -3,6 +3,8 @@
 #include "ball.h"
 #include "paddle.h"
 #include "keypad.h"
+#include "GPIOE.h"
+#include "asciidisplay.h"
 
 
 void startup(void) __attribute__((naked)) __attribute__((section (".start_section")) );
@@ -46,6 +48,9 @@ void main(void) {
 	graphic_clear_screen();
   #endif
 	
+	// Init asciidisplay
+	ascii_init();
+		
 	// Set speed for ball
 	p->set_speed(p, 4, 4);
 	
