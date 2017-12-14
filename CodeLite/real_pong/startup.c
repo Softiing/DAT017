@@ -52,10 +52,10 @@ void main(void) {
 		pr->set_speed(pr,0,0);
 		for(unsigned char i = 0; i < 4; i++) {
 			switch(pressedKeys[i]) {
-				case 0x01: pl->set_speed(pl,0,10); break;
-				case 0x04: pl->set_speed(pl,0,-10); break;
-				case 0x0C: pr->set_speed(pr,0,10); break;
-				case 0x0D: pr->set_speed(pr,0,-10); break;
+				case 0x01: pl->set_speed(pl,0,-5); break;
+				case 0x04: pl->set_speed(pl,0,5); break;
+				case 0x0C: pr->set_speed(pr,0,-5); break;
+				case 0x0D: pr->set_speed(pr,0,5); break;
 			}
 		}
 		p->move(p);
