@@ -43,8 +43,9 @@ void main(void) {
   #ifndef SIMULATOR
 	graphic_clear_screen();
   #endif
-  
-//	p->set_speed(p, 4, 4);
+	
+	// Set speed for ball
+	p->set_speed(p, 4, 4);
 	while(1) {
 		// Update from keypad
 		unsigned char *pressedKeys = keyb();
@@ -58,10 +59,12 @@ void main(void) {
 				case 0x0D: pr->set_speed(pr,0,5); break;
 			}
 		}
+		
+		// Move game objects
 		p->move(p);
 		pl->move(pl);
 		pr->move(pr);
-		delay_milli(50);
+		delay_milli(30);
 	}
 }
 

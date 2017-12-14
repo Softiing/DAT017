@@ -15,7 +15,7 @@ GEOMETRY ball_geometry = {
 OBJECT ball = {
 	&ball_geometry,
 	0, 0,
-	1, 1,
+	63, 32,
 	draw_object,
 	clear_object,
 	move_ball,
@@ -32,7 +32,11 @@ void move_ball(POBJECT this) {
 	this->posY += this->dirY;
 	
 	// Wall collisions
-	if((this->posY < 0) ||  this->posY > 63 ) {
+	if(this->posY < 0) {
+		this->posY = 0;
+		this->dirY = -this->dirY;
+	} else if(this->posY > 63) {
+		this->posY = 63;
 		this->dirY = -this->dirY;
 	}
 	
@@ -43,18 +47,28 @@ void move_ball(POBJECT this) {
 	//For left paddle
 	if(this->posX <= lp->posX + lp->geo->sizeX) {
 		if((this->posY >= lp->posY) && (this->posY <= lp->posY + lp->geo->sizeY)) {
+			this->posX = lp->posX + lp->geo->sizeX + 1;
 			this->dirX = -this->dirX;
 		} else {
 			// Left player lost
+			delay_milli(500);
+			this->posX = 63;
+			this->dirX = -this->dirX;
+			this->dirY = -this->dirY;
 		}
 	}
 	
 	//For right paddle
 	if(this->posX >= rp->posX) {
 		if((this->posY >= rp->posY) && (this->posY <= rp->posY + rp->geo->sizeY)) {
+			this->posX = rp->posX - 1;
 			this->dirX = -this->dirX;
 		} else {
 			// Right player lost
+			delay_milli(500);
+			this->posX = 63;
+			this->dirX = -this->dirX;
+			this->dirY = -this->dirY;
 		}
 	}
 	
