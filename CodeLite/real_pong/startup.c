@@ -50,7 +50,8 @@ void main(void) {
 	
 	// Init asciidisplay
 	ascii_init();
-		
+	graphics_ctrl_bit_clear(B_SELECT);
+	
 	// Set speed for ball
 	p->set_speed(p, 4, 4);
 	

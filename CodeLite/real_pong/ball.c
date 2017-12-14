@@ -54,6 +54,7 @@ void move_ball(POBJECT this) {
 			this->dirX = -this->dirX;
 		} else {
 			// Left player lost
+			// <Write to screen>
 			ascii_ctrl_bit_set(2);
 			goToXY(1,1);
 			char *s;
@@ -63,7 +64,7 @@ void move_ball(POBJECT this) {
 				ascii_write_char(*s++);
 			}
 			graphics_ctrl_bit_clear(B_SELECT);
-			
+			// </Write to screen>
 			delay_milli(500);
 			this->posX = 63;
 			this->dirX = -this->dirX;
@@ -78,6 +79,7 @@ void move_ball(POBJECT this) {
 			this->dirX = -this->dirX;
 		} else {
 			// Right player lost
+			// <Write to screen>
 			ascii_ctrl_bit_set(2);
 			goToXY(1,1);
 			char *s;
@@ -87,6 +89,7 @@ void move_ball(POBJECT this) {
 				ascii_write_char(*s++);
 			}
 			graphics_ctrl_bit_clear(B_SELECT);
+			// </Write to screen>
 			
 			delay_milli(500);
 			this->posX = 63;
