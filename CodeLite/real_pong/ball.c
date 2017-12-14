@@ -28,6 +28,7 @@ extern OBJECT rightPaddle;
 void move_ball(POBJECT this) {
 	clear_object(this);
 	
+	// Move ball
 	this->posX += this->dirX;
 	this->posY += this->dirY;
 	
@@ -44,7 +45,7 @@ void move_ball(POBJECT this) {
 	POBJECT lp = &leftPaddle;
 	POBJECT rp = &rightPaddle;
 	
-	//For left paddle
+	// Collision left paddle
 	if(this->posX <= lp->posX + lp->geo->sizeX) {
 		if((this->posY >= lp->posY) && (this->posY <= lp->posY + lp->geo->sizeY)) {
 			this->posX = lp->posX + lp->geo->sizeX + 1;
@@ -58,7 +59,7 @@ void move_ball(POBJECT this) {
 		}
 	}
 	
-	//For right paddle
+	// Collision right paddle
 	if(this->posX >= rp->posX) {
 		if((this->posY >= rp->posY) && (this->posY <= rp->posY + rp->geo->sizeY)) {
 			this->posX = rp->posX - 1;

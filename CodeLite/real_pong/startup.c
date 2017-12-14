@@ -29,15 +29,17 @@ void init_app(void) {
 }
 
 
-
+// Reference all game objects
 extern OBJECT ball;
 extern OBJECT leftPaddle;
 extern OBJECT rightPaddle;
 
 void main(void) {
+	// Load all game objects
 	POBJECT p = &ball;
 	POBJECT pl = &leftPaddle;
 	POBJECT pr = &rightPaddle;
+	
 	init_app();
 	graphic_initialize();
   #ifndef SIMULATOR
@@ -46,6 +48,8 @@ void main(void) {
 	
 	// Set speed for ball
 	p->set_speed(p, 4, 4);
+	
+	// Game loop
 	while(1) {
 		// Update from keypad
 		unsigned char *pressedKeys = keyb();
