@@ -983,7 +983,7 @@ void graphic_clear_screen(void){
 20000614:	b580      	push	{r7, lr}
 20000616:	b082      	sub	sp, #8
 20000618:	af00      	add	r7, sp, #0
-    for(int page = 0; page < PAGE; page++){
+    for(int page = 0; page < 8; page++){
 2000061a:	2300      	movs	r3, #0
 2000061c:	607b      	str	r3, [r7, #4]
 2000061e:	e01e      	b.n	2000065e <graphic_clear_screen+0x4a>
@@ -1002,7 +1002,7 @@ void graphic_clear_screen(void){
 20000636:	2118      	movs	r1, #24
 20000638:	2040      	movs	r0, #64	; 0x40
 2000063a:	f7ff ff65 	bl	20000508 <graphic_write_command>
-        for(int add = 0; add < ADD; add++){
+        for(int add = 0; add < 64; add++){
 2000063e:	2300      	movs	r3, #0
 20000640:	603b      	str	r3, [r7, #0]
 20000642:	e006      	b.n	20000652 <graphic_clear_screen+0x3e>
@@ -1010,14 +1010,14 @@ void graphic_clear_screen(void){
 20000644:	2118      	movs	r1, #24
 20000646:	2000      	movs	r0, #0
 20000648:	f7ff ff7e 	bl	20000548 <graphic_write_data>
-        for(int add = 0; add < ADD; add++){
+        for(int add = 0; add < 64; add++){
 2000064c:	683b      	ldr	r3, [r7, #0]
 2000064e:	3301      	adds	r3, #1
 20000650:	603b      	str	r3, [r7, #0]
 20000652:	683b      	ldr	r3, [r7, #0]
-20000654:	2b3e      	cmp	r3, #62	; 0x3e
+20000654:	2b3f      	cmp	r3, #63	; 0x3f
 20000656:	ddf5      	ble.n	20000644 <graphic_clear_screen+0x30>
-    for(int page = 0; page < PAGE; page++){
+    for(int page = 0; page < 8; page++){
 20000658:	687b      	ldr	r3, [r7, #4]
 2000065a:	3301      	adds	r3, #1
 2000065c:	607b      	str	r3, [r7, #4]

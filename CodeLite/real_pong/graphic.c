@@ -137,10 +137,10 @@ void graphic_initialize(void){
 }
 
 void graphic_clear_screen(void){
-    for(int page = 0; page < PAGE; page++){
+    for(int page = 0; page < 8; page++){
         graphic_write_command(LCD_SET_PAGE | page, B_CS1|B_CS2);
         graphic_write_command(LCD_SET_ADD | 0, B_CS1|B_CS2);
-        for(int add = 0; add < ADD; add++){
+        for(int add = 0; add < 64; add++){
             graphic_write_data(0, B_CS1|B_CS2);
         }
     }

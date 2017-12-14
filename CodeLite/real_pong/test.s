@@ -8,371 +8,357 @@
    8              		.eabi_attribute 30, 6
    9              		.eabi_attribute 34, 0
   10              		.eabi_attribute 18, 4
-  11              		.file	"ball.c"
+  11              		.file	"startup.c"
   12              		.text
   13              	.Ltext0:
   14              		.cfi_sections	.debug_frame
-  15              		.global	ball_geometry
-  16              		.data
-  17              		.align	2
-  20              	ball_geometry:
-  21 0000 0C000000 		.word	12
-  22 0004 04000000 		.word	4
-  23 0008 04000000 		.word	4
-  24 000c 00       		.byte	0
-  25 000d 01       		.byte	1
-  26 000e 00       		.byte	0
-  27 000f 02       		.byte	2
-  28 0010 01       		.byte	1
-  29 0011 00       		.byte	0
-  30 0012 01       		.byte	1
-  31 0013 01       		.byte	1
-  32 0014 01       		.byte	1
-  33 0015 02       		.byte	2
-  34 0016 01       		.byte	1
-  35 0017 03       		.byte	3
-  36 0018 02       		.byte	2
-  37 0019 00       		.byte	0
-  38 001a 02       		.byte	2
-  39 001b 01       		.byte	1
-  40 001c 02       		.byte	2
-  41 001d 02       		.byte	2
-  42 001e 02       		.byte	2
-  43 001f 03       		.byte	3
-  44 0020 03       		.byte	3
-  45 0021 01       		.byte	1
-  46 0022 03       		.byte	3
-  47 0023 02       		.byte	2
-  48 0024 00000000 		.space	176
-  48      00000000 
-  48      00000000 
-  48      00000000 
-  48      00000000 
-  49              		.global	ball
-  50              		.align	2
-  53              	ball:
-  54 00d4 00000000 		.word	ball_geometry
-  55 00d8 00000000 		.word	0
-  56 00dc 00000000 		.word	0
-  57 00e0 3F000000 		.word	63
-  58 00e4 20000000 		.word	32
-  59 00e8 00000000 		.word	draw_object
-  60 00ec 00000000 		.word	clear_object
-  61 00f0 00000000 		.word	move_ball
-  62 00f4 00000000 		.word	set_object_speed
-  63              		.text
-  64              		.align	1
-  65              		.global	move_ball
-  66              		.syntax unified
-  67              		.code	16
-  68              		.thumb_func
-  69              		.fpu softvfp
-  71              	move_ball:
-  72              	.LFB0:
-  73              		.file 1 "C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong/ball.c"
-   1:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** #include "ball.h"
-   2:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** #include "paddle.h"
-   3:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 
-   4:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** GEOMETRY ball_geometry = {
-   5:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 	12,
-   6:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 	4, 4,
-   7:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 	{
-   8:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 		{0, 1}, {0, 2}, {1, 0}, {1, 1}, {1, 2},
-   9:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 		{1, 3}, {2, 0}, {2, 1}, {2, 2}, {2, 3},
-  10:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 		{3, 1},
-  11:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 		{3, 2}
-  12:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 	}
-  13:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** };
-  14:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 
-  15:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** OBJECT ball = {
-  16:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 	&ball_geometry,
-  17:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 	0, 0,
-  18:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 	63, 32,
-  19:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 	draw_object,
-  20:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 	clear_object,
-  21:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 	move_ball,
-  22:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 	set_object_speed
-  23:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** };
-  24:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 
-  25:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** extern OBJECT leftPaddle;
-  26:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** extern OBJECT rightPaddle;
-  27:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 
-  28:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** void move_ball(POBJECT this) {
-  74              		.loc 1 28 0
-  75              		.cfi_startproc
-  76              		@ args = 0, pretend = 0, frame = 16
-  77              		@ frame_needed = 1, uses_anonymous_args = 0
-  78 0000 80B5     		push	{r7, lr}
-  79              		.cfi_def_cfa_offset 8
-  80              		.cfi_offset 7, -8
-  81              		.cfi_offset 14, -4
-  82 0002 84B0     		sub	sp, sp, #16
-  83              		.cfi_def_cfa_offset 24
-  84 0004 00AF     		add	r7, sp, #0
-  85              		.cfi_def_cfa_register 7
-  86 0006 7860     		str	r0, [r7, #4]
-  29:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 	clear_object(this);
-  87              		.loc 1 29 0
-  88 0008 7B68     		ldr	r3, [r7, #4]
-  89 000a 1800     		movs	r0, r3
-  90 000c FFF7FEFF 		bl	clear_object
-  30:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 	
-  31:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 	this->posX += this->dirX;
-  91              		.loc 1 31 0
-  92 0010 7B68     		ldr	r3, [r7, #4]
-  93 0012 DA68     		ldr	r2, [r3, #12]
-  94 0014 7B68     		ldr	r3, [r7, #4]
-  95 0016 5B68     		ldr	r3, [r3, #4]
-  96 0018 D218     		adds	r2, r2, r3
-  97 001a 7B68     		ldr	r3, [r7, #4]
-  98 001c DA60     		str	r2, [r3, #12]
-  32:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 	this->posY += this->dirY;
-  99              		.loc 1 32 0
- 100 001e 7B68     		ldr	r3, [r7, #4]
- 101 0020 1A69     		ldr	r2, [r3, #16]
- 102 0022 7B68     		ldr	r3, [r7, #4]
- 103 0024 9B68     		ldr	r3, [r3, #8]
- 104 0026 D218     		adds	r2, r2, r3
- 105 0028 7B68     		ldr	r3, [r7, #4]
- 106 002a 1A61     		str	r2, [r3, #16]
-  33:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 	
-  34:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 	// Wall collisions
-  35:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 	if(this->posY < 0) {
- 107              		.loc 1 35 0
- 108 002c 7B68     		ldr	r3, [r7, #4]
- 109 002e 1B69     		ldr	r3, [r3, #16]
- 110 0030 002B     		cmp	r3, #0
- 111 0032 08DA     		bge	.L2
-  36:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 		this->posY = 0;
- 112              		.loc 1 36 0
- 113 0034 7B68     		ldr	r3, [r7, #4]
- 114 0036 0022     		movs	r2, #0
- 115 0038 1A61     		str	r2, [r3, #16]
-  37:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 		this->dirY = -this->dirY;
- 116              		.loc 1 37 0
- 117 003a 7B68     		ldr	r3, [r7, #4]
- 118 003c 9B68     		ldr	r3, [r3, #8]
- 119 003e 5A42     		rsbs	r2, r3, #0
- 120 0040 7B68     		ldr	r3, [r7, #4]
- 121 0042 9A60     		str	r2, [r3, #8]
- 122 0044 0BE0     		b	.L3
- 123              	.L2:
-  38:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 	} else if(this->posY > 63) {
- 124              		.loc 1 38 0
- 125 0046 7B68     		ldr	r3, [r7, #4]
- 126 0048 1B69     		ldr	r3, [r3, #16]
- 127 004a 3F2B     		cmp	r3, #63
- 128 004c 07DD     		ble	.L3
-  39:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 		this->posY = 63;
- 129              		.loc 1 39 0
- 130 004e 7B68     		ldr	r3, [r7, #4]
- 131 0050 3F22     		movs	r2, #63
- 132 0052 1A61     		str	r2, [r3, #16]
-  40:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 		this->dirY = -this->dirY;
- 133              		.loc 1 40 0
- 134 0054 7B68     		ldr	r3, [r7, #4]
- 135 0056 9B68     		ldr	r3, [r3, #8]
- 136 0058 5A42     		rsbs	r2, r3, #0
- 137 005a 7B68     		ldr	r3, [r7, #4]
- 138 005c 9A60     		str	r2, [r3, #8]
- 139              	.L3:
-  41:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 	}
-  42:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 	
-  43:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 	// Define left and right paddle
-  44:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 	POBJECT lp = &leftPaddle;
- 140              		.loc 1 44 0
- 141 005e 3D4B     		ldr	r3, .L8
- 142 0060 FB60     		str	r3, [r7, #12]
-  45:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 	POBJECT rp = &rightPaddle;
- 143              		.loc 1 45 0
- 144 0062 3D4B     		ldr	r3, .L8+4
- 145 0064 BB60     		str	r3, [r7, #8]
-  46:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 	
-  47:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 	//For left paddle
-  48:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 	if(this->posX <= lp->posX + lp->geo->sizeX) {
- 146              		.loc 1 48 0
- 147 0066 7B68     		ldr	r3, [r7, #4]
- 148 0068 DA68     		ldr	r2, [r3, #12]
- 149 006a FB68     		ldr	r3, [r7, #12]
- 150 006c D968     		ldr	r1, [r3, #12]
- 151 006e FB68     		ldr	r3, [r7, #12]
- 152 0070 1B68     		ldr	r3, [r3]
- 153 0072 5B68     		ldr	r3, [r3, #4]
- 154 0074 CB18     		adds	r3, r1, r3
- 155 0076 9A42     		cmp	r2, r3
- 156 0078 30DC     		bgt	.L4
-  49:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 		if((this->posY >= lp->posY) && (this->posY <= lp->posY + lp->geo->sizeY)) {
- 157              		.loc 1 49 0
- 158 007a 7B68     		ldr	r3, [r7, #4]
- 159 007c 1A69     		ldr	r2, [r3, #16]
- 160 007e FB68     		ldr	r3, [r7, #12]
- 161 0080 1B69     		ldr	r3, [r3, #16]
- 162 0082 9A42     		cmp	r2, r3
- 163 0084 18DB     		blt	.L5
- 164              		.loc 1 49 0 is_stmt 0 discriminator 1
- 165 0086 7B68     		ldr	r3, [r7, #4]
- 166 0088 1A69     		ldr	r2, [r3, #16]
- 167 008a FB68     		ldr	r3, [r7, #12]
- 168 008c 1969     		ldr	r1, [r3, #16]
- 169 008e FB68     		ldr	r3, [r7, #12]
- 170 0090 1B68     		ldr	r3, [r3]
- 171 0092 9B68     		ldr	r3, [r3, #8]
- 172 0094 CB18     		adds	r3, r1, r3
- 173 0096 9A42     		cmp	r2, r3
- 174 0098 0EDC     		bgt	.L5
-  50:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 			this->posX = lp->posX + lp->geo->sizeX + 1;
- 175              		.loc 1 50 0 is_stmt 1
- 176 009a FB68     		ldr	r3, [r7, #12]
- 177 009c DA68     		ldr	r2, [r3, #12]
- 178 009e FB68     		ldr	r3, [r7, #12]
- 179 00a0 1B68     		ldr	r3, [r3]
- 180 00a2 5B68     		ldr	r3, [r3, #4]
- 181 00a4 D318     		adds	r3, r2, r3
- 182 00a6 5A1C     		adds	r2, r3, #1
- 183 00a8 7B68     		ldr	r3, [r7, #4]
- 184 00aa DA60     		str	r2, [r3, #12]
-  51:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 			this->dirX = -this->dirX;
- 185              		.loc 1 51 0
- 186 00ac 7B68     		ldr	r3, [r7, #4]
- 187 00ae 5B68     		ldr	r3, [r3, #4]
- 188 00b0 5A42     		rsbs	r2, r3, #0
- 189 00b2 7B68     		ldr	r3, [r7, #4]
- 190 00b4 5A60     		str	r2, [r3, #4]
- 191 00b6 11E0     		b	.L4
- 192              	.L5:
- 193              	.LBB2:
-  52:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 		} else {
-  53:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 			// Left player lost
-  54:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 			delay_milli(500);
- 194              		.loc 1 54 0
- 195 00b8 FA23     		movs	r3, #250
- 196 00ba 5B00     		lsls	r3, r3, #1
- 197 00bc 1800     		movs	r0, r3
- 198 00be FFF7FEFF 		bl	delay_milli
-  55:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 			this->posX = 63;
- 199              		.loc 1 55 0
- 200 00c2 7B68     		ldr	r3, [r7, #4]
- 201 00c4 3F22     		movs	r2, #63
- 202 00c6 DA60     		str	r2, [r3, #12]
-  56:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 			this->dirX = -this->dirX;
+  15              		.section	.start_section,"ax",%progbits
+  16              		.align	1
+  17              		.global	startup
+  18              		.syntax unified
+  19              		.code	16
+  20              		.thumb_func
+  21              		.fpu softvfp
+  23              	startup:
+  24              	.LFB0:
+  25              		.file 1 "C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong/startup.c"
+   1:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** #include "timer.h"
+   2:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** #include "graphic.h"
+   3:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** #include "ball.h"
+   4:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** #include "paddle.h"
+   5:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** #include "keypad.h"
+   6:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 
+   7:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 
+   8:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** void startup(void) __attribute__((naked)) __attribute__((section (".start_section")) );
+   9:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 
+  10:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** void startup ( void )
+  11:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** {
+  26              		.loc 1 11 0
+  27              		.cfi_startproc
+  28              		@ Naked Function: prologue and epilogue provided by programmer.
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 1, uses_anonymous_args = 0
+  12:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** __asm volatile(
+  31              		.loc 1 12 0
+  32              		.syntax divided
+  33              	@ 12 "C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong/startup.c" 1
+  34 0000 0248     		 LDR R0,=0x2001C000
+  35 0002 8546     	 MOV SP,R0
+  36 0004 FFF7FEFF 	 BL main
+  37 0008 FEE7     	_exit: B .
+  38              	
+  39              	@ 0 "" 2
+  13:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 	" LDR R0,=0x2001C000\n"		/* set stack */
+  14:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 	" MOV SP,R0\n"
+  15:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 	" BL main\n"				/* call main */
+  16:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 	"_exit: B .\n"				/* never return */
+  17:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 	) ;
+  18:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** }
+  40              		.loc 1 18 0
+  41              		.thumb
+  42              		.syntax unified
+  43 000a C046     		nop
+  44              		.cfi_endproc
+  45              	.LFE0:
+  47              		.text
+  48              		.align	1
+  49              		.global	init_app
+  50              		.syntax unified
+  51              		.code	16
+  52              		.thumb_func
+  53              		.fpu softvfp
+  55              	init_app:
+  56              	.LFB1:
+  19:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 
+  20:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** void init_app(void) {
+  57              		.loc 1 20 0
+  58              		.cfi_startproc
+  59              		@ args = 0, pretend = 0, frame = 0
+  60              		@ frame_needed = 1, uses_anonymous_args = 0
+  61 0000 80B5     		push	{r7, lr}
+  62              		.cfi_def_cfa_offset 8
+  63              		.cfi_offset 7, -8
+  64              		.cfi_offset 14, -4
+  65 0002 00AF     		add	r7, sp, #0
+  66              		.cfi_def_cfa_register 7
+  21:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 	// Setup display
+  22:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 	*GPIO_E_MODER = 0x55555555;
+  67              		.loc 1 22 0
+  68 0004 0B4B     		ldr	r3, .L3
+  69 0006 0C4A     		ldr	r2, .L3+4
+  70 0008 1A60     		str	r2, [r3]
+  23:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 	
+  24:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 	// Setup for keypad
+  25:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 	*GPIO_D_MODER = 0x55000000;
+  71              		.loc 1 25 0
+  72 000a 0C4B     		ldr	r3, .L3+8
+  73 000c AA22     		movs	r2, #170
+  74 000e D205     		lsls	r2, r2, #23
+  75 0010 1A60     		str	r2, [r3]
+  26:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 	*GPIO_D_OTYPER &= 0x0000FFFF;   
+  76              		.loc 1 26 0
+  77 0012 0B4B     		ldr	r3, .L3+12
+  78 0014 0A4A     		ldr	r2, .L3+12
+  79 0016 1288     		ldrh	r2, [r2]
+  80 0018 92B2     		uxth	r2, r2
+  81 001a 1A80     		strh	r2, [r3]
+  27:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 	*GPIO_D_OTYPER |= 0x00000000;     
+  82              		.loc 1 27 0
+  83 001c 084B     		ldr	r3, .L3+12
+  84 001e 084A     		ldr	r2, .L3+12
+  85 0020 1288     		ldrh	r2, [r2]
+  86 0022 92B2     		uxth	r2, r2
+  87 0024 1A80     		strh	r2, [r3]
+  28:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 	*GPIO_D_PUPDR = 0x00AA0000;    
+  88              		.loc 1 28 0
+  89 0026 074B     		ldr	r3, .L3+16
+  90 0028 AA22     		movs	r2, #170
+  91 002a 1204     		lsls	r2, r2, #16
+  92 002c 1A60     		str	r2, [r3]
+  29:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** }
+  93              		.loc 1 29 0
+  94 002e C046     		nop
+  95 0030 BD46     		mov	sp, r7
+  96              		@ sp needed
+  97 0032 80BD     		pop	{r7, pc}
+  98              	.L4:
+  99              		.align	2
+ 100              	.L3:
+ 101 0034 00100240 		.word	1073876992
+ 102 0038 55555555 		.word	1431655765
+ 103 003c 000C0240 		.word	1073875968
+ 104 0040 040C0240 		.word	1073875972
+ 105 0044 0C0C0240 		.word	1073875980
+ 106              		.cfi_endproc
+ 107              	.LFE1:
+ 109              		.align	1
+ 110              		.global	main
+ 111              		.syntax unified
+ 112              		.code	16
+ 113              		.thumb_func
+ 114              		.fpu softvfp
+ 116              	main:
+ 117              	.LFB2:
+  30:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 
+  31:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 
+  32:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 
+  33:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** extern OBJECT ball;
+  34:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** extern OBJECT leftPaddle;
+  35:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** extern OBJECT rightPaddle;
+  36:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 
+  37:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** void main(void) {
+ 118              		.loc 1 37 0
+ 119              		.cfi_startproc
+ 120              		@ args = 0, pretend = 0, frame = 24
+ 121              		@ frame_needed = 1, uses_anonymous_args = 0
+ 122 0048 80B5     		push	{r7, lr}
+ 123              		.cfi_def_cfa_offset 8
+ 124              		.cfi_offset 7, -8
+ 125              		.cfi_offset 14, -4
+ 126 004a 86B0     		sub	sp, sp, #24
+ 127              		.cfi_def_cfa_offset 32
+ 128 004c 00AF     		add	r7, sp, #0
+ 129              		.cfi_def_cfa_register 7
+  38:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 	POBJECT p = &ball;
+ 130              		.loc 1 38 0
+ 131 004e 3A4B     		ldr	r3, .L15
+ 132 0050 3B61     		str	r3, [r7, #16]
+  39:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 	POBJECT pl = &leftPaddle;
+ 133              		.loc 1 39 0
+ 134 0052 3A4B     		ldr	r3, .L15+4
+ 135 0054 FB60     		str	r3, [r7, #12]
+  40:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 	POBJECT pr = &rightPaddle;
+ 136              		.loc 1 40 0
+ 137 0056 3A4B     		ldr	r3, .L15+8
+ 138 0058 BB60     		str	r3, [r7, #8]
+  41:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 	init_app();
+ 139              		.loc 1 41 0
+ 140 005a FFF7FEFF 		bl	init_app
+  42:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 	graphic_initialize();
+ 141              		.loc 1 42 0
+ 142 005e FFF7FEFF 		bl	graphic_initialize
+  43:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c ****   #ifndef SIMULATOR
+  44:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 	graphic_clear_screen();
+ 143              		.loc 1 44 0
+ 144 0062 FFF7FEFF 		bl	graphic_clear_screen
+  45:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c ****   #endif
+  46:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 	
+  47:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 	// Set speed for ball
+  48:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 	p->set_speed(p, 4, 4);
+ 145              		.loc 1 48 0
+ 146 0066 3B69     		ldr	r3, [r7, #16]
+ 147 0068 1B6A     		ldr	r3, [r3, #32]
+ 148 006a 3869     		ldr	r0, [r7, #16]
+ 149 006c 0422     		movs	r2, #4
+ 150 006e 0421     		movs	r1, #4
+ 151 0070 9847     		blx	r3
+ 152              	.LVL0:
+ 153              	.L14:
+ 154              	.LBB2:
+  49:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 	while(1) {
+  50:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 		// Update from keypad
+  51:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 		unsigned char *pressedKeys = keyb();
+ 155              		.loc 1 51 0
+ 156 0072 FFF7FEFF 		bl	keyb
+ 157 0076 0300     		movs	r3, r0
+ 158 0078 7B60     		str	r3, [r7, #4]
+  52:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 		pl->set_speed(pl,0,0);
+ 159              		.loc 1 52 0
+ 160 007a FB68     		ldr	r3, [r7, #12]
+ 161 007c 1B6A     		ldr	r3, [r3, #32]
+ 162 007e F868     		ldr	r0, [r7, #12]
+ 163 0080 0022     		movs	r2, #0
+ 164 0082 0021     		movs	r1, #0
+ 165 0084 9847     		blx	r3
+ 166              	.LVL1:
+  53:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 		pr->set_speed(pr,0,0);
+ 167              		.loc 1 53 0
+ 168 0086 BB68     		ldr	r3, [r7, #8]
+ 169 0088 1B6A     		ldr	r3, [r3, #32]
+ 170 008a B868     		ldr	r0, [r7, #8]
+ 171 008c 0022     		movs	r2, #0
+ 172 008e 0021     		movs	r1, #0
+ 173 0090 9847     		blx	r3
+ 174              	.LVL2:
+ 175              	.LBB3:
+  54:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 		for(unsigned char i = 0; i < 4; i++) {
+ 176              		.loc 1 54 0
+ 177 0092 1723     		movs	r3, #23
+ 178 0094 FB18     		adds	r3, r7, r3
+ 179 0096 0022     		movs	r2, #0
+ 180 0098 1A70     		strb	r2, [r3]
+ 181 009a 35E0     		b	.L6
+ 182              	.L13:
+  55:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 			switch(pressedKeys[i]) {
+ 183              		.loc 1 55 0
+ 184 009c 1723     		movs	r3, #23
+ 185 009e FB18     		adds	r3, r7, r3
+ 186 00a0 1B78     		ldrb	r3, [r3]
+ 187 00a2 7A68     		ldr	r2, [r7, #4]
+ 188 00a4 D318     		adds	r3, r2, r3
+ 189 00a6 1B78     		ldrb	r3, [r3]
+ 190 00a8 042B     		cmp	r3, #4
+ 191 00aa 10D0     		beq	.L8
+ 192 00ac 02DC     		bgt	.L9
+ 193 00ae 012B     		cmp	r3, #1
+ 194 00b0 05D0     		beq	.L10
+ 195 00b2 22E0     		b	.L7
+ 196              	.L9:
+ 197 00b4 0C2B     		cmp	r3, #12
+ 198 00b6 11D0     		beq	.L11
+ 199 00b8 0D2B     		cmp	r3, #13
+ 200 00ba 17D0     		beq	.L12
+ 201 00bc 1DE0     		b	.L7
+ 202              	.L10:
+  56:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 				case 0x01: pl->set_speed(pl,0,-5); break;
  203              		.loc 1 56 0
- 204 00c8 7B68     		ldr	r3, [r7, #4]
- 205 00ca 5B68     		ldr	r3, [r3, #4]
- 206 00cc 5A42     		rsbs	r2, r3, #0
- 207 00ce 7B68     		ldr	r3, [r7, #4]
- 208 00d0 5A60     		str	r2, [r3, #4]
-  57:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 			this->dirY = -this->dirY;
- 209              		.loc 1 57 0
- 210 00d2 7B68     		ldr	r3, [r7, #4]
- 211 00d4 9B68     		ldr	r3, [r3, #8]
- 212 00d6 5A42     		rsbs	r2, r3, #0
- 213 00d8 7B68     		ldr	r3, [r7, #4]
- 214 00da 9A60     		str	r2, [r3, #8]
- 215              	.L4:
- 216              	.LBE2:
-  58:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 		}
-  59:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 	}
-  60:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 	
-  61:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 	//For right paddle
-  62:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 	if(this->posX >= rp->posX) {
- 217              		.loc 1 62 0
- 218 00dc 7B68     		ldr	r3, [r7, #4]
- 219 00de DA68     		ldr	r2, [r3, #12]
- 220 00e0 BB68     		ldr	r3, [r7, #8]
- 221 00e2 DB68     		ldr	r3, [r3, #12]
- 222 00e4 9A42     		cmp	r2, r3
- 223 00e6 2CDB     		blt	.L6
-  63:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 		if((this->posY >= rp->posY) && (this->posY <= rp->posY + rp->geo->sizeY)) {
- 224              		.loc 1 63 0
- 225 00e8 7B68     		ldr	r3, [r7, #4]
- 226 00ea 1A69     		ldr	r2, [r3, #16]
- 227 00ec BB68     		ldr	r3, [r7, #8]
- 228 00ee 1B69     		ldr	r3, [r3, #16]
- 229 00f0 9A42     		cmp	r2, r3
- 230 00f2 14DB     		blt	.L7
- 231              		.loc 1 63 0 is_stmt 0 discriminator 1
- 232 00f4 7B68     		ldr	r3, [r7, #4]
- 233 00f6 1A69     		ldr	r2, [r3, #16]
- 234 00f8 BB68     		ldr	r3, [r7, #8]
- 235 00fa 1969     		ldr	r1, [r3, #16]
- 236 00fc BB68     		ldr	r3, [r7, #8]
- 237 00fe 1B68     		ldr	r3, [r3]
- 238 0100 9B68     		ldr	r3, [r3, #8]
- 239 0102 CB18     		adds	r3, r1, r3
- 240 0104 9A42     		cmp	r2, r3
- 241 0106 0ADC     		bgt	.L7
-  64:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 			this->posX = rp->posX - 1;
- 242              		.loc 1 64 0 is_stmt 1
- 243 0108 BB68     		ldr	r3, [r7, #8]
- 244 010a DB68     		ldr	r3, [r3, #12]
- 245 010c 5A1E     		subs	r2, r3, #1
- 246 010e 7B68     		ldr	r3, [r7, #4]
- 247 0110 DA60     		str	r2, [r3, #12]
-  65:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 			this->dirX = -this->dirX;
- 248              		.loc 1 65 0
- 249 0112 7B68     		ldr	r3, [r7, #4]
- 250 0114 5B68     		ldr	r3, [r3, #4]
- 251 0116 5A42     		rsbs	r2, r3, #0
- 252 0118 7B68     		ldr	r3, [r7, #4]
- 253 011a 5A60     		str	r2, [r3, #4]
- 254 011c 11E0     		b	.L6
- 255              	.L7:
- 256              	.LBB3:
-  66:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 		} else {
-  67:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 			// Right player lost
-  68:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 			delay_milli(500);
- 257              		.loc 1 68 0
- 258 011e FA23     		movs	r3, #250
- 259 0120 5B00     		lsls	r3, r3, #1
- 260 0122 1800     		movs	r0, r3
- 261 0124 FFF7FEFF 		bl	delay_milli
-  69:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 			this->posX = 63;
- 262              		.loc 1 69 0
- 263 0128 7B68     		ldr	r3, [r7, #4]
- 264 012a 3F22     		movs	r2, #63
- 265 012c DA60     		str	r2, [r3, #12]
-  70:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 			this->dirX = -this->dirX;
- 266              		.loc 1 70 0
- 267 012e 7B68     		ldr	r3, [r7, #4]
- 268 0130 5B68     		ldr	r3, [r3, #4]
- 269 0132 5A42     		rsbs	r2, r3, #0
- 270 0134 7B68     		ldr	r3, [r7, #4]
- 271 0136 5A60     		str	r2, [r3, #4]
-  71:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 			this->dirY = -this->dirY;
- 272              		.loc 1 71 0
- 273 0138 7B68     		ldr	r3, [r7, #4]
- 274 013a 9B68     		ldr	r3, [r3, #8]
- 275 013c 5A42     		rsbs	r2, r3, #0
- 276 013e 7B68     		ldr	r3, [r7, #4]
- 277 0140 9A60     		str	r2, [r3, #8]
- 278              	.L6:
- 279              	.LBE3:
-  72:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 		}
-  73:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 	}
-  74:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 	
-  75:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** 	this->draw(this);
- 280              		.loc 1 75 0
- 281 0142 7B68     		ldr	r3, [r7, #4]
- 282 0144 5B69     		ldr	r3, [r3, #20]
- 283 0146 7A68     		ldr	r2, [r7, #4]
- 284 0148 1000     		movs	r0, r2
- 285 014a 9847     		blx	r3
- 286              	.LVL0:
-  76:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\ball.c **** }...
- 287              		.loc 1 76 0
- 288 014c C046     		nop
- 289 014e BD46     		mov	sp, r7
- 290 0150 04B0     		add	sp, sp, #16
- 291              		@ sp needed
- 292 0152 80BD     		pop	{r7, pc}
- 293              	.L9:
- 294              		.align	2
- 295              	.L8:
- 296 0154 00000000 		.word	leftPaddle
- 297 0158 00000000 		.word	rightPaddle
- 298              		.cfi_endproc
- 299              	.LFE0:
- 301              	.Letext0:
- 302              		.file 2 "C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong/object.h"
- 303              		.file 3 "C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong/ball.h"
- 304              		.file 4 "C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong/paddle.h"
+ 204 00be FB68     		ldr	r3, [r7, #12]
+ 205 00c0 1B6A     		ldr	r3, [r3, #32]
+ 206 00c2 0522     		movs	r2, #5
+ 207 00c4 5242     		rsbs	r2, r2, #0
+ 208 00c6 F868     		ldr	r0, [r7, #12]
+ 209 00c8 0021     		movs	r1, #0
+ 210 00ca 9847     		blx	r3
+ 211              	.LVL3:
+ 212 00cc 15E0     		b	.L7
+ 213              	.L8:
+  57:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 				case 0x04: pl->set_speed(pl,0,5); break;
+ 214              		.loc 1 57 0
+ 215 00ce FB68     		ldr	r3, [r7, #12]
+ 216 00d0 1B6A     		ldr	r3, [r3, #32]
+ 217 00d2 F868     		ldr	r0, [r7, #12]
+ 218 00d4 0522     		movs	r2, #5
+ 219 00d6 0021     		movs	r1, #0
+ 220 00d8 9847     		blx	r3
+ 221              	.LVL4:
+ 222 00da 0EE0     		b	.L7
+ 223              	.L11:
+  58:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 				case 0x0C: pr->set_speed(pr,0,-5); break;
+ 224              		.loc 1 58 0
+ 225 00dc BB68     		ldr	r3, [r7, #8]
+ 226 00de 1B6A     		ldr	r3, [r3, #32]
+ 227 00e0 0522     		movs	r2, #5
+ 228 00e2 5242     		rsbs	r2, r2, #0
+ 229 00e4 B868     		ldr	r0, [r7, #8]
+ 230 00e6 0021     		movs	r1, #0
+ 231 00e8 9847     		blx	r3
+ 232              	.LVL5:
+ 233 00ea 06E0     		b	.L7
+ 234              	.L12:
+  59:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 				case 0x0D: pr->set_speed(pr,0,5); break;
+ 235              		.loc 1 59 0
+ 236 00ec BB68     		ldr	r3, [r7, #8]
+ 237 00ee 1B6A     		ldr	r3, [r3, #32]
+ 238 00f0 B868     		ldr	r0, [r7, #8]
+ 239 00f2 0522     		movs	r2, #5
+ 240 00f4 0021     		movs	r1, #0
+ 241 00f6 9847     		blx	r3
+ 242              	.LVL6:
+ 243 00f8 C046     		nop
+ 244              	.L7:
+  54:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 			switch(pressedKeys[i]) {
+ 245              		.loc 1 54 0 discriminator 2
+ 246 00fa 1723     		movs	r3, #23
+ 247 00fc FB18     		adds	r3, r7, r3
+ 248 00fe 1A78     		ldrb	r2, [r3]
+ 249 0100 1723     		movs	r3, #23
+ 250 0102 FB18     		adds	r3, r7, r3
+ 251 0104 0132     		adds	r2, r2, #1
+ 252 0106 1A70     		strb	r2, [r3]
+ 253              	.L6:
+  54:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 			switch(pressedKeys[i]) {
+ 254              		.loc 1 54 0 is_stmt 0 discriminator 1
+ 255 0108 1723     		movs	r3, #23
+ 256 010a FB18     		adds	r3, r7, r3
+ 257 010c 1B78     		ldrb	r3, [r3]
+ 258 010e 032B     		cmp	r3, #3
+ 259 0110 C4D9     		bls	.L13
+ 260              	.LBE3:
+  60:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 			}
+  61:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 		}
+  62:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 		
+  63:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 		// Move game objects
+  64:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 		p->move(p);
+ 261              		.loc 1 64 0 is_stmt 1
+ 262 0112 3B69     		ldr	r3, [r7, #16]
+ 263 0114 DB69     		ldr	r3, [r3, #28]
+ 264 0116 3A69     		ldr	r2, [r7, #16]
+ 265 0118 1000     		movs	r0, r2
+ 266 011a 9847     		blx	r3
+ 267              	.LVL7:
+  65:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 		pl->move(pl);
+ 268              		.loc 1 65 0
+ 269 011c FB68     		ldr	r3, [r7, #12]
+ 270 011e DB69     		ldr	r3, [r3, #28]
+ 271 0120 FA68     		ldr	r2, [r7, #12]
+ 272 0122 1000     		movs	r0, r2
+ 273 0124 9847     		blx	r3
+ 274              	.LVL8:
+  66:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 		pr->move(pr);
+ 275              		.loc 1 66 0
+ 276 0126 BB68     		ldr	r3, [r7, #8]
+ 277 0128 DB69     		ldr	r3, [r3, #28]
+ 278 012a BA68     		ldr	r2, [r7, #8]
+ 279 012c 1000     		movs	r0, r2
+ 280 012e 9847     		blx	r3
+ 281              	.LVL9:
+  67:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 		delay_milli(30);
+ 282              		.loc 1 67 0
+ 283 0130 1E20     		movs	r0, #30
+ 284 0132 FFF7FEFF 		bl	delay_milli
+ 285              	.LBE2:
+  49:C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong\startup.c **** 		// Update from keypad
+ 286              		.loc 1 49 0
+ 287 0136 9CE7     		b	.L14
+ 288              	.L16:
+ 289              		.align	2
+ 290              	.L15:
+ 291 0138 00000000 		.word	ball
+ 292 013c 00000000 		.word	leftPaddle
+ 293 0140 00000000 		.word	rightPaddle
+ 294              		.cfi_endproc
+ 295              	.LFE2:
+ 297              	.Letext0:
+ 298              		.file 2 "C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong/object.h"
+ 299              		.file 3 "C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong/ball.h"
+ 300              		.file 4 "C:/Users/Hampus/Desktop/DAT017/CodeLite/real_pong/paddle.h"
