@@ -1,0 +1,33 @@
+
+test2.elf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+20000000 <loop-0xc>:
+	LDR	R0,=0x55555555 @ Setup port D
+20000000:	4805      	ldr	r0, [pc, #20]	; (20000018 <loop+0xc>)
+	LDR	R1,=0x40020C00 @ Setup port D
+20000002:	4906      	ldr	r1, [pc, #24]	; (2000001c <loop+0x10>)
+	STR	R0,[R1]	       @ Setup port D
+20000004:	6008      	str	r0, [r1, #0]
+	LDR	R3,=0x40021000 @ Setup port E
+20000006:	4b06      	ldr	r3, [pc, #24]	; (20000020 <loop+0x14>)
+	LDR 	R0,=0x0		@ Start value
+20000008:	2000      	movs	r0, #0
+	LDR	R2,=0x10	@Ofset within port E
+2000000a:	2210      	movs	r2, #16
+
+2000000c <loop>:
+loop:	LDRSB	R4,[R3,R2]
+2000000c:	569c      	ldrsb	r4, [r3, r2]
+	STR	R0,[R1,#0x14]
+2000000e:	6148      	str	r0, [r1, #20]
+	ADD	R0,R0,R4
+20000010:	1900      	adds	r0, r0, r4
+	BL	loop
+20000012:	f7ff fffb 	bl	2000000c <loop>
+20000016:	0000      	.short	0x0000
+20000018:	55555555 	.word	0x55555555
+2000001c:	40020c00 	.word	0x40020c00
+20000020:	40021000 	.word	0x40021000

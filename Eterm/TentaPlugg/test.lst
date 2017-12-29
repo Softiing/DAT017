@@ -1,0 +1,30 @@
+
+test.elf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+20000000 <i>:
+	...
+i:	.WORD
+j:	.WORD
+vm:	.SPACE 100
+
+LDR	R0,=0x599912
+20000064:	4803      	ldr	r0, [pc, #12]	; (20000074 <i+0x74>)
+LDR	R1,=j
+20000066:	4904      	ldr	r1, [pc, #16]	; (20000078 <i+0x78>)
+MOV	R2,#10
+20000068:	220a      	movs	r2, #10
+MUL	R0,R2
+2000006a:	4350      	muls	r0, r2
+ADD	R0,R1
+2000006c:	1840      	adds	r0, r0, r1
+LDR	R1,=vm
+2000006e:	4903      	ldr	r1, [pc, #12]	; (2000007c <i+0x7c>)
+LDRB	R0,[R1,R0]
+20000070:	5c08      	ldrb	r0, [r1, r0]
+20000072:	0000      	.short	0x0000
+20000074:	00599912 	.word	0x00599912
+20000078:	20000000 	.word	0x20000000
+2000007c:	20000000 	.word	0x20000000

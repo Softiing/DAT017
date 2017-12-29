@@ -1,0 +1,11 @@
+i:	.WORD
+j:	.WORD
+vm:	.SPACE 100
+
+LDR	R0,=i
+LDR	R1,=j
+MOV	R2,#10
+MUL	R0,R2
+ADD	R0,R1
+LDR	R1,=vm
+LDRB	R0,[R1,R0]
