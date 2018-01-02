@@ -15,7 +15,8 @@
   <Project Name="flipflop_irq_vectored" Path="flipflop_irq_vectored/flipflop_irq_vectored.project" Active="No"/>
   <Project Name="real_pong" Path="real_pong/real_pong.project" Active="No"/>
   <Project Name="systick_irq" Path="systick_irq/systick_irq.project" Active="No"/>
-  <Project Name="flipflop_irq_2" Path="flipflop_irq_2/flipflop_irq_2.project" Active="Yes"/>
+  <Project Name="flipflop_irq_2" Path="flipflop_irq_2/flipflop_irq_2.project" Active="No"/>
+  <Project Name="echo_7_1" Path="echo_7_1/echo_7_1.project" Active="Yes"/>
   <BuildMatrix>
     <WorkspaceConfiguration Name="Debug" Selected="yes">
       <Environment/>
@@ -35,6 +36,7 @@
       <Project Name="real_pong" ConfigName="Debug"/>
       <Project Name="systick_irq" ConfigName="Debug"/>
       <Project Name="flipflop_irq_2" ConfigName="Debug"/>
+      <Project Name="echo_7_1" ConfigName="Debug"/>
     </WorkspaceConfiguration>
     <WorkspaceConfiguration Name="Release" Selected="yes">
       <Environment/>
@@ -54,6 +56,7 @@
       <Project Name="real_pong" ConfigName="Release"/>
       <Project Name="systick_irq" ConfigName="Release"/>
       <Project Name="flipflop_irq_2" ConfigName="Release"/>
+      <Project Name="echo_7_1" ConfigName="Release"/>
     </WorkspaceConfiguration>
   </BuildMatrix>
 </CodeLite_Workspace>

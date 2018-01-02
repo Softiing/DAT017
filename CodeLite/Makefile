@@ -1,8 +1,8 @@
 .PHONY: clean All
 
 All:
-	@echo "----------Building project:[ flipflop_irq_2 - Debug ]----------"
-	@cd "flipflop_irq_2" && "$(MAKE)" -f  "flipflop_irq_2.mk" && "$(MAKE)" -f  "flipflop_irq_2.mk" PostBuild
+	@echo "----------Building project:[ echo_7_1 - Debug ]----------"
+	@cd "echo_7_1" && "$(MAKE)" -f  "echo_7_1.mk" && "$(MAKE)" -f  "echo_7_1.mk" PostBuild
 clean:
-	@echo "----------Cleaning project:[ flipflop_irq_2 - Debug ]----------"
-	@cd "flipflop_irq_2" && "$(MAKE)" -f  "flipflop_irq_2.mk" clean
+	@echo "----------Cleaning project:[ echo_7_1 - Debug ]----------"
+	@cd "echo_7_1" && "$(MAKE)" -f  "echo_7_1.mk" clean
