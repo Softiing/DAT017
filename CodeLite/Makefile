@@ -1,8 +1,8 @@
 .PHONY: clean All
 
 All:
-	@echo "----------Building project:[ echo_7_1 - Debug ]----------"
-	@cd "echo_7_1" && "$(MAKE)" -f  "echo_7_1.mk" && "$(MAKE)" -f  "echo_7_1.mk" PostBuild
+	@echo "----------Building project:[ robotarm - Debug ]----------"
+	@cd "robotarm" && "$(MAKE)" -f  "robotarm.mk" && "$(MAKE)" -f  "robotarm.mk" PostBuild
 clean:
-	@echo "----------Cleaning project:[ echo_7_1 - Debug ]----------"
-	@cd "echo_7_1" && "$(MAKE)" -f  "echo_7_1.mk" clean
+	@echo "----------Cleaning project:[ robotarm - Debug ]----------"
+	@cd "robotarm" && "$(MAKE)" -f  "robotarm.mk" clean
